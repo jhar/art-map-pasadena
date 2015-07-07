@@ -1,0 +1,624 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Marker",
+				"MarkersViewModel"
+			],
+			[
+				"mag",
+				"margin-right"
+			],
+			[
+				"getElem",
+				"getElementsByClassName"
+			],
+			[
+				"querySelector",
+				"querySelectorAll"
+			],
+			[
+				"resi",
+				"resize"
+			],
+			[
+				"wikipedi",
+				"wikipedia-links"
+			],
+			[
+				"border",
+				"border-bottom"
+			],
+			[
+				"article",
+				"articleInnerHTML"
+			],
+			[
+				"school",
+				"school"
+			],
+			[
+				"sc",
+				"school"
+			],
+			[
+				"s",
+				"school"
+			],
+			[
+				"dates",
+				"dates"
+			],
+			[
+				"formattedWork",
+				"formattedWorkLocation"
+			],
+			[
+				"formatte",
+				"formattedMobile"
+			],
+			[
+				"formatted",
+				"formattedWelcomeMsg"
+			],
+			[
+				"pad",
+				"padding-top"
+			],
+			[
+				"tex",
+				"text-align"
+			],
+			[
+				"background",
+				"background-color"
+			],
+			[
+				"padding-",
+				"padding-bottom"
+			],
+			[
+				"php",
+				"phpcredits"
+			],
+			[
+				"events",
+				"events"
+			],
+			[
+				"backgrou",
+				"background-color"
+			],
+			[
+				"padding",
+				"padding-left"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"text",
+				"text-decoration"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"margi",
+				"margin-left"
+			],
+			[
+				"paddin",
+				"padding-left"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"ma",
+				"max-width"
+			],
+			[
+				"wp_en",
+				"wp_enqueue_scripts"
+			],
+			[
+				"modal-ti",
+				"modal-title-replacement"
+			],
+			[
+				"jQuery",
+				"jQuery"
+			],
+			[
+				"inline",
+				"inline-block"
+			],
+			[
+				"primar",
+				"primary-navigation"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 799,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "css/style.css",
+			"settings":
+			{
+				"buffer_size": 162,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/map.js",
+			"settings":
+			{
+				"buffer_size": 88,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/app.js",
+			"settings":
+			{
+				"buffer_size": 719,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/Justin/Desktop/Udacity/catClicker/scriptPremium.js",
+		"/Users/Justin/Desktop/Udacity/catClicker/index.html",
+		"/Users/Justin/Desktop/Udacity/catClicker/script.js",
+		"/Users/Justin/Sites/art7d/index.html",
+		"/Users/Justin/Sites/art7d/style.css",
+		"/Users/Justin/Desktop/Udacity/udacity_front_end_project_4/frontend-nanodegree-mobile-portfolio/README.md",
+		"/Users/Justin/Desktop/Udacity/udacity_front_end_project_4/frontend-nanodegree-mobile-portfolio/index.html",
+		"/Users/Justin/Desktop/Udacity/udacity_front_end_project_4/frontend-nanodegree-mobile-portfolio/views/css/style.css",
+		"/Users/Justin/Sites/new_portfolio/js/main.js",
+		"/Users/Justin/Sites/new_portfolio/style.css",
+		"/Users/Justin/Sites/wp_ucsota/wp-content/themes/ucsota/header.php",
+		"/Users/Justin/Sites/wp_ucsota/wp-content/themes/ucsota/about-page.php",
+		"/Users/Justin/Desktop/Udacity/udacity_front_end_project_4/frontend-nanodegree-mobile-portfolio/css/style.css",
+		"/Users/Justin/Desktop/Udacity/udacity_front_end_project_4/frontend-nanodegree-mobile-portfolio/css/phone-portrait.css",
+		"/Users/Justin/Desktop/Udacity/ud989-retain/css/retain.css",
+		"/Users/Justin/Desktop/Udacity/ud989-retain/index.html",
+		"/Users/Justin/Desktop/Udacity/ud989-retain/js/retain.js",
+		"/Users/Justin/Desktop/Udacity/minicourse-ajax-project/css/style.css",
+		"/Users/Justin/Desktop/Udacity/minicourse-ajax-project/index.html",
+		"/Users/Justin/Desktop/Udacity/minicourse-ajax-project/js/script.js",
+		"/Users/Justin/Desktop/Udacity/minicourse-ajax-project/.gitignore",
+		"/Users/Justin/Development/epicodus/script.js",
+		"/Users/Justin/Development/nodeschool/learn-you-node/makeItModular.js",
+		"/Users/Justin/Development/nodeschool/learn-you-node/myModule.js",
+		"/Users/Justin/Development/nodeschool/learn-you-node/filteredLS.js",
+		"/Users/Justin/Development/nodeschool/learn-you-node/firstAsyncIO.js",
+		"/Users/Justin/Development/nodeschool/learn-you-node/helloWorld.js",
+		"/Users/Justin/Development/nodeschool/learn-you-node/firstIO.js",
+		"/Users/Justin/Development/nodeschool/learn-you-node/babySteps.js",
+		"/Users/Justin/Development/css-experiments/portfolio-0/js/main.js",
+		"/Users/Justin/Development/css-experiments/portfolio-0/style.css",
+		"/Users/Justin/Development/css-experiments/portfolio-0/index.html",
+		"/Users/Justin/Development/css-experiments/perlin-noise/index.html",
+		"/Users/Justin/Development/css-experiments/perlin-noise/style.css",
+		"/Users/Justin/Development/css-experiments/perlin-noise/js/main.js",
+		"/Users/Justin/Development/css-experiments/fractal/js/main.js",
+		"/Users/Justin/Development/css-experiments/fractal/style.css",
+		"/Users/Justin/Development/css-experiments/fractal/index.html",
+		"/Users/Justin/Development/css-experiments/fractal/main.js",
+		"/Users/Justin/Desktop/Udacity/udacity_front_end_project_3/frontend-nanodegree-arcade-game/index.html",
+		"/Users/Justin/Desktop/Udacity/udacity_front_end_project_3/frontend-nanodegree-arcade-game/css/style.css",
+		"/Users/Justin/Desktop/Udacity/udacity_front_end_project_3/frontend-nanodegree-arcade-game/js/app.js",
+		"/Users/Justin/Desktop/Udacity/udacity_front_end_project_3/frontend-nanodegree-arcade-game/js/engine.js",
+		"/Users/Justin/Desktop/Udacity/udacity_front_end_project_3/frontend-nanodegree-arcade-game/js/resources.js",
+		"/Users/Justin/Desktop/Udacity/udacity_front_end_project_3/frontend-nanodegree-arcade-game/README.md",
+		"/Users/Justin/Desktop/Udacity/udacity_front_end_project_2/frontend-nanodegree-resume/js/resumeBuilder.js",
+		"/Users/Justin/Desktop/Udacity/udacity_front_end_project_2/frontend-nanodegree-resume/css/style.css",
+		"/Users/Justin/Desktop/Udacity/udacity_front_end_project_2/frontend-nanodegree-resume/js/helper.js",
+		"/Users/Justin/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/Justin/Desktop/Udacity/git_and_github/asteroids/game.js",
+		"/Users/Justin/Desktop/Udacity/portfolio/css/bootstrap.min.css",
+		"/Users/Justin/Desktop/Udacity/portfolio/css/main.css",
+		"/Users/Justin/Desktop/Udacity/portfolio/index.html",
+		"/Users/Justin/Sites/layer_shift/.git/COMMIT_EDITMSG",
+		"/Users/Justin/Desktop/Udacity/project_1/index.html",
+		"/Users/Justin/Desktop/Udacity/project_1/css/main.css",
+		"/Users/Justin/Desktop/Udacity/project_1/references.txt",
+		"/Users/Justin/Desktop/portfolio/framework/test.html",
+		"/Users/Justin/Desktop/portfolio/framework/css/main.css",
+		"/Users/Justin/Desktop/portfolio/toplist/index.html",
+		"/Users/Justin/Desktop/portfolio/toplist/style.css",
+		"/Users/Justin/Sites/justinadenharrison_3.0/stylesheet.css",
+		"/Users/Justin/Sites/justinadenharrison_3.0/index.html",
+		"/Users/Justin/Sites/justinadenharrison_3.0/myScript.js",
+		"/Users/Justin/Desktop/js_ninja.txt",
+		"/Users/Justin/Desktop/test.html",
+		"/Users/Justin/Desktop/testGroup.html",
+		"/private/var/folders/nt/v710fr89187cq3vwyxp6vg7r0000gn/T/4b1524fc-9e2a-498d-82cd-7577c9aa87b3/www/wp-content/themes/ucsota/style.css",
+		"/Users/Justin/Sites/justinadenharrison_3.0/data.json",
+		"/Users/Justin/Sites/justinadenharrison_3.0/painting2.jpg",
+		"/Users/Justin/Desktop/Ex_Files_UaR_SublimeTxt_2/Exercise Files/roux_website/403.shtml",
+		"/Users/Justin/Desktop/Ex_Files_UaR_SublimeTxt_2/Exercise Files/roux_website/404.shtml",
+		"/Users/Justin/Desktop/Ex_Files_UaR_SublimeTxt_2/Exercise Files/roux_website/error.htm",
+		"/Users/Justin/Desktop/Ex_Files_UaR_SublimeTxt_2/Exercise Files/roux_website/favicon.ico",
+		"/Users/Justin/Desktop/Ex_Files_UaR_SublimeTxt_2/Exercise Files/roux_website/spotlight.htm",
+		"/Users/Justin/Desktop/Ex_Files_UaR_SublimeTxt_2/Exercise Files/roux_website/500.php",
+		"/Users/Justin/Desktop/Ex_Files_UaR_SublimeTxt_2/Exercise Files/roux_website/500.shtml",
+		"/Users/Justin/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/css/single-page.css",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/header.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/grants-page.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/category.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/sidebar-filter.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/readMe.txt",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/sidebar-grants.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/about-page.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/resources-page.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/style.css",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/js/slider.js",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/index.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/sidebar-events.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/functions.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/sidebar-news.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/sidebar-campus.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/css/category-excerpt.css",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/css/tag-style.css",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/css/index-style.css",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/content-index-excerpts.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/content-catgrid.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/sidebar-tagcloud.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/tag.php",
+		"/Users/Justin/Desktop/awesome_index/data.js",
+		"/Users/Justin/Desktop/node_http_server/server.js",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/content.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/resources/berkeley.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/featured-content.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/page.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/single.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/sidebar.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/footer.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/js/jquery-2.1.1.min.js",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/css/category-grid.css",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/content-blog-excerpts.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/search.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/twentyfourteen/style.css",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/category-grid-only.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucsota/category-grid-only.php.old.php",
+		"/Users/Justin/Sites/justinadenharrison_5.0/wp-content/themes/wpbootstrap/style.css",
+		"/Users/Justin/Sites/justinadenharrison_5.0/wp-content/themes/wpbootstrap/header.php",
+		"/Users/Justin/Sites/justinadenharrison_5.0/wp-content/themes/wpbootstrap/functions.php",
+		"/Users/Justin/Sites/justinadenharrison_5.0/wp-content/themes/wpbootstrap/index.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucartsee/style.css",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucartsee/functions.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucartsee/category.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/ucartsee/single.php",
+		"/Users/Justin/Sites/ucartsee_new/wp-content/themes/twentyfourteen/content.php"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"/Users/Justin/Sites/wp_ucsota/wp-content/themes/ucsota",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"dispose",
+			"b",
+			"dispose()",
+			"_unloadHandler",
+			"this.dispose()",
+			"Sys.Application._",
+			"basicLeft",
+			"ucartsee_new",
+			"dt",
+			"enemies",
+			"#f5A623",
+			"education-entry",
+			"HTMLschoolMajor",
+			"padding-right: 30px;",
+			".site-header",
+			"search-field",
+			".search-box",
+			".site-header",
+			"#fff",
+			"a.post-thumbnail",
+			"hover",
+			"site-header",
+			"background-color: black",
+			"245",
+			"color: white",
+			"entry-meta",
+			"footer",
+			"span",
+			"entry-meta",
+			"span",
+			"tag",
+			"tag-links",
+			"#41a62a",
+			"hover",
+			"36px",
+			"float: right",
+			"float: left",
+			"controlNav",
+			"slider-control",
+			"slider-direction-nav",
+			"entry-title",
+			"slider-direction",
+			"primary-navigation",
+			".secondary-navigation",
+			".menu-toggle",
+			"site-header",
+			"fixed",
+			"search-box",
+			"primay-navigation",
+			"48px",
+			"primary-navigation",
+			".search-box",
+			".search-toggle",
+			".search-box {",
+			".search-box .search-field",
+			"pattern-dark\n",
+			";pattern-dark\n",
+			";\n",
+			"a:focus",
+			"iframe",
+			"48px",
+			"hentry",
+			"48px",
+			"hentry",
+			"hentery",
+			"content-area",
+			"header-main",
+			"site-header",
+			"masthead-",
+			".header-main",
+			"Lato",
+			"Raleway",
+			"182px",
+			"header",
+			"24890d",
+			"search-toggle",
+			"sidebar",
+			"widget",
+			"sidebar",
+			"footer",
+			"thumbnail"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"wp_ucsota",
+			"#cc5511",
+			"gray",
+			"Libre Baskerville"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "index.html",
+					"settings":
+					{
+						"buffer_size": 799,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								654,
+								654
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "css/style.css",
+					"settings":
+					{
+						"buffer_size": 162,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								88,
+								88
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "js/map.js",
+					"settings":
+					{
+						"buffer_size": 88,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								88,
+								88
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "js/app.js",
+					"settings":
+					{
+						"buffer_size": 719,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								671,
+								671
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 237.0,
+	"status_bar_visible": true
+}

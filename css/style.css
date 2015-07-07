@@ -1,0 +1,19 @@
+html,
+body,
+.container-fluid,
+#map-canvas {
+	height: 90%;
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	font-size: 38px;
+	margin: 0;
+	padding: 0;
+}
+
+#search-bar {
+	height: 10%;
+	z-index: 2;
+}
