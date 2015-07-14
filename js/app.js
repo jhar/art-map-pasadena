@@ -13,7 +13,6 @@ function ViewModel() {
 	self.markers = ko.observableArray();
 	self.fullName = ko.observable();
 
-	self.coverphoto = ko.observable();
 
 	$.getJSON("../pasadena.json", function(data) {
 		self.neighborhood(data.neighborhood);
@@ -24,7 +23,6 @@ function ViewModel() {
 					position: new google.maps.LatLng(data.locations[i].lat,data.locations[i].lng),
 					map: map,
 					title: data.locations[i].name,
-					content: self.coverphoto()
 				});
 			google.maps.event.addListener(marker, 'click', self.openWindow);
 			self.markers.push(marker);
@@ -32,7 +30,10 @@ function ViewModel() {
 	});
 
 	self.openWindow = function() {
-		infowindow.setContent(this.title + "<br><br>" + this.content);
+		var template = '<div>' +
+						this.title +
+						'</div>';
+		infowindow.setContent(template);
 		infowindow.open(map,this);
 	}
 
