@@ -1,34 +1,104 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body>
-    <div class="container-fluid">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Facebook API Testing -->
+  <div id="fb-root"></div>
+  <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '670403756436443',
+      xfbml      : true,
+      version    : 'v2.4'
+    });
+  };
 
-      <!-- Search View -->
-      <div id="search-bar">
-        <h1 data-bind="text: neighborhood"></h1>
-      </div>
+  (function(d, s, id){
+   var js, fjs = d.getElementsByTagName(s)[0];
+   if (d.getElementById(id)) {return;}
+   js = d.createElement(s); js.id = id;
+   js.src = "//connect.facebook.net/en_US/sdk.js";
+   fjs.parentNode.insertBefore(js, fjs);
+ }(document, 'script', 'facebook-jssdk'));
 
-      <!-- Map View -->
-      <div id="map-canvas"></div>
+  function Login() {
+    FB.login(function(response) {
+     if (response.authResponse)
+     {
+                  getName(); // Get User Information.
+                  getCoverPhoto("RoseBowlStadium");
 
-      <!-- List View -->
-      <div id="list-locations">
-        <ul class="list-group" data-bind="foreach: markers">
-          <li class="list-group-item" data-bind="click: $parent.clickedListItem"><span data-bind="text: title"></span></li>
-        </ul>
-      </div>
+                } else
+                {
+                 console.log('Authorization failed.');
+               }
+             },{scope: 'email'});
+  }
 
+  function getName() {
+   FB.api('/me', function(response) {
+    vm.fullName(response.name);
+    console.log(response.name);
+  });
+ }
+
+ function getEvents(pageID) {
+   var query = "/" + pageID + "/events";
+   FB.api(query, function (response) {
+    console.log(pageID);
+    if (response && !response.error) {
+      /* handle the result */
+    }
+  });
+ }
+
+ function getCoverPhoto(pageID) {
+   var query = "/" + pageID + "?fields=cover{source}";
+   FB.api(query, function (response) {
+    if (response && !response.error) {
+      /* handle the result */
+      console.log(response.cover.source);
+      vm.coverphoto(response.cover.source);
+    }
+  });
+ }
+
+ </script>
+ <div class="container-fluid">
+
+  <!-- Search View -->
+  <div class="row" id="search-bar">
+    <div class="col-xs-6">
+      <h1 data-bind="text: neighborhood"></h1>
     </div>
-    <footer>
-      <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-3tB7p20c-Zeb0GM3RxLB5ZSmFiZsIBQ"></script>
-      <script src="bower_components/knockout/dist/knockout.js"></script>
-      <script src="js/app.js"></script>
-    </footer>
-  </body>
+    <div class="col-xs-6">
+      <button data-bind="click: Login">Login</button>
+      <span data-bind="text: fullName"></span>
+    </div>
+  </div>
+
+  <!-- Map View -->
+  <div class="row">
+    <div id="map-canvas"></div>
+  </div>
+
+  <!-- List View -->
+  <div id="list-locations">
+    <ul class="list-group" data-bind="foreach: markers">
+      <li class="list-group-item" data-bind="click: $parent.clickedListItem"><span data-bind="text: title"></span></li>
+    </ul>
+  </div>
+
+</div>
+<footer>
+  <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-3tB7p20c-Zeb0GM3RxLB5ZSmFiZsIBQ"></script>
+  <script src="bower_components/knockout/dist/knockout.js"></script>
+  <script src="js/app.js"></script>
+</footer>
+</body>
 </html>

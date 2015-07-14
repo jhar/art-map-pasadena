@@ -4,57 +4,50 @@
         {
             "name": "Armory Center for the Arts",
             "lat": 34.1483608,
-            "lng": -118.149099
+            "lng": -118.149099,
+            "pageID": "armoryarts"
         },
         {
-            "name": "Art Center College of Design",
-            "lat": 34.1591039,
-            "lng": -118.1759816
+            "name": "Norton Simon Museum",
+            "lat": 34.1463586,
+            "lng": -118.159263,
+            "pageID": "nortonsimonmuseum"
         },
         {
-            "name": "Carnegie Observatories",
-            "lat": 34.156011,
-            "lng": -118.1340501
-        },
-        {
-            "name": "City of Pasadena: City Hall",
-            "lat": 34.1476106,
-            "lng": -118.1435501
-        },
-        {
-            "name": "California Institute of Technology",
-            "lat": 34.1371266,
-            "lng": -118.1253147
-        },
-        {
-            "name": "Pasadena City College",
-            "lat": 34.1439098,
-            "lng": -118.1192505
+            "name": "Kidspace Children's Museum",
+            "lat": 34.1538346,
+            "lng": -118.1307887,
+            "pageID": "KidspaceChildrensMuseum"
         },
         {
             "name": "Rose Bowl Stadium",
             "lat": 34.1613284,
-            "lng": -118.1676462
+            "lng": -118.1676462,
+            "pageId": "RoseBowlStadium"
         },
         {
             "name": "The Pasadena Playhouse",
             "lat": 34.145114,
-            "lng": -118.137375
+            "lng": -118.137375,
+            "pageID": "pasadenaplayhouse"
         },
         {
             "name": "Pasadena Museum of California Art",
             "lat": 34.1469961,
-            "lng": -118.1402176
+            "lng": -118.1402176,
+            "pageID": "pmcaonline"
         },
         {
-            "name": "Pacific Asia Museum",
+            "name": "USC Pacific Asia Museum",
             "lat": 34.146867,
-            "lng": -118.141069
+            "lng": -118.141069,
+            "pageID": "PacificAsiaMuseum"
         },
         {
-            "name": "Pasadena Public Library: Central Branch",
-            "lat": 34.146867,
-            "lng": -118.141069
+            "name": "The Gamble House",
+            "lat": 34.151636,
+            "lng": -118.1609495,
+            "pageID": "thegamblehouse"
         }
     ]
 }

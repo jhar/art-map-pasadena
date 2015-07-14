@@ -2,7 +2,7 @@ html,
 body,
 .container-fluid,
 #map-canvas {
-	height: 90%;
+	height: 500px;
 	margin: 0;
 	padding: 0;
 }
