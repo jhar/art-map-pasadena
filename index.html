@@ -30,8 +30,8 @@
 
     <!-- List View -->
     <div id="list-locations">
-      <ul class="list-group" data-bind="foreach: markers">
-        <li class="list-group-item" data-bind="click: $parent.clickedListItem"><span data-bind="text: title"></span></li>
+      <ul class="list-group" data-bind="foreach: entities">
+        <li class="list-group-item" data-bind="click: $parent.clickedListItem"><span data-bind="text: name"></span></li>
       </ul>
     </div>
 

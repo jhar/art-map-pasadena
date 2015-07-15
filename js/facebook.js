@@ -18,8 +18,8 @@
     FB.login(function(response) {
      if (response.authResponse)
      {
+                  vm.loadData();
                   getName(); // Get User Information.
-                  getCoverPhoto("RoseBowlStadium");
 
                 } else
                 {
@@ -31,7 +31,6 @@
   function getName() {
    FB.api('/me', function(response) {
     vm.fullName(response.name);
-    console.log(response.name);
   });
  }
 
@@ -45,13 +44,13 @@
   });
  }
 
- function getCoverPhoto(pageID) {
-   var query = "/" + pageID + "?fields=cover{source}";
+ function getCoverPhoto(pid, callback, object) {
+   var query = "/" + pid + "?fields=cover{source}";
    FB.api(query, function (response) {
     if (response && !response.error) {
       /* handle the result */
-      console.log(response.cover.source);
-      vm.coverphoto(response.cover.source);
+      console.log(object);
+      callback.call(object, response.cover.source);
     }
   });
  }
