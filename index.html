@@ -15,7 +15,8 @@
     <!-- Search View -->
     <div class="row" id="search-bar">
       <div class="col-xs-6">
-        <h1 data-bind="text: neighborhood"></h1>
+        <span data-bind="text: neighborhood"></span>
+        <input type="text" id="search" placeholder="Search..." data-bind="event: {keyup: liveSearch}"/>
       </div>
       <div class="col-xs-6">
         <button data-bind="click: Login">Login</button>
@@ -31,16 +32,17 @@
     <!-- List View -->
     <div id="list-locations">
       <ul class="list-group" data-bind="foreach: entities">
-        <li class="list-group-item" data-bind="click: $parent.clickedListItem"><span data-bind="text: name"></span></li>
+        <li class="list-group-item" data-bind="click: $parent.clickedListItem, style: {display: visible() === false ? 'none' : 'block'}"><span data-bind="text: name"></span></li>
       </ul>
     </div>
 
   </div>
   <footer>
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/quicksearch/dist/jquery.quicksearch.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-3tB7p20c-Zeb0GM3RxLB5ZSmFiZsIBQ"></script>
-    <script src="bower_components/knockout/dist/knockout.js"></script>
-    <script src="js/app.js"></script>
+    <script type="text/javascript" src="bower_components/knockout/dist/knockout.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
   </footer>
 </body>
 </html>

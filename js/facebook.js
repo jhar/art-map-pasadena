@@ -49,7 +49,6 @@
    FB.api(query, function (response) {
     if (response && !response.error) {
       /* handle the result */
-      console.log(object);
       callback.call(object, response.cover.source);
     }
   });

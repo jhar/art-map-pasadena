@@ -17,3 +17,7 @@ h1 {
 	height: 10%;
 	z-index: 2;
 }
+
+.hide {
+	display: none;
+}
