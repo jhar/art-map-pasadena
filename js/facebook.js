@@ -59,6 +59,8 @@ function logoutFlow() {
         console.log("Logged you out");
       });
     }
+    // Refresh the page to prevent bugs with Google Maps
+    location.reload();
   });
 }
 

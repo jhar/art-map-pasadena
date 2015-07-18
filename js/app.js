@@ -88,6 +88,7 @@ var mapInit = function() {
 		center: {lat: 34.150596, lng: -118.137817},
 		zoom: 14
 		});
+	console.log(map);
 
 	// Create infowindow to attach to markers
 	infowindow = new google.maps.InfoWindow({
