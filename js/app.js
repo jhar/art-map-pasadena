@@ -1,13 +1,5 @@
-// Google Maps functionality
-var map = new google.maps.Map(document.getElementById('map-canvas'), {
-	center: {lat: 34.150596, lng: -118.137817},
-	zoom: 14
-	});
-
-var infowindow = new google.maps.InfoWindow({
-	content: "holding..."
-});
-
+// Global variables
+var map, infowindow, vm;
 
 function entity(name, lat, lng, pid) {
 	this.name = ko.observable(name);
@@ -35,16 +27,20 @@ function entity(name, lat, lng, pid) {
 	}.bind(this));
 }
 
-function ViewModel() {
+function ViewModel(fbStatus) {
 	var self = this;
 	self.neighborhood = ko.observable();
 	self.entities = ko.observableArray();
 	self.fullName = ko.observable();
+	self.loggedIn = ko.observable();
 
 	// Load JSON location data
 	self.loadData = function() {
 		$.getJSON("../pasadena.json", function(data) {
 			self.neighborhood(data.neighborhood);
+
+			// Clear entities array so that it isn't populated twice
+			self.entities.removeAll();
 
 			// Load location data into entities array
 			for (i = 0; i < data.locations.length; i++) {
@@ -62,8 +58,14 @@ function ViewModel() {
 		google.maps.event.trigger(this.marker, 'click');
 	}
 
-	self.Login = function() {
-		window.Login();
+	self.login = function() {
+		console.log("Login function was called.");
+		window.loginFlow();
+	}
+
+	self.logout = function() {
+		console.log("Logout function was called.");
+		window.logoutFlow();
 	}
 
 	self.liveSearch = function(model, obj) {
@@ -80,8 +82,27 @@ function ViewModel() {
 	}
 }
 
-var vm = new ViewModel();
-ko.applyBindings(vm);
+var mapInit = function() {
+	// Create Google Map
+	map = new google.maps.Map(document.getElementById('map-canvas'), {
+		center: {lat: 34.150596, lng: -118.137817},
+		zoom: 14
+		});
+
+	// Create infowindow to attach to markers
+	infowindow = new google.maps.InfoWindow({
+		content: "No content loaded"
+	});
+}
+
+var appInit = function() {
+	// Create view model object and apply bindings
+	vm = new ViewModel();
+	ko.applyBindings(vm);
+}
+
+
+
 
 
 

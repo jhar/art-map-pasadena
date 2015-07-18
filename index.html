@@ -8,9 +8,13 @@
 <body>
   <!-- Facebook API -->
   <div id="fb-root"></div>
-  <script type="text/javascript" src="js/facebook.js"></script>
 
-  <div class="container-fluid">
+  <!-- Login View -->
+  <div id="login" data-bind="style: {display: loggedIn() === true ? 'none' : 'block'}">
+    <button data-bind="click: function(){login();}">Login via Facebook</login>
+  </div>
+
+  <div id="app" class="container-fluid" data-bind="style: {display: loggedIn() === false ? 'none' : 'block'}">
 
     <!-- Search View -->
     <div class="row" id="search-bar">
@@ -19,7 +23,6 @@
         <input type="text" id="search" placeholder="Search..." data-bind="event: {keyup: liveSearch}"/>
       </div>
       <div class="col-xs-6">
-        <button data-bind="click: Login">Login</button>
         <span data-bind="text: fullName"></span>
       </div>
     </div>
@@ -36,13 +39,20 @@
       </ul>
     </div>
 
+    <!-- Logout View -->
+    <div id="logout">
+      <button data-bind="click: function(){logout();}">Logout of Facebook</login>
+    </div>
+
   </div>
+
   <footer>
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="bower_components/quicksearch/dist/jquery.quicksearch.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-3tB7p20c-Zeb0GM3RxLB5ZSmFiZsIBQ"></script>
     <script type="text/javascript" src="bower_components/knockout/dist/knockout.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/facebook.js"></script>
   </footer>
+
 </body>
 </html>

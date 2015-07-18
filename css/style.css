@@ -7,6 +7,10 @@ body,
 	padding: 0;
 }
 
+#app {
+	display: none;
+}
+
 h1 {
 	font-size: 38px;
 	margin: 0;
@@ -18,6 +22,4 @@ h1 {
 	z-index: 2;
 }
 
-.hide {
-	display: none;
-}
+
