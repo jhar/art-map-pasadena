@@ -1,14 +1,9 @@
 html,
 body,
-.container-fluid,
-#map-canvas {
-	height: 500px;
+.container-fluid {
+	height: 100%;
 	margin: 0;
 	padding: 0;
-}
-
-#app {
-	display: none;
 }
 
 h1 {
@@ -17,9 +12,46 @@ h1 {
 	padding: 0;
 }
 
-#search-bar {
-	height: 10%;
-	z-index: 2;
+.cover-photo {
+	opacity: 0.5;
 }
 
+.navbar-right {
+	font-size: 14px;
+	font-weight: 300;
+	margin-right: 0px;
+	padding: 20px 15px 20px 15px;
+}
+
+#app {
+	display: none;
+}
+
+#login {
+	margin: 60px auto 20px auto;
+	max-width: 324px;
+}
+
+#map-canvas {
+	height: 100%;
+	z-index: -1;
+}
+
+#search-view {
+	min-width: 373px;
+	position: fixed;
+	right: 20px;
+	top: 20px;
+}
+
+@media (max-width: 413px) {
+
+	#search-view {
+		left: 20px;
+	}
+
+	#welcome-message {
+		display: none;
+	}
+}
 

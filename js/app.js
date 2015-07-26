@@ -1,5 +1,5 @@
 // Global variables
-var map, infowindow, vm;
+var map, infowindow, vm, mapStyle;
 
 function entity(name, lat, lng, pid) {
 	this.name = ko.observable(name);
@@ -19,7 +19,7 @@ function entity(name, lat, lng, pid) {
 	// Add infowindow to marker when clicked
 	google.maps.event.addListener(this.marker, 'click', function openWindow() {
 		window.getCoverPhoto(pid, function(response) {
-			infowindow.setContent('<img src=\"' +
+			infowindow.setContent('<img class="cover-photo" src=\"' +
 								  response +
 								  '\">');
 			infowindow.open(map,this.marker);
@@ -31,7 +31,6 @@ function ViewModel(fbStatus) {
 	var self = this;
 	self.neighborhood = ko.observable();
 	self.entities = ko.observableArray();
-	self.fullName = ko.observable();
 	self.loggedIn = ko.observable();
 
 	// Load JSON location data
@@ -88,7 +87,19 @@ var mapInit = function() {
 		center: {lat: 34.150596, lng: -118.137817},
 		zoom: 14
 		});
-	console.log(map);
+
+	// Style the map
+	mapStyle = [
+	  {
+	    "featureType": "poi",
+	    "stylers": [
+	      { "visibility": "off" }
+	    ]
+	  }
+	];
+
+	map.setOptions({styles: mapStyle});
+
 
 	// Create infowindow to attach to markers
 	infowindow = new google.maps.InfoWindow({
@@ -100,6 +111,9 @@ var appInit = function() {
 	// Create view model object and apply bindings
 	vm = new ViewModel();
 	ko.applyBindings(vm);
+
+	// Initialize material (should this go here?)
+	$.material.init();
 }
 
 

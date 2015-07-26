@@ -2,7 +2,8 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/material-fullpalette.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -10,44 +11,49 @@
   <div id="fb-root"></div>
 
   <!-- Login View -->
-  <div id="login" data-bind="style: {display: loggedIn() === true ? 'none' : 'block'}">
-    <button data-bind="click: function(){login();}">Login via Facebook</login>
+  <div class="jumbotron text-center" id="login" data-bind="style: {display: loggedIn() === true ? 'none' : 'block'}">
+      <h1>project 5</h1>
+      <p>Pasadena, California</p>
+      <button class="btn btn-primary btn-raised" data-bind="click: function(){login();}">Login with Facebook</button>
   </div>
+
 
   <div id="app" class="container-fluid" data-bind="style: {display: loggedIn() === false ? 'none' : 'block'}">
 
-    <!-- Search View -->
-    <div class="row" id="search-bar">
-      <div class="col-xs-6">
-        <span data-bind="text: neighborhood"></span>
-        <input type="text" id="search" placeholder="Search..." data-bind="event: {keyup: liveSearch}"/>
-      </div>
-      <div class="col-xs-6">
-        <span data-bind="text: fullName"></span>
-      </div>
-    </div>
-
     <!-- Map View -->
-    <div class="row">
-      <div id="map-canvas"></div>
+    <div id="map-canvas"></div>
+
+    <!-- Search View -->
+    <div class="navbar navbar-default shadow-z-3" id="search-view">
+      <div class="navbar-header">
+        <span class="navbar-brand" data-bind="text: neighborhood"></span>
+      </div>
+      <form class="navbar-form navbar-left">
+        <input type="text" data-bind="event: {keyup: liveSearch}" class="form-control" placeholder="Search">
+      </form>
     </div>
 
     <!-- List View -->
     <div id="list-locations">
-      <ul class="list-group" data-bind="foreach: entities">
-        <li class="list-group-item" data-bind="click: $parent.clickedListItem, style: {display: visible() === false ? 'none' : 'block'}"><span data-bind="text: name"></span></li>
-      </ul>
+      <div class="list-group" data-bind="foreach: entities">
+        <div class="list-group-item" data-bind="click: $parent.clickedListItem, style: {display: visible() === false ? 'none' : 'block'}">
+          <i class="mdi-maps-pin-drop"></i>
+          <span data-bind="text: name"></span>
+          <div class="list-group-separator"></div>
+        </div>
+      </div>
     </div>
 
     <!-- Logout View -->
     <div id="logout">
-      <button data-bind="click: function(){logout();}">Logout of Facebook</login>
+      <button class="btn btn-warning btn-raised" data-bind="click: function(){logout();}">Logout of Facebook</login>
     </div>
 
   </div>
 
   <footer>
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-3tB7p20c-Zeb0GM3RxLB5ZSmFiZsIBQ"></script>
     <script type="text/javascript" src="bower_components/knockout/dist/knockout.js"></script>
     <script type="text/javascript" src="js/app.js"></script>

@@ -25,7 +25,6 @@ function checkIfLoggedIn() {
       vm.loggedIn(true);
       mapInit();
       vm.loadData();
-      getName();
     } else if (response.status === 'not_authorized') {
       // the user is logged in to Facebook,
       // but has not authenticated your app
@@ -44,7 +43,6 @@ function loginFlow() {
       mapInit(); // Initialize map
       vm.loggedIn(true);
       vm.loadData(); // Make request for location JSON data
-      getName(); // Request user's name
     } else {
       console.log('Authorization failed.');
     }
@@ -61,12 +59,6 @@ function logoutFlow() {
     }
     // Refresh the page to prevent bugs with Google Maps
     location.reload();
-  });
-}
-
-function getName() {
-  FB.api('/me', function(response) {
-    vm.fullName(response.name);
   });
 }
 
