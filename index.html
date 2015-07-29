@@ -21,10 +21,10 @@
   <div id="app" class="container-fluid" data-bind="style: {display: loggedIn() === false ? 'none' : 'block'}">
 
     <!-- Map View -->
-    <div id="map-canvas"></div>
+    <div id="map"></div>
 
     <!-- Search View -->
-    <div class="navbar navbar-default shadow-z-3" id="search-view">
+    <div class="navbar navbar-default shadow-z-3" id="search">
       <div class="navbar-header">
         <span class="navbar-brand" data-bind="text: neighborhood"></span>
       </div>
@@ -34,7 +34,7 @@
     </div>
 
     <!-- List View -->
-    <div id="list-locations">
+    <div class="well well-material-pink-300" id="list">
       <div class="list-group" data-bind="foreach: entities">
         <div class="list-group-item" data-bind="click: $parent.clickedListItem, style: {display: visible() === false ? 'none' : 'block'}">
           <i class="mdi-maps-pin-drop"></i>
@@ -46,7 +46,7 @@
 
     <!-- Logout View -->
     <div id="logout">
-      <button class="btn btn-warning btn-raised" data-bind="click: function(){logout();}">Logout of Facebook</login>
+      <button class="btn btn-warning btn-raised pull-right" data-bind="click: function(){logout();}">Logout of Facebook</login>
     </div>
 
   </div>

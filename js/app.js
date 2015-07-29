@@ -83,7 +83,7 @@ function ViewModel(fbStatus) {
 
 var mapInit = function() {
 	// Create Google Map
-	map = new google.maps.Map(document.getElementById('map-canvas'), {
+	map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: 34.150596, lng: -118.137817},
 		zoom: 14
 		});
