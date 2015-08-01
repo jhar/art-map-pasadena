@@ -6,18 +6,81 @@ body,
 	padding: 0;
 }
 
+.full-height {
+	height: 100%;
+}
+
+.no-padding {
+	padding: 0;
+}
+
 h1 {
 	font-size: 38px;
 	margin: 0;
 	padding: 0;
 }
 
+#app {
+	display: none;
+}
+
+#login {
+	border-radius: 5px;
+	margin: 60px auto 20px auto;
+	max-width: 324px;
+}
+
+#map-container {
+	z-index: 1;
+}
+
+#sidebar {
+
+}
+
+/* ------ Info Windows ------ */
+
+.info-window {
+	max-height: 240px;
+	max-width: 360px;
+}
+
 .cover-photo {
+	max-width: 500px !important;
+	position: relative;
 	opacity: 0.5;
+}
+
+/* ------ List View ------ */
+
+#list {
+	min-width: 371px;
+	padding: 0;
+	z-index: 2;
 }
 
 .list-group {
 	margin-bottom: 0;
+}
+
+.list-group-item {
+	padding: 6px 0px 6px 8px !important;
+}
+
+.list-group-item:hover {
+	background-color: rgb(206,63,118);
+}
+
+/* ------ Header ------ */
+
+#search {
+	height: 50px;
+	margin-bottom: 0;
+	min-width: 371px;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 2;
 }
 
 .navbar-right {
@@ -27,52 +90,20 @@ h1 {
 	padding: 20px 15px 20px 15px;
 }
 
-#app {
-	display: none;
+.toggle {
+	padding-left: 4px;
 }
 
-#login {
-	margin: 60px auto 20px auto;
-	max-width: 324px;
+.togglebutton {
+	margin-top: 16px;
+	padding-right: 16px;
 }
 
+/* ------ Footer ------- */
+#footer {
+	height: 50px;
+}
 #logout {
-	min-width: 373px;
-	position: fixed;
-	right: 20px;
-	top: 526px;
-	z-index: 2;
-}
-
-#map {
-	height: 100%;
-	z-index: 1;
-}
-
-#list {
-	min-width: 373px;
-	position: fixed;
-	right: 20px;
-	top: 100px;
-	z-index: 2;
-}
-
-#search {
-	min-width: 373px;
-	position: fixed;
-	right: 20px;
-	top: 20px;
-	z-index: 2;
-}
-
-@media (max-width: 413px) {
-
-	#search-view {
-		left: 20px;
-	}
-
-	#welcome-message {
-		display: none;
-	}
+	border-radius: 5px;
 }
 

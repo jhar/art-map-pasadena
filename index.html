@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
   <!-- Facebook API -->
   <div id="fb-root"></div>
 
@@ -18,36 +19,60 @@
   </div>
 
 
-  <div id="app" class="container-fluid" data-bind="style: {display: loggedIn() === false ? 'none' : 'block'}">
+  <div id="app" class="container-fluid row full-height" data-bind="style: {display: loggedIn() === false ? 'none' : 'block'}">
 
-    <!-- Map View -->
-    <div id="map"></div>
-
-    <!-- Search View -->
-    <div class="navbar navbar-default shadow-z-3" id="search">
-      <div class="navbar-header">
-        <span class="navbar-brand" data-bind="text: neighborhood"></span>
-      </div>
-      <form class="navbar-form navbar-left">
-        <input type="text" data-bind="event: {keyup: liveSearch}" class="form-control" placeholder="Search">
-      </form>
-    </div>
-
-    <!-- List View -->
-    <div class="well well-material-pink-300" id="list">
-      <div class="list-group" data-bind="foreach: entities">
-        <div class="list-group-item" data-bind="click: $parent.clickedListItem, style: {display: visible() === false ? 'none' : 'block'}">
-          <i class="mdi-maps-pin-drop"></i>
-          <span data-bind="text: name"></span>
-          <div class="list-group-separator"></div>
+      <!-- Search View -->
+      <div class="navbar navbar-default col-xs-12 shadow-z-1" id="search">
+        <div class="navbar-header">
+          <span class="navbar-brand" data-bind="text: neighborhood"></span>
+        </div>
+        <form class="navbar-form navbar-left">
+          <input type="text" data-bind="event: {keyup: liveSearch}" class="form-control" placeholder="Search">
+        </form>
+        <div class="togglebutton pull-right">
+          <label>
+            List
+            <input type="checkbox" data-bind="checked: showList">
+          </label>
         </div>
       </div>
-    </div>
 
-    <!-- Logout View -->
-    <div id="logout">
-      <button class="btn btn-warning btn-raised pull-right" data-bind="click: function(){logout();}">Logout of Facebook</login>
-    </div>
+      <!-- Sidebar -->
+      <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 no-padding" id="sidebar">
+
+        <!-- List View -->
+        <div class="well well-material-pink-300 shadow-z-1" data-bind="fadeVisible: showList" id="list">
+          <div class="list-group" data-bind="foreach: entities">
+            <div class="list-group-item" data-bind="click: $parent.clickedListItem, fadeVisible: visible">
+              <i class="mdi-maps-pin-drop"></i>
+              <span data-bind="text: name"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info View -->
+        <div id="info-view">
+          <h4 data-bind="visible: eventList().length > 0">Upcoming Events</span></h4>
+          <h5 data-bind="if: markerHasBeenClicked, visible: eventList().length < 1">No upcoming events to show.</h5>
+          <ul class="list-group" data-bind="foreach: eventList.slice(0).reverse()">
+            <li class="list-group-item">
+              <span data-bind="text: name"></span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Logout View -->
+        <div id="logout">
+          <button class="btn btn-warning btn-raised" data-bind="click: function(){logout();}">Logout of Facebook</login>
+        </div>
+
+      </div>
+      <!-- End Sidebar -->
+
+      <!-- Map View -->
+      <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8 full-height no-padding" id="map-container">
+        <div class="full-height" id="map"></div>
+      </div>
 
   </div>
 

@@ -17,7 +17,6 @@ window.fbAsyncInit = function() {
 }(document, 'script', 'facebook-jssdk'));
 
 function checkIfLoggedIn() {
-  console.log("checkIfLoggedIn() was called");
   FB.getLoginStatus(function(response) {
     if (response.status === 'connected') {
       // the user is logged in and has authenticated your app
@@ -62,12 +61,12 @@ function logoutFlow() {
   });
 }
 
-function getEvents(pid) {
-  var query = "/" + pid + "/events";
+function getEvents(pid, timeStamp, callback, object) {
+  var query = "/" + pid + "/events?since=" + timeStamp;
     FB.api(query, function (response) {
-      console.log(pid);
       if (response && !response.error) {
         /* handle the result */
+        callback.call(object, response);
       }
     });
 }

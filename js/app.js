@@ -18,11 +18,34 @@ function entity(name, lat, lng, pid) {
 
 	// Add infowindow to marker when clicked
 	google.maps.event.addListener(this.marker, 'click', function openWindow() {
+
+		vm.markerHasBeenClicked(true);
+
+		// Update time stamp
+		var timeStamp = Math.floor(Date.now() / 1000);
+
+		// Call view model's function to set content of info-view div
+		vm.setInfoViewContent(pid, timeStamp);
+
+		// Make API call for location's FB cover photo
 		window.getCoverPhoto(pid, function(response) {
-			infowindow.setContent('<img class="cover-photo" src=\"' +
-								  response +
-								  '\">');
+
+			// Recenter map to clicked marker
+			map.setCenter(this.marker.getPosition());
+
+			// Set the content of the infowindow
+			infowindow.setContent('<div class="info-window">' +
+								  '<h5 class="info-name">' +
+								  		name +
+								  	'</h5>' +
+								  	'<img class="cover-photo" src=\"' +
+								  		response +
+								  	'\">' +
+								  '</div>');
+
+			// Open the infowindow
 			infowindow.open(map,this.marker);
+
 		}, this);
 	}.bind(this));
 }
@@ -32,6 +55,10 @@ function ViewModel(fbStatus) {
 	self.neighborhood = ko.observable();
 	self.entities = ko.observableArray();
 	self.loggedIn = ko.observable();
+	self.showList = ko.observable(true);
+	self.eventList = ko.observableArray();
+	self.futureEvents = ko.observable(false);
+	self.markerHasBeenClicked = ko.observable(false);
 
 	// Load JSON location data
 	self.loadData = function() {
@@ -53,20 +80,22 @@ function ViewModel(fbStatus) {
 		});
 	}
 
+	// Clicks markers when list item is clicked
 	self.clickedListItem = function() {
 		google.maps.event.trigger(this.marker, 'click');
 	}
 
+	// Begins Facebook login process
 	self.login = function() {
-		console.log("Login function was called.");
 		window.loginFlow();
 	}
 
+	// Begins Facebook logout process
 	self.logout = function() {
-		console.log("Logout function was called.");
 		window.logoutFlow();
 	}
 
+	// Live search function
 	self.liveSearch = function(model, obj) {
 		var pattern = new RegExp(obj.currentTarget.value.toLowerCase());
 		for (i = 0; i < self.entities().length; i++) {
@@ -79,7 +108,32 @@ function ViewModel(fbStatus) {
 			}
 		}
 	}
+
+	// Set content of info-view, this is called by a marker object
+	self.setInfoViewContent = function(pid, timeStamp) {
+		// Get FB events by pid
+		window.getEvents(pid, timeStamp, function(response) {
+			console.log(response.data);
+			self.eventList(response.data);
+		}, this);
+	}
+
 }
+
+// Here's a custom Knockout binding that makes elements shown/hidden via jQuery's fadeIn()/fadeOut() methods
+// Found at: http://knockoutjs.com/examples/animatedTransitions.html
+ko.bindingHandlers.fadeVisible = {
+    init: function(element, valueAccessor) {
+        // Initially set the element to be instantly visible/hidden depending on the value
+        var value = valueAccessor();
+        $(element).toggle(ko.utils.unwrapObservable(value)); // Use "unwrapObservable" so we can handle values that may or may not be observable
+    },
+    update: function(element, valueAccessor) {
+        // Whenever the value subsequently changes, slowly fade the element in or out
+        var value = valueAccessor();
+        ko.utils.unwrapObservable(value) ? $(element).fadeIn() : $(element).fadeOut();
+    }
+};
 
 var mapInit = function() {
 	// Create Google Map
