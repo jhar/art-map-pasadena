@@ -24,29 +24,23 @@ function entity(name, lat, lng, pid) {
 		// Update time stamp
 		var timeStamp = Math.floor(Date.now() / 1000);
 
-		// Call view model's function to set content of info-view div
-		vm.setInfoViewContent(pid, timeStamp);
+		// Call view model's functions to set content of info view
+		vm.infoViewCoverPhoto(pid);
+		vm.infoViewEvents(pid, timeStamp);
 
-		// Make API call for location's FB cover photo
-		window.getCoverPhoto(pid, function(response) {
+		// Recenter map to clicked marker
+		map.setCenter(this.marker.getPosition());
 
-			// Recenter map to clicked marker
-			map.setCenter(this.marker.getPosition());
+		// Set the content of the infowindow
+		infowindow.setContent('<div class="info-window">' +
+							  '<h5 class="info-name">' +
+							  		name +
+							  	'</h5>' +
+							  '</div>');
 
-			// Set the content of the infowindow
-			infowindow.setContent('<div class="info-window">' +
-								  '<h5 class="info-name">' +
-								  		name +
-								  	'</h5>' +
-								  	'<img class="cover-photo" src=\"' +
-								  		response +
-								  	'\">' +
-								  '</div>');
+		// Open the infowindow
+		infowindow.open(map,this.marker);
 
-			// Open the infowindow
-			infowindow.open(map,this.marker);
-
-		}, this);
 	}.bind(this));
 }
 
@@ -57,8 +51,8 @@ function ViewModel(fbStatus) {
 	self.loggedIn = ko.observable();
 	self.showList = ko.observable(true);
 	self.eventList = ko.observableArray();
-	self.futureEvents = ko.observable(false);
 	self.markerHasBeenClicked = ko.observable(false);
+	self.coverPhotoURL = ko.observable();
 
 	// Load JSON location data
 	self.loadData = function() {
@@ -97,6 +91,12 @@ function ViewModel(fbStatus) {
 
 	// Live search function
 	self.liveSearch = function(model, obj) {
+
+		// Clear the info-view
+		self.coverPhotoURL("");
+		self.markerHasBeenClicked(false);
+		self.eventList([]);
+
 		var pattern = new RegExp(obj.currentTarget.value.toLowerCase());
 		for (i = 0; i < self.entities().length; i++) {
 			if (pattern.test(self.entities()[i].name().toLowerCase())) {
@@ -109,12 +109,27 @@ function ViewModel(fbStatus) {
 		}
 	}
 
-	// Set content of info-view, this is called by a marker object
-	self.setInfoViewContent = function(pid, timeStamp) {
-		// Get FB events by pid
+	// Get cover photo with pid
+	self.infoViewCoverPhoto = function(pid) {
+		window.getCoverPhoto(pid, function(response) {
+			self.coverPhotoURL(response);
+		}, this);
+	}
+
+	// Get events by pid, attach cover photo
+	self.infoViewEvents = function(pid, timeStamp) {
+		// Clear event list (in order to not duplicate entries)
+		self.eventList([]);
 		window.getEvents(pid, timeStamp, function(response) {
-			console.log(response.data);
-			self.eventList(response.data);
+			for (var i in response.data) {
+				(function (index, context) {
+					window.getCoverPhoto(response.data[index].id, function(coverURL) {
+						response.data[index].cover = coverURL;
+						self.eventList.push(response.data[index]);
+						console.log(self.eventList());
+					}, this);
+				})(i, this);
+			}
 		}, this);
 	}
 

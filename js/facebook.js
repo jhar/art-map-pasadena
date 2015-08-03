@@ -71,8 +71,8 @@ function getEvents(pid, timeStamp, callback, object) {
     });
 }
 
-function getCoverPhoto(pid, callback, object) {
-  var query = "/" + pid + "?fields=cover{source}";
+function getCoverPhoto(id, callback, object) {
+  var query = "/" + id + "?fields=cover{source}";
     FB.api(query, function (response) {
       if (response && !response.error) {
         /* handle the result */
