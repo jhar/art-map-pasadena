@@ -1,12 +1,14 @@
 // Global variables
 var map, infowindow, vm, mapStyle;
 
-function entity(name, lat, lng, pid) {
+function site(name, lat, lng, pid) {
 	this.name = ko.observable(name);
 	this.lat = ko.observable(lat);
 	this.lng = ko.observable(lng);
 	this.pid = ko.observable(pid);
 	this.visible = ko.observable(true);
+	this.events = ko.observableArray();
+	this.cover = ko.observable();
 
 	// Create marker
 	this.marker = new google.maps.Marker({
@@ -19,14 +21,11 @@ function entity(name, lat, lng, pid) {
 	// Add infowindow to marker when clicked
 	google.maps.event.addListener(this.marker, 'click', function openWindow() {
 
-		vm.markerHasBeenClicked(true);
+		vm.anyMarkerHasBeenClicked(true);
 
-		// Update time stamp
-		var timeStamp = Math.floor(Date.now() / 1000);
-
-		// Call view model's functions to set content of info view
-		vm.infoViewCoverPhoto(pid);
-		vm.infoViewEvents(pid, timeStamp);
+		// TODO: Call view model's functions to set active site
+		vm.activeSiteCover(this.cover());
+		vm.activeSiteEvents(this.events());
 
 		// Recenter map to clicked marker
 		map.setCenter(this.marker.getPosition());
@@ -46,13 +45,13 @@ function entity(name, lat, lng, pid) {
 
 function ViewModel(fbStatus) {
 	var self = this;
-	self.neighborhood = ko.observable();
-	self.entities = ko.observableArray();
 	self.loggedIn = ko.observable();
+	self.sites = ko.observableArray();
+	self.neighborhood = ko.observable();
 	self.showList = ko.observable(true);
-	self.eventList = ko.observableArray();
-	self.markerHasBeenClicked = ko.observable(false);
-	self.coverPhotoURL = ko.observable();
+	self.anyMarkerHasBeenClicked = ko.observable(false);
+	self.activeSiteCover = ko.observable();
+	self.activeSiteEvents = ko.observableArray();
 
 	// Load JSON location data
 	self.loadData = function() {
@@ -60,17 +59,51 @@ function ViewModel(fbStatus) {
 			self.neighborhood(data.neighborhood);
 
 			// Clear entities array so that it isn't populated twice
-			self.entities.removeAll();
+			self.sites.removeAll();
 
-			// Load location data into entities array
+			// Load JSON data into sites array
 			for (i = 0; i < data.locations.length; i++) {
-				self.entities.push(new entity(
+				self.sites.push(new site(
 					data.locations[i].name,
 					data.locations[i].lat,
 					data.locations[i].lng,
 					data.locations[i].pid
 				));
 			}
+
+			var timeStamp = Math.floor(Date.now() / 1000);
+
+
+			for (var i in self.sites()) {
+
+				// Get cover photo for each site
+				(function(index) {
+					window.getCoverPhoto(self.sites()[index].pid(), function(response) {
+						self.sites()[index].cover(response);
+					}, this);
+				})(i);
+
+				// Get events list for each site
+				(function(index) {
+					window.getEvents(self.sites()[index].pid(), timeStamp, function(response) {
+						self.sites()[index].events(response.data);
+
+						// Attach event cover photos to events
+						for (var j in self.sites()[index].events()) {
+
+							(function(jindex) {
+								window.getCoverPhoto(self.sites()[index].events()[jindex].id, function(coverURL) {
+									self.sites()[index].events()[jindex].cover = coverURL;
+								}, this);
+							})(j);
+
+						}
+
+					}, this);
+				})(i);
+
+			}
+
 		});
 	}
 
@@ -107,30 +140,6 @@ function ViewModel(fbStatus) {
 				self.entities()[i].visible(false);
 			}
 		}
-	}
-
-	// Get cover photo with pid
-	self.infoViewCoverPhoto = function(pid) {
-		window.getCoverPhoto(pid, function(response) {
-			self.coverPhotoURL(response);
-		}, this);
-	}
-
-	// Get events by pid, attach cover photo
-	self.infoViewEvents = function(pid, timeStamp) {
-		// Clear event list (in order to not duplicate entries)
-		self.eventList([]);
-		window.getEvents(pid, timeStamp, function(response) {
-			for (var i in response.data) {
-				(function (index, context) {
-					window.getCoverPhoto(response.data[index].id, function(coverURL) {
-						response.data[index].cover = coverURL;
-						self.eventList.push(response.data[index]);
-						console.log(self.eventList());
-					}, this);
-				})(i, this);
-			}
-		}, this);
 	}
 
 }

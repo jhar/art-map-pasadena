@@ -42,7 +42,7 @@
 
         <!-- List View -->
         <div class="shadow-z-1" data-bind="fadeVisible: showList" id="list">
-          <div class="list-group" data-bind="foreach: entities">
+          <div class="list-group" data-bind="foreach: sites">
             <div class="list-group-item" data-bind="click: $parent.clickedListItem, fadeVisible: visible">
               <i class="mdi-maps-pin-drop"></i>
               <span data-bind="text: name"></span>
@@ -52,10 +52,10 @@
 
         <!-- Info View -->
         <div id="info-view">
-          <img class="cover-photo" data-bind="attr: {src: coverPhotoURL}"></img>
-          <h4 data-bind="visible: eventList().length > 0">Upcoming Events</span></h4>
-          <h5 data-bind="if: markerHasBeenClicked, visible: eventList().length < 1">No upcoming events to show.</h5>
-          <div class="list-group" data-bind="foreach: eventList.slice(0).reverse()">
+          <img class="cover-photo" data-bind="attr: {src: activeSiteCover()}"></img>
+          <h4 data-bind="visible: activeSiteEvents().length > 0">Upcoming Events</span></h4>
+          <h5 data-bind="if: anyMarkerHasBeenClicked, visible: activeSiteEvents().length < 1">No upcoming events to show.</h5>
+          <div class="list-group" data-bind="foreach: activeSiteEvents.slice(0).reverse()">
             <div class="list-group-item">
               <div class="row-picture">
                 <img class="circle img-responsive" data-bind="attr: {src: cover}">
