@@ -1,5 +1,7 @@
 // Global variables
 var map, infowindow, vm, mapStyle;
+var redPin = "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png";
+var greenPin = "http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png";
 
 function site(name, lat, lng, pid) {
 	this.name = ko.observable(name);
@@ -16,17 +18,22 @@ function site(name, lat, lng, pid) {
 		map: map,
 		title: name,
 		animation: google.maps.Animation.DROP,
+		icon: redPin
 	});
 
-	// Animate marker when clicked
+	// Animate marker when clicked and change color
 	google.maps.event.addListener(this.marker, 'click', function () {
 		if (this.marker.getAnimation() != null) {
 			this.marker.setAnimation(null);
 		} else {
+			// Revert all markers to default state (redPin, no animation)
 			for (var i in vm.sites()) {
 				vm.sites()[i].marker.setAnimation(null);
+				vm.sites()[i].marker.setIcon(redPin);
 			}
 			this.marker.setAnimation(google.maps.Animation.BOUNCE);
+			console.log(greenPin);
+			this.marker.setIcon(greenPin);
 		}
 	}.bind(this));
 
@@ -57,7 +64,7 @@ function site(name, lat, lng, pid) {
 	}.bind(this));
 }
 
-function ViewModel(fbStatus) {
+function ViewModel() {
 	var self = this;
 	self.loggedIn = ko.observable(false);
 	self.sites = ko.observableArray();
