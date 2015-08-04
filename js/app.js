@@ -1,7 +1,7 @@
 // Global variables
 var map, infowindow, vm, mapStyle;
-var redPin = "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png";
-var greenPin = "http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png";
+var redPin = "images/red-pushpin.png";
+var greenPin = "images/grn-pushpin.png";
 
 function site(name, lat, lng, pid) {
 	this.name = ko.observable(name);
@@ -71,7 +71,7 @@ function ViewModel() {
 	self.neighborhood = ko.observable();
 	self.showList = ko.observable(true);
 	self.anyMarkerHasBeenClicked = ko.observable(false);
-	self.activeSiteCover = ko.observable('pasadena_cover.jpg');
+	self.activeSiteCover = ko.observable('images/pasadena_cover.jpg');
 	self.activeSiteEvents = ko.observableArray();
 	self.fbErr = ko.observable(false);
 	self.gmErr = ko.observable(false);
