@@ -1,6 +1,7 @@
 html,
 body,
 .container-fluid {
+	background-color: rgb(229, 226, 217);
 	height: 100%;
 	margin: 0;
 	padding: 0;
@@ -35,7 +36,8 @@ h1 {
 }
 
 #sidebar {
-
+	overflow: scroll;
+	z-index: 2;
 }
 
 /* ------ Info Windows ------ */

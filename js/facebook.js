@@ -19,7 +19,7 @@ window.fbAsyncInit = function() {
 function checkIfLoggedIn() {
   FB.getLoginStatus(function(response) {
     if (response.status === 'connected') {
-      // the user is logged in and has authenticated your app
+      // the user is already logged in and has authenticated your app
       appInit();
       vm.loggedIn(true);
       mapInit();
@@ -27,7 +27,9 @@ function checkIfLoggedIn() {
     } else if (response.status === 'not_authorized') {
       // the user is logged in to Facebook,
       // but has not authenticated your app
-      console.log('You have not authenticated my app.');
+      alert('You have not authenticated my app.');
+    } else if (!response || response.error) {
+      vm.fbErr(true);
     } else {
       // the user isn't logged in to Facebook.
       appInit();
@@ -39,11 +41,15 @@ function checkIfLoggedIn() {
 function loginFlow() {
   FB.login(function(response) {
     if (response.authResponse) {
-      mapInit(); // Initialize map
       vm.loggedIn(true);
-      vm.loadData(); // Make request for location JSON data
+      mapInit();
+      vm.loadData();
+      console.log('Login successful.');
+    } else if (!response || response.error) {
+      vm.fbErr(true);
     } else {
-      console.log('Authorization failed.');
+      vm.loggedIn(false);
+      alert('Login failed.');
     }
   },{scope: 'email'});
 }
@@ -55,6 +61,8 @@ function logoutFlow() {
         vm.loggedIn(false);
         console.log("Logged you out");
       });
+    } else if (!response || response.error) {
+      vm.fbErr(true);
     }
     // Refresh the page to prevent bugs with Google Maps
     location.reload();
@@ -67,6 +75,8 @@ function getEvents(pid, timeStamp, callback, object) {
       if (response && !response.error) {
         /* handle the result */
         callback.call(object, response);
+      } else if (!response || response.error) {
+        vm.fbErr(true);
       }
     });
 }
@@ -77,6 +87,8 @@ function getCoverPhoto(id, callback, object) {
       if (response && !response.error) {
         /* handle the result */
         callback.call(object, response.cover.source);
+      } else if (!response || response.error) {
+        vm.fbErr(true);
       }
     });
 }

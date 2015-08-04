@@ -18,12 +18,26 @@ function site(name, lat, lng, pid) {
 		animation: google.maps.Animation.DROP,
 	});
 
+	// Animate marker when clicked
+	google.maps.event.addListener(this.marker, 'click', function () {
+		if (this.marker.getAnimation() != null) {
+			this.marker.setAnimation(null);
+		} else {
+			for (var i in vm.sites()) {
+				vm.sites()[i].marker.setAnimation(null);
+			}
+			this.marker.setAnimation(google.maps.Animation.BOUNCE);
+		}
+	}.bind(this));
+
 	// Add infowindow to marker when clicked
 	google.maps.event.addListener(this.marker, 'click', function openWindow() {
 
 		vm.anyMarkerHasBeenClicked(true);
 
-		// TODO: Call view model's functions to set active site
+		// Change marker color
+
+		// Call view model's functions to set active site
 		vm.activeSiteCover(this.cover());
 		vm.activeSiteEvents(this.events());
 
@@ -45,13 +59,14 @@ function site(name, lat, lng, pid) {
 
 function ViewModel(fbStatus) {
 	var self = this;
-	self.loggedIn = ko.observable();
+	self.loggedIn = ko.observable(false);
 	self.sites = ko.observableArray();
 	self.neighborhood = ko.observable();
 	self.showList = ko.observable(true);
 	self.anyMarkerHasBeenClicked = ko.observable(false);
-	self.activeSiteCover = ko.observable();
+	self.activeSiteCover = ko.observable('pasadena_cover.jpg');
 	self.activeSiteEvents = ko.observableArray();
+	self.fbErr = ko.observable(false);
 
 	// Load JSON location data
 	self.loadData = function() {
@@ -73,7 +88,6 @@ function ViewModel(fbStatus) {
 
 			var timeStamp = Math.floor(Date.now() / 1000);
 
-
 			for (var i in self.sites()) {
 
 				// Get cover photo for each site
@@ -87,23 +101,17 @@ function ViewModel(fbStatus) {
 				(function(index) {
 					window.getEvents(self.sites()[index].pid(), timeStamp, function(response) {
 						self.sites()[index].events(response.data);
-
 						// Attach event cover photos to events
 						for (var j in self.sites()[index].events()) {
-
 							(function(jindex) {
 								window.getCoverPhoto(self.sites()[index].events()[jindex].id, function(coverURL) {
 									self.sites()[index].events()[jindex].cover = coverURL;
 								}, this);
 							})(j);
-
 						}
-
 					}, this);
 				})(i);
-
 			}
-
 		});
 	}
 
@@ -125,19 +133,16 @@ function ViewModel(fbStatus) {
 	// Live search function
 	self.liveSearch = function(model, obj) {
 
-		// Clear the info-view
-		self.coverPhotoURL("");
-		self.markerHasBeenClicked(false);
-		self.eventList([]);
+		console.log("liveSearch");
 
 		var pattern = new RegExp(obj.currentTarget.value.toLowerCase());
-		for (i = 0; i < self.entities().length; i++) {
-			if (pattern.test(self.entities()[i].name().toLowerCase())) {
-				self.entities()[i].marker.setVisible(true);
-				self.entities()[i].visible(true);
+		for (i = 0; i < self.sites().length; i++) {
+			if (pattern.test(self.sites()[i].name().toLowerCase())) {
+				self.sites()[i].marker.setVisible(true);
+				self.sites()[i].visible(true);
 			} else {
-				self.entities()[i].marker.setVisible(false);
-				self.entities()[i].visible(false);
+				self.sites()[i].marker.setVisible(false);
+				self.sites()[i].visible(false);
 			}
 		}
 	}

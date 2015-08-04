@@ -38,10 +38,10 @@
       </div>
 
       <!-- Sidebar -->
-      <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 no-padding" id="sidebar">
+      <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 full-height no-padding" id="sidebar">
 
         <!-- List View -->
-        <div class="shadow-z-1" data-bind="fadeVisible: showList" id="list">
+        <div class="well shadow-z-1" data-bind="fadeVisible: showList" id="list">
           <div class="list-group" data-bind="foreach: sites">
             <div class="list-group-item" data-bind="click: $parent.clickedListItem, fadeVisible: visible">
               <i class="mdi-maps-pin-drop"></i>
@@ -52,19 +52,24 @@
 
         <!-- Info View -->
         <div id="info-view">
-          <img class="cover-photo" data-bind="attr: {src: activeSiteCover()}"></img>
-          <h4 data-bind="visible: activeSiteEvents().length > 0">Upcoming Events</span></h4>
-          <h5 data-bind="if: anyMarkerHasBeenClicked, visible: activeSiteEvents().length < 1">No upcoming events to show.</h5>
-          <div class="list-group" data-bind="foreach: activeSiteEvents.slice(0).reverse()">
-            <div class="list-group-item">
-              <div class="row-picture">
-                <img class="circle img-responsive" data-bind="attr: {src: cover}">
+          <div class="well" data-bind="visible: fbErr()">
+            An error with Facebook occurred and the page may not be displaying correctly. Please refresh or try again later.
+          </div>
+          <img class="well cover-photo" data-bind="attr: {src: activeSiteCover()}"></img>
+          <div class="well">
+            <h4 data-bind="visible: activeSiteEvents().length > 0">Upcoming Events</span></h4>
+            <h5 data-bind="if: anyMarkerHasBeenClicked, visible: activeSiteEvents().length < 1">No upcoming events to show.</h5>
+            <div class="list-group" data-bind="foreach: activeSiteEvents.slice(0).reverse()">
+              <div class="list-group-item">
+                <div class="row-picture">
+                  <img class="circle img-responsive" data-bind="attr: {src: cover}">
+                </div>
+                <div class="row-content">
+                  <span class="list-group-item-heading"data-bind="text: name, attr: {href: '#' + id}" data-toggle="collapse"></span>
+                  <p class="list-group-item-text collapse" data-bind="attr: {id: id}, text: description"></p>
+                </div>
+                <div class="list-group-separator"></div>
               </div>
-              <div class="row-content">
-                <span class="list-group-item-heading"data-bind="text: name, attr: {href: '#' + id}" data-toggle="collapse"></span>
-                <p class="list-group-item-text collapse" data-bind="attr: {id: id}, text: description"></p>
-              </div>
-              <div class="list-group-separator"></div>
             </div>
           </div>
         </div>
