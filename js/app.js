@@ -67,6 +67,7 @@ function ViewModel(fbStatus) {
 	self.activeSiteCover = ko.observable('pasadena_cover.jpg');
 	self.activeSiteEvents = ko.observableArray();
 	self.fbErr = ko.observable(false);
+	self.gmErr = ko.observable(false);
 
 	// Load JSON location data
 	self.loadData = function() {
@@ -132,9 +133,6 @@ function ViewModel(fbStatus) {
 
 	// Live search function
 	self.liveSearch = function(model, obj) {
-
-		console.log("liveSearch");
-
 		var pattern = new RegExp(obj.currentTarget.value.toLowerCase());
 		for (i = 0; i < self.sites().length; i++) {
 			if (pattern.test(self.sites()[i].name().toLowerCase())) {
@@ -165,6 +163,16 @@ ko.bindingHandlers.fadeVisible = {
 };
 
 var mapInit = function() {
+
+	// Check if Google Map has loaded
+	if (typeof(google) === 'undefined' ||
+		typeof(google.maps) === 'undefined' ||
+		typeof(google.maps.Map) === 'undefined') {
+		vm.gmErr(true);
+	} else {
+		vm.gmErr(false);
+	}
+
 	// Create Google Map
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: 34.150596, lng: -118.137817},

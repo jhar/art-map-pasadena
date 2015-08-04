@@ -27,7 +27,7 @@
           <span class="navbar-brand" data-bind="text: neighborhood"></span>
         </div>
         <form class="navbar-form navbar-left">
-          <input type="text" data-bind="event: {keyup: liveSearch}" class="form-control" placeholder="Search">
+          <input type="text" data-bind="event: {keyup: liveSearch}" class="form-control" placeholder="Search locations">
         </form>
         <div class="togglebutton pull-right">
           <label>
@@ -56,16 +56,16 @@
             An error with Facebook occurred and the page may not be displaying correctly. Please refresh or try again later.
           </div>
           <img class="well cover-photo" data-bind="attr: {src: activeSiteCover()}"></img>
-          <div class="well">
+          <div class="well" data-bind="visible: anyMarkerHasBeenClicked">
             <h4 data-bind="visible: activeSiteEvents().length > 0">Upcoming Events</span></h4>
             <h5 data-bind="if: anyMarkerHasBeenClicked, visible: activeSiteEvents().length < 1">No upcoming events to show.</h5>
             <div class="list-group" data-bind="foreach: activeSiteEvents.slice(0).reverse()">
-              <div class="list-group-item">
+              <div class="list-group-item" data-toggle="collapse" data-bind="attr: {href: '#' + id}">
                 <div class="row-picture">
                   <img class="circle img-responsive" data-bind="attr: {src: cover}">
                 </div>
                 <div class="row-content">
-                  <span class="list-group-item-heading"data-bind="text: name, attr: {href: '#' + id}" data-toggle="collapse"></span>
+                  <span class="list-group-item-heading" data-bind="text: name, attr: {href: '#' + id}"></span>
                   <p class="list-group-item-text collapse" data-bind="attr: {id: id}, text: description"></p>
                 </div>
                 <div class="list-group-separator"></div>
@@ -84,6 +84,9 @@
 
       <!-- Map View -->
       <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8 full-height no-padding" id="map-container">
+        <div class="well" data-bind="visible: gmErr()">
+          An error with Google Maps occurred and the page may not be displaying correctly. Please refresh or try again later.
+        </div>
         <div class="full-height" id="map"></div>
       </div>
 
