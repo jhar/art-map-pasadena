@@ -23,16 +23,15 @@ function site(name, lat, lng, pid) {
 
 	// Animate marker when clicked and change color
 	google.maps.event.addListener(this.marker, 'click', function () {
-		if (this.marker.getAnimation() != null) {
+		if (this.marker.getAnimation() !== null) {
 			this.marker.setAnimation(null);
 		} else {
 			// Revert all markers to default state (redPin, no animation)
-			for (var i in vm.sites()) {
+			for (var i = 0, len = vm.sites().length; i < len; i++) {
 				vm.sites()[i].marker.setAnimation(null);
 				vm.sites()[i].marker.setIcon(redPin);
 			}
 			this.marker.setAnimation(google.maps.Animation.BOUNCE);
-			console.log(greenPin);
 			this.marker.setIcon(greenPin);
 		}
 	}.bind(this));
@@ -96,7 +95,7 @@ function ViewModel() {
 
 			var timeStamp = Math.floor(Date.now() / 1000);
 
-			for (var i in self.sites()) {
+			for (var i = 0, len = self.sites().length; i < len; i++) {
 
 				// Get cover photo for each site
 				(function(index) {
@@ -110,7 +109,7 @@ function ViewModel() {
 					window.getEvents(self.sites()[index].pid(), timeStamp, function(response) {
 						self.sites()[index].events(response.data);
 						// Attach event cover photos to events
-						for (var j in self.sites()[index].events()) {
+						for (var j = 0, len = self.sites()[index].events().length; i < len; i++) {
 							(function(jindex) {
 								window.getCoverPhoto(self.sites()[index].events()[jindex].id, function(coverURL) {
 									self.sites()[index].events()[jindex].cover = coverURL;
@@ -121,27 +120,27 @@ function ViewModel() {
 				})(i);
 			}
 		});
-	}
+	};
 
 	// Clicks markers when list item is clicked
 	self.clickedListItem = function() {
 		google.maps.event.trigger(this.marker, 'click');
-	}
+	};
 
 	// Begins Facebook login process
 	self.login = function() {
 		window.loginFlow();
-	}
+	};
 
 	// Begins Facebook logout process
 	self.logout = function() {
 		window.logoutFlow();
-	}
+	};
 
 	// Live search function
 	self.liveSearch = function(model, obj) {
 		var pattern = new RegExp(obj.currentTarget.value.toLowerCase());
-		for (i = 0; i < self.sites().length; i++) {
+		for (var i = 0, len = self.sites().length; i < len; i++) {
 			if (pattern.test(self.sites()[i].name().toLowerCase())) {
 				self.sites()[i].marker.setVisible(true);
 				self.sites()[i].visible(true);
@@ -150,7 +149,7 @@ function ViewModel() {
 				self.sites()[i].visible(false);
 			}
 		}
-	}
+	};
 
 }
 
@@ -203,7 +202,7 @@ var mapInit = function() {
 	infowindow = new google.maps.InfoWindow({
 		content: "No content loaded"
 	});
-}
+};
 
 var appInit = function() {
 	// Create view model object and apply bindings
@@ -212,13 +211,4 @@ var appInit = function() {
 
 	// Initialize material (should this go here?)
 	$.material.init();
-}
-
-
-
-
-
-
-
-
-
+};
