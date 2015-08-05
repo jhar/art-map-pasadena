@@ -27,7 +27,9 @@ function checkIfLoggedIn() {
     } else if (response.status === 'not_authorized') {
       // the user is logged in to Facebook,
       // but has not authenticated your app
-      alert('You have not authenticated my app.');
+      // alert('You have not authenticated my app.');
+      appInit();
+      loginFlow();
     } else if (!response || response.error) {
       vm.fbErr(true);
     } else {
