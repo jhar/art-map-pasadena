@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="bower_components/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/material-fullpalette.min.css">
-  <link rel="stylesheet" href="css/style.css">
-</head>
+  <head>
+    <title>Neighborhood Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/material-fullpalette.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
 <body>
 
   <!-- Facebook API -->
@@ -55,14 +56,14 @@
           <div class="well" data-bind="visible: fbErr()">
             An error with Facebook occurred and the page may not be displaying correctly. Please refresh or try again later.
           </div>
-          <img class="well cover-photo" data-bind="attr: {src: activeSiteCover()}"></img>
+          <img class="well cover-photo" data-bind="attr: {src: activeSiteCover()}" alt=""/>
           <div class="well" data-bind="visible: anyMarkerHasBeenClicked">
-            <h4 data-bind="visible: activeSiteEvents().length > 0">Upcoming Events</span></h4>
+            <h4 data-bind="visible: activeSiteEvents().length > 0">Upcoming Events</h4>
             <h5 data-bind="if: anyMarkerHasBeenClicked, visible: activeSiteEvents().length < 1">No upcoming events to show.</h5>
             <div class="list-group" data-bind="foreach: activeSiteEvents.slice(0).reverse()">
               <div class="list-group-item" data-toggle="collapse" data-bind="attr: {href: '#' + id}">
                 <div class="row-picture">
-                  <img class="circle img-responsive" data-bind="attr: {src: cover}">
+                  <img class="circle img-responsive" data-bind="attr: {src: cover}" alt="">
                 </div>
                 <div class="row-content">
                   <span class="list-group-item-heading" data-bind="text: name, attr: {href: '#' + id}"></span>
@@ -76,7 +77,7 @@
 
         <!-- Logout View -->
         <div id="logout">
-          <button class="btn btn-warning btn-raised" data-bind="click: function(){logout();}">Logout of Facebook</login>
+          <button class="btn btn-warning btn-raised" data-bind="click: function(){logout();}">Logout of Facebook</button>
         </div>
 
       </div>
@@ -93,13 +94,13 @@
   </div>
 
   <footer>
-    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="bower_components/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-3tB7p20c-Zeb0GM3RxLB5ZSmFiZsIBQ"></script>
-    <script type="text/javascript" src="bower_components/knockout/dist/knockout.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/facebook.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/js/bootstrap.min.js"></script>
+    <script src="bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-3tB7p20c-Zeb0GM3RxLB5ZSmFiZsIBQ"></script>
+    <script src="bower_components/knockout/dist/knockout.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/facebook.js"></script>
   </footer>
 
 </body>

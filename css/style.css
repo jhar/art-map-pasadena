@@ -71,7 +71,7 @@ h1 {
 }
 
 .list-group-item {
-	padding: 6px 0px 6px 8px !important;
+	padding: 6px 0 6px 8px !important;
 }
 
 .list-group-item:hover {
@@ -107,9 +107,11 @@ h1 {
 }
 
 /* ------ Footer ------- */
+
 #footer {
 	height: 50px;
 }
+
 #logout {
 	border-radius: 5px;
 }

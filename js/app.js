@@ -109,7 +109,7 @@ function ViewModel() {
 					window.getEvents(self.sites()[index].pid(), timeStamp, function(response) {
 						self.sites()[index].events(response.data);
 						// Attach event cover photos to events
-						for (var j = 0, len = self.sites()[index].events().length; i < len; i++) {
+						for (var j = 0, len = self.sites()[index].events().length; j < len; j++) {
 							(function(jindex) {
 								window.getCoverPhoto(self.sites()[index].events()[jindex].id, function(coverURL) {
 									self.sites()[index].events()[jindex].cover = coverURL;
