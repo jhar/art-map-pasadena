@@ -13,17 +13,17 @@
   <div id="fb-root"></div>
 
   <!-- Login View -->
-  <div class="jumbotron text-center" id="login" data-bind="style: {display: loggedIn() === true ? 'none' : 'block'}">
+  <div class="jumbotron login text-center" data-bind="style: {display: loggedIn() === true ? 'none' : 'block'}">
       <h1>project 5</h1>
-      <p>Pasadena, California</p>
+      <p>Neighborhood Map for Pasadena, California</p>
       <button class="btn btn-primary btn-raised" data-bind="click: function(){login();}">Login with Facebook</button>
   </div>
 
 
-  <div id="app" class="container-fluid row full-height" data-bind="style: {display: loggedIn() === false ? 'none' : 'block'}">
+  <div class="app container-fluid row full-height" data-bind="style: {display: loggedIn() === false ? 'none' : 'block'}">
 
       <!-- Search View -->
-      <div class="navbar navbar-default col-xs-12 shadow-z-1" id="search">
+      <div class="search navbar navbar-default col-xs-12 shadow-z-1">
         <div class="navbar-header">
           <span class="navbar-brand" data-bind="text: neighborhood"></span>
         </div>
@@ -39,10 +39,10 @@
       </div>
 
       <!-- Sidebar -->
-      <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 full-height no-padding" id="sidebar">
+      <div class="sidebar col-xs-12 col-sm-6 col-md-5 col-lg-4 full-height no-padding">
 
         <!-- List View -->
-        <div class="well shadow-z-1" data-bind="fadeVisible: showList" id="list">
+        <div class="list well shadow-z-1" data-bind="fadeVisible: showList">
           <div class="list-group" data-bind="foreach: sites">
             <div class="list-group-item" data-bind="click: $parent.clickedListItem, fadeVisible: visible">
               <i class="mdi-maps-pin-drop"></i>
@@ -76,7 +76,7 @@
         </div>
 
         <!-- Logout View -->
-        <div id="logout">
+        <div class="logout">
           <button class="btn btn-warning btn-raised" data-bind="click: function(){logout();}">Logout of Facebook</button>
         </div>
 
@@ -84,7 +84,7 @@
       <!-- End Sidebar -->
 
       <!-- Map View -->
-      <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8 full-height no-padding" id="map-container">
+      <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8 full-height map-container no-padding">
         <div class="well" data-bind="visible: gmErr()">
           An error with Google Maps occurred and the page may not be displaying correctly. Please refresh or try again later.
         </div>

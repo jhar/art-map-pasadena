@@ -7,6 +7,16 @@ body,
 	padding: 0;
 }
 
+h1 {
+	font-size: 38px;
+	margin: 0;
+	padding: 0;
+}
+
+.app {
+	display: none;
+}
+
 .full-height {
 	height: 100%;
 }
@@ -15,27 +25,17 @@ body,
 	padding: 0;
 }
 
-h1 {
-	font-size: 38px;
-	margin: 0;
-	padding: 0;
-}
-
-#app {
-	display: none;
-}
-
-#login {
+.login {
 	border-radius: 5px;
 	margin: 60px auto 20px auto;
 	max-width: 324px;
 }
 
-#map-container {
+.map-container {
 	z-index: 1;
 }
 
-#sidebar {
+.sidebar {
 	overflow: scroll;
 	z-index: 2;
 }
@@ -47,20 +47,26 @@ h1 {
 	max-width: 360px;
 }
 
-/* ------ Info View ------ */
+/* ------ Header ------ */
 
-.list-group-item-heading {
-	font-size: 16px !important;
+.search {
+	height: 50px;
+	margin-bottom: 0;
+	min-width: 371px;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 2;
 }
 
-.cover-photo {
-	max-width: 100%;
-	position: relative;
+.togglebutton {
+	margin-top: 16px;
+	padding-right: 16px;
 }
 
 /* ------ List View ------ */
 
-#list {
+.list {
 	min-width: 371px;
 	padding: 0;
 	z-index: 2;
@@ -78,41 +84,21 @@ h1 {
 	background-color: rgb(233,185,206);
 }
 
-/* ------ Header ------ */
+/* ------ Info View ------ */
 
-#search {
-	height: 50px;
-	margin-bottom: 0;
-	min-width: 371px;
-	top: 0;
-	left: 0;
-	right: 0;
-	z-index: 2;
+.list-group-item-heading {
+	font-size: 16px !important;
 }
 
-.navbar-right {
-	font-size: 14px;
-	font-weight: 300;
-	margin-right: 0px;
-	padding: 20px 15px 20px 15px;
+.cover-photo {
+	max-width: 100%;
+	position: relative;
 }
 
-.toggle {
-	padding-left: 4px;
-}
-
-.togglebutton {
-	margin-top: 16px;
-	padding-right: 16px;
-}
-
-/* ------ Footer ------- */
-
-#footer {
-	height: 50px;
-}
-
-#logout {
+.logout {
 	border-radius: 5px;
 }
+
+
+
 

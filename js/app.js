@@ -84,7 +84,7 @@ function ViewModel() {
 			self.sites.removeAll();
 
 			// Load JSON data into sites array
-			for (i = 0; i < data.locations.length; i++) {
+			for (var i = 0, len = data.locations.length; i < len; i++) {
 				self.sites.push(new site(
 					data.locations[i].name,
 					data.locations[i].lat,
