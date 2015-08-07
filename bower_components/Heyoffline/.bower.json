@@ -1,0 +1,17 @@
+{
+  "name": "Heyoffline",
+  "version": "1.1.1",
+  "main": "heyoffline.js",
+  "dependencies": {},
+  "homepage": "https://github.com/oskarkrawczyk/heyoffline.js",
+  "_release": "1.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.1.1",
+    "commit": "23e36d156714816d1d213154c4c8829b8443323e"
+  },
+  "_source": "git://github.com/oskarkrawczyk/heyoffline.js.git",
+  "_target": "~1.1.1",
+  "_originalSource": "Heyoffline",
+  "_direct": true
+}

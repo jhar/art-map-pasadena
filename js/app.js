@@ -3,6 +3,11 @@ var map, infowindow, vm, mapStyle;
 var redPin = "images/red-pushpin.png";
 var greenPin = "images/grn-pushpin.png";
 
+// Detect if offline
+window.addEventListener('load', function(){
+    new Heyoffline();
+}, false);
+
 function site(name, lat, lng, pid) {
 	this.name = ko.observable(name);
 	this.lat = ko.observable(lat);
