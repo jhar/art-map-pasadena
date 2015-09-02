@@ -7,7 +7,7 @@ gulp.task('bowerStyles', function() {
             'bower_components/bootstrap-material-design/dist/css/material-fullpalette.min.css'
         ])
         .pipe(concat('bower.css'))
-        .pipe(gulp.dest('./src/css/'));
+        .pipe(gulp.dest('./static/css/'));
 });
 
 gulp.task('bowerScripts', function() {
@@ -19,7 +19,7 @@ gulp.task('bowerScripts', function() {
             'bower_components/Heyoffline/heyoffline.js'
         ])
         .pipe(concat('bower.js'))
-        .pipe(gulp.dest('./src/js'));
+        .pipe(gulp.dest('./static/js'));
 });
 
 gulp.task('default', function() {

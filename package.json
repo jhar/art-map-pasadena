@@ -1,0 +1,26 @@
+{
+  "name": "pasadena-arts-events-map",
+  "version": "1.0.0",
+  "description": "Utilizes Google Maps and Facebook Graph API to create a local map of events at selected arts organizations.",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.13.3",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jhar/pasadena-arts-events-map"
+  },
+  "author": "Justin A. Harrison",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jhar/pasadena-arts-events-map/issues"
+  },
+  "homepage": "https://github.com/jhar/pasadena-arts-events-map"
+}
