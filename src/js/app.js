@@ -73,7 +73,7 @@ function ViewModel() {
 	self.loggedIn = ko.observable(false);
 	self.sites = ko.observableArray();
 	self.neighborhood = ko.observable();
-	self.showList = ko.observable(true);
+	self.showList = ko.observable(false);
 	self.anyMarkerHasBeenClicked = ko.observable(false);
 	self.activeSiteCover = ko.observable('images/pasadena_cover.jpg');
 	self.activeSiteEvents = ko.observableArray();
@@ -130,6 +130,7 @@ function ViewModel() {
 	// Clicks markers when list item is clicked
 	self.clickedListItem = function() {
 		google.maps.event.trigger(this.marker, 'click');
+		self.toggleList();
 	};
 
 	// Begins Facebook login process
@@ -154,6 +155,11 @@ function ViewModel() {
 				self.sites()[i].visible(false);
 			}
 		}
+	};
+
+	// Toggle list view
+	self.toggleList = function() {
+		self.showList(!self.showList());
 	};
 
 }
@@ -213,7 +219,4 @@ var appInit = function() {
 	// Create view model object and apply bindings
 	vm = new ViewModel();
 	ko.applyBindings(vm);
-
-	// Initialize material (should this go here?)
-	$.material.init();
 };

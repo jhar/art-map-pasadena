@@ -1,0 +1,88 @@
+/* ------- Login View ----- */
+
+.login-view {
+	background-color: #eb232e;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+}
+
+.login-inner {
+	max-width: 666px;
+	margin: 0 auto;
+	height: 100%;
+	display: block;
+	position: relative;
+}
+
+.login-a, .login-b, .login-c {
+	color: white;
+	display: block;
+}
+
+.login-a {
+	text-transform: lowercase;
+	font-family: 'Alegreya', serif;
+	font-size: 3.9em;
+	letter-spacing: 0.23em;
+	position: absolute;
+	left: 20%;
+	top: 14%;
+	z-index: 3;
+	text-shadow: 3px 3px 3px #5b0005;
+}
+
+.login-b {
+	text-transform: uppercase;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 6.4em;
+	font-weight: bold;
+	letter-spacing: 0.368em;
+	position: absolute;
+	right: 14%;
+	top: 33%;
+	z-index: 2;
+	text-shadow: -50px -100px 0px #f56168,
+				 100px 100px 0px #fcbcbf,
+                 -38px 42px 0px #c3000a;
+}
+
+.login-c {
+  	font-family: 'Norican', cursive;
+  	font-size: 4.6em;
+  	position: absolute;
+  	right: 20%;
+  	top: 57%;
+  	z-index: 3;
+  	text-shadow: -3px 3px 3px #5b0005;
+}
+
+.fb-auth-button {
+	background-color: #384683;
+	border: 1px solid rgba(0, 0, 0, 0.38);
+	border-radius: 4px;
+	color: white;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	letter-spacing: 2px;
+	padding: 0;
+	position: absolute;
+	top: 80%;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	text-align: left;
+	width: 270px;
+	z-index: 3;
+}
+
+.fb-auth-icon {
+	border-right: 1px solid rgba(0, 0, 0, 0.38);
+	height: 48px;
+	width: 48px;
+	padding: 12px;
+	margin-right: 6px;
+}

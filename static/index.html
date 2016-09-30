@@ -11,13 +11,13 @@
   <div id="fb-root"></div>
 
   <!-- Login View -->
-  <div class="login" data-bind="style: {display: loggedIn() === true ? 'none' : 'block'}">
+  <div class="login-view" data-bind="style: {display: loggedIn() === true ? 'none' : 'block'}">
     <div class="login-inner">
       <span class="login-a">Art</span>
       <span class="login-b">Map</span>
       <span class="login-c">Pasadena</span>
-      <button class="login-button" data-bind="click: function(){login();}">
-        <img class="login-fb-icon" src="images/facebook.png" />
+      <button class="fb-auth-button" data-bind="click: function(){login();}">
+        <img class="fb-auth-icon" src="images/facebook.png" />
         Login with Facebook
       </button>
 
@@ -25,75 +25,62 @@
   </div>
 
 
-  <div class="app container-fluid row full-height" data-bind="style: {display: loggedIn() === false ? 'none' : 'block'}">
+  <div class="app" data-bind="style: {display: loggedIn() === false ? 'none' : 'block'}">
 
-      <!-- Search View -->
-      <div class="search navbar navbar-default col-xs-12 shadow-z-1">
-        <div class="navbar-header">
-          <span class="navbar-brand" data-bind="text: neighborhood"></span>
+      <!-- Nav View -->
+      <div class="nav-view">
+        <div class="list-toggle">
+          <img class="nav-hamburger" src="images/hamburger.png" data-bind="click: toggleList">
         </div>
-        <form class="navbar-form navbar-left">
-          <input type="text" data-bind="event: {keyup: liveSearch}" class="form-control" placeholder="Search locations">
-        </form>
-        <div class="togglebutton pull-right">
-          <label>
-            List
-            <input type="checkbox" data-bind="checked: showList">
-          </label>
+        <input class="nav-search" type="text" data-bind="event: {keyup: liveSearch}, attr: { placeholder: 'Search Art Map ' + neighborhood()}">
+        <!-- Logout Button -->
+        <div class="logout-wrapper">
+          <button class="fb-logout-button" data-bind="click: function(){logout();}">
+            Logout
+          </button>
         </div>
       </div>
 
-      <!-- Sidebar -->
-      <div class="sidebar col-xs-12 col-sm-6 col-md-5 col-lg-4 full-height no-padding">
-
-        <!-- List View -->
-        <div class="list well shadow-z-1" data-bind="fadeVisible: showList">
-          <div class="list-group" data-bind="foreach: sites">
-            <div class="list-group-item" data-bind="click: $parent.clickedListItem, fadeVisible: visible">
-              <i class="mdi-maps-pin-drop"></i>
-              <span data-bind="text: name"></span>
-            </div>
+      <!-- List View -->
+      <div class="list-view" data-bind="fadeVisible: showList">
+        <div class="list-group" data-bind="foreach: sites">
+          <div class="list-group-item" data-bind="click: $parent.clickedListItem, fadeVisible: visible">
+            <i class="mdi-maps-pin-drop"></i>
+            <span data-bind="text: name"></span>
           </div>
         </div>
+      </div>
 
-        <!-- Info View -->
-        <div id="info-view">
-          <div class="well" data-bind="visible: fbErr()">
-            An error with Facebook occurred and the page may not be displaying correctly. Please refresh or try again later.
-          </div>
-          <img class="well cover-photo" data-bind="attr: {src: activeSiteCover()}" alt=""/>
-          <div class="well" data-bind="visible: anyMarkerHasBeenClicked">
-            <h4 data-bind="visible: activeSiteEvents().length > 0">Upcoming Events</h4>
-            <h5 data-bind="if: anyMarkerHasBeenClicked, visible: activeSiteEvents().length < 1">No upcoming events to show.</h5>
-            <div class="list-group" data-bind="foreach: activeSiteEvents.slice(0).reverse()">
-              <div class="list-group-item" data-toggle="collapse" data-bind="attr: {href: '#' + id}">
-                <div class="row-picture">
-                  <img class="circle img-responsive" data-bind="attr: {src: cover}" alt="">
-                </div>
-                <div class="row-content">
-                  <span class="list-group-item-heading" data-bind="text: name, attr: {href: '#' + id}"></span>
-                  <p class="list-group-item-text collapse" data-bind="attr: {id: id}, text: description"></p>
-                </div>
-                <div class="list-group-separator"></div>
+      <!-- Info View -->
+      <div id="info-view">
+        <div data-bind="visible: fbErr()">
+          An error with Facebook occurred and the page may not be displaying correctly. Please refresh or try again later.
+        </div>
+        <img class="cover-photo" data-bind="attr: {src: activeSiteCover()}" alt=""/>
+        <div data-bind="visible: anyMarkerHasBeenClicked">
+          <h4 data-bind="visible: activeSiteEvents().length > 0">Upcoming Events</h4>
+          <h5 data-bind="if: anyMarkerHasBeenClicked, visible: activeSiteEvents().length < 1">No upcoming events to show.</h5>
+          <div class="list-group" data-bind="foreach: activeSiteEvents.slice(0).reverse()">
+            <div class="list-group-item" data-toggle="collapse" data-bind="attr: {href: '#' + id}">
+              <div class="row-picture">
+                <img class="circle img-responsive" data-bind="attr: {src: cover}" alt="">
               </div>
+              <div class="row-content">
+                <span class="list-group-item-heading" data-bind="text: name, attr: {href: '#' + id}"></span>
+                <p class="list-group-item-text collapse" data-bind="attr: {id: id}, text: description"></p>
+              </div>
+              <div class="list-group-separator"></div>
             </div>
           </div>
         </div>
-
-        <!-- Logout View -->
-        <div class="logout">
-          <button class="btn btn-warning btn-raised" data-bind="click: function(){logout();}">Logout of Facebook</button>
-        </div>
-
       </div>
-      <!-- End Sidebar -->
 
       <!-- Map View -->
-      <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8 full-height map-container no-padding">
-        <div class="well" data-bind="visible: gmErr()">
+      <div class="map-view">
+        <div data-bind="visible: gmErr()">
           An error with Google Maps occurred and the page may not be displaying correctly. Please refresh or try again later.
         </div>
-        <div class="full-height" id="map"></div>
+        <div id="map"></div>
       </div>
 
   </div>

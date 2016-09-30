@@ -1,0 +1,84 @@
+/* ------ Nav View ------ */
+
+.nav-view {
+	height: 50px;
+	width: 100%;
+	position: relative;
+}
+
+.list-toggle {
+	height: 50px;
+	width: 50px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	padding: 14px;
+}
+
+.nav-hamburger {
+	width: 100%;
+	height: 100%;
+	opacity: 0.68;
+}
+
+.nav-search {
+	border: 0;
+	color: black;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 18px;
+	height: 50px;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top: 0;
+	left: 50px;
+	min-width: 220px;
+}
+
+input:focus {
+    outline: none;
+}
+
+input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+	font-family: 'Montserrat', sans-serif;
+    color: black;
+    opacity: 0.68;
+}
+
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   font-family: 'Montserrat', sans-serif;
+   color: black;
+   opacity: 0.68;
+}
+
+input::-moz-placeholder { /* Mozilla Firefox 19+ */
+   font-family: 'Montserrat', sans-serif;	
+   color: black;
+   opacity: 0.68;
+}
+
+input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   font-family: 'Montserrat', sans-serif;
+   color: black;
+   opacity: 0.68;
+}
+
+.logout-wrapper {
+	height: 50px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 9px;
+}
+
+.fb-logout-button {
+	background-color: #384683;
+	border: 1px solid rgba(0, 0, 0, 0.38);
+	border-radius: 4px;
+	color: white;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	padding: 0 6px;
+	height: 100%;
+	z-index: 3;
+}

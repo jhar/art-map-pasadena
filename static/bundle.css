@@ -16,16 +16,18 @@
 
 html,
 body,
-.container-fluid {
-	background-color: rgb(229, 226, 217);
-	height: 100%;
+input {
 	margin: 0;
 	padding: 0;
 }
 
+.app {
+	display: none;
+	height: 100%;
+}
 /* ------- Login View ----- */
 
-.login {
+.login-view {
 	background-color: #eb232e;
 	position: absolute;
 	top: 0;
@@ -85,7 +87,7 @@ body,
   	text-shadow: -3px 3px 3px #5b0005;
 }
 
-.login-button {
+.fb-auth-button {
 	background-color: #384683;
 	border: 1px solid rgba(0, 0, 0, 0.38);
 	border-radius: 4px;
@@ -104,72 +106,104 @@ body,
 	z-index: 3;
 }
 
-.login-fb-icon {
+.fb-auth-icon {
 	border-right: 1px solid rgba(0, 0, 0, 0.38);
 	height: 48px;
 	width: 48px;
 	padding: 12px;
 	margin-right: 6px;
 }
+/* ------ Nav View ------ */
 
-h1 {
-	font-size: 38px;
+.nav-view {
+	height: 50px;
+	width: 100%;
+	position: relative;
+}
+
+.list-toggle {
+	height: 50px;
+	width: 50px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	padding: 14px;
+}
+
+.nav-hamburger {
+	width: 100%;
+	height: 100%;
+	opacity: 0.68;
+}
+
+.nav-search {
+	border: 0;
+	color: black;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 18px;
+	height: 50px;
 	margin: 0;
 	padding: 0;
-}
-
-.app {
-	display: none;
-}
-
-.full-height {
-	height: 100%;
-}
-
-.no-padding {
-	padding: 0;
-}
-
-
-
-.map-container {
-	z-index: 1;
-}
-
-.sidebar {
-	overflow: scroll;
-	z-index: 2;
-}
-
-/* ------ Info Windows ------ */
-
-.info-window {
-	max-height: 240px;
-	max-width: 360px;
-}
-
-/* ------ Header ------ */
-
-.search {
-	height: 50px;
-	margin-bottom: 0;
-	min-width: 371px;
+	position: absolute;
 	top: 0;
-	left: 0;
+	left: 50px;
+	min-width: 220px;
+}
+
+input:focus {
+    outline: none;
+}
+
+input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+	font-family: 'Montserrat', sans-serif;
+    color: black;
+    opacity: 0.68;
+}
+
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   font-family: 'Montserrat', sans-serif;
+   color: black;
+   opacity: 0.68;
+}
+
+input::-moz-placeholder { /* Mozilla Firefox 19+ */
+   font-family: 'Montserrat', sans-serif;	
+   color: black;
+   opacity: 0.68;
+}
+
+input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   font-family: 'Montserrat', sans-serif;
+   color: black;
+   opacity: 0.68;
+}
+
+.logout-wrapper {
+	height: 50px;
+	position: absolute;
 	right: 0;
-	z-index: 2;
+	top: 0;
+	padding: 9px;
 }
 
-.togglebutton {
-	margin-top: 16px;
-	padding-right: 16px;
+.fb-logout-button {
+	background-color: #384683;
+	border: 1px solid rgba(0, 0, 0, 0.38);
+	border-radius: 4px;
+	color: white;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	padding: 0 6px;
+	height: 100%;
+	z-index: 3;
 }
-
 /* ------ List View ------ */
 
-.list {
+.list-view {
 	min-width: 371px;
 	padding: 0;
+	position: absolute;
+	top: 50px;
 	z-index: 2;
 }
 
@@ -184,6 +218,28 @@ h1 {
 .list-group-item:hover {
 	background-color: rgb(233,185,206);
 }
+/* ------ Map View ------ */
+
+.map-view {
+	position: absolute;
+	top: 50px;
+	right: 0;
+	bottom: 50px;
+	left: 0;
+	z-index: 1;
+}
+
+#map {
+	height: 100%;
+	width: 100%;
+}
+
+.info-window {
+	max-height: 240px;
+	max-width: 360px;
+}
+
+
 
 /* ------ Info View ------ */
 
@@ -194,10 +250,6 @@ h1 {
 .cover-photo {
 	max-width: 100%;
 	position: relative;
-}
-
-.logout {
-	border-radius: 5px;
 }
 
 

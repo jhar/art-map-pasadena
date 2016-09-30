@@ -1,0 +1,13 @@
+@import 'https://fonts.googleapis.com/css?family=Alegreya|Montserrat|Norican';
+
+html,
+body,
+input {
+	margin: 0;
+	padding: 0;
+}
+
+.app {
+	display: none;
+	height: 100%;
+}
