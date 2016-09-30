@@ -1,25 +1,27 @@
 var gulp = require('gulp'),
     concat = require('gulp-concat');
 
-gulp.task('bowerStyles', function() {
+gulp.task('styles', function() {
     return gulp.src([
             'bower_components/bootstrap/css/bootstrap.min.css',
-            'bower_components/bootstrap-material-design/dist/css/material-fullpalette.min.css'
+            'src/css/style.css'
         ])
-        .pipe(concat('bower.css'))
-        .pipe(gulp.dest('./static/css/'));
+        .pipe(concat('bundle.css'))
+        .pipe(gulp.dest('./static/'));
 });
 
-gulp.task('bowerScripts', function() {
+gulp.task('scripts', function() {
     return gulp.src([
             'bower_components/jquery/dist/jquery.min.js',
             'bower_components/bootstrap/js/bootstrap.min.js',
             'bower_components/bootstrap-material-design/dist/js/material.min.js',
             'bower_components/knockout/dist/knockout.js',
-            'bower_components/Heyoffline/heyoffline.js'
+            'bower_components/Heyoffline/heyoffline.js',
+            'src/js/app.js',
+            'src/js/facebook.js'
         ])
-        .pipe(concat('bower.js'))
-        .pipe(gulp.dest('./static/js'));
+        .pipe(concat('bundle.js'))
+        .pipe(gulp.dest('./static/'));
 });
 
 gulp.task('default', function() {

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Neighborhood Map</title>
+    <title>Art Map Pasadena</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/bower.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="bundle.css">
   </head>
   <body>
 
@@ -12,10 +11,17 @@
   <div id="fb-root"></div>
 
   <!-- Login View -->
-  <div class="jumbotron login text-center" data-bind="style: {display: loggedIn() === true ? 'none' : 'block'}">
-      <h1>project 5</h1>
-      <p>Neighborhood Map for Pasadena, California</p>
-      <button class="btn btn-primary btn-raised" data-bind="click: function(){login();}">Login with Facebook</button>
+  <div class="login" data-bind="style: {display: loggedIn() === true ? 'none' : 'block'}">
+    <div class="login-inner">
+      <span class="login-a">Art</span>
+      <span class="login-b">Map</span>
+      <span class="login-c">Pasadena</span>
+      <button class="login-button" data-bind="click: function(){login();}">
+        <img class="login-fb-icon" src="images/facebook.png" />
+        Login with Facebook
+      </button>
+
+    </div>
   </div>
 
 
@@ -93,10 +99,8 @@
   </div>
 
   <footer>
-    <script src="js/bower.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-3tB7p20c-Zeb0GM3RxLB5ZSmFiZsIBQ"></script>
-    <script src="js/app.js"></script>
-    <script src="js/facebook.js"></script>
+    <script src="bundle.js"></script>
   </footer>
 
 </body>
