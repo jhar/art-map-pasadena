@@ -45,7 +45,7 @@ function loginFlow() {
     if (response.authResponse) {
       vm.loggedIn(true);
       mapInit();
-      vm.loadData();
+      vm.loadData(pasaData);
       console.log('Login successful.');
     } else if (!response || response.error) {
       vm.fbErr(true);

@@ -1,4 +1,4 @@
-{
+var pasaData = {
     "neighborhood": "Pasadena",
     "locations": [
         {
@@ -50,4 +50,4 @@
             "pid": "thegamblehouse"
         }
     ]
-}
+};

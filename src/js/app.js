@@ -7,7 +7,6 @@ var greenPin = "images/grn-pushpin.png";
 window.addEventListener('load', function(){
     new Heyoffline();
 }, false);
-
 function site(name, lat, lng, pid) {
 	this.name = ko.observable(name);
 	this.lat = ko.observable(lat);
@@ -70,50 +69,48 @@ function ViewModel() {
 	self.gmErr = ko.observable(false);
 
 	// Load JSON location data
-	self.loadData = function() {
-		$.getJSON("../pasadena.json", function(data) {
-			self.neighborhood(data.neighborhood);
+	self.loadData = function(data) {
+		self.neighborhood(data.neighborhood);
 
-			// Clear sites array so that it isn't populated twice
-			self.sites.removeAll();
+		// Clear sites array so that it isn't populated twice
+		self.sites.removeAll();
 
-			// Load JSON data into sites array
-			for (var i = 0, len = data.locations.length; i < len; i++) {
-				self.sites.push(new site(
-					data.locations[i].name,
-					data.locations[i].lat,
-					data.locations[i].lng,
-					data.locations[i].pid
-				));
-			}
+		// Load JSON data into sites array
+		for (var i = 0, len = data.locations.length; i < len; i++) {
+			self.sites.push(new site(
+				data.locations[i].name,
+				data.locations[i].lat,
+				data.locations[i].lng,
+				data.locations[i].pid
+			));
+		}
 
-			var timeStamp = Math.floor(Date.now() / 1000);
+		var timeStamp = Math.floor(Date.now() / 1000);
 
-			for (var i = 0, len = self.sites().length; i < len; i++) {
+		for (var i = 0, len = self.sites().length; i < len; i++) {
 
-				// Get cover photo for each site
-				(function(index) {
-					window.getCoverPhoto(self.sites()[index].pid(), function(response) {
-						self.sites()[index].cover(response);
-					}, this);
-				})(i);
+			// Get cover photo for each site
+			(function(index) {
+				window.getCoverPhoto(self.sites()[index].pid(), function(response) {
+					self.sites()[index].cover(response);
+				}, this);
+			})(i);
 
-				// Get events list for each site
-				(function(index) {
-					window.getEvents(self.sites()[index].pid(), timeStamp, function(response) {
-						self.sites()[index].events(response.data);
-						// Attach event cover photos to events
-						for (var j = 0, len = self.sites()[index].events().length; j < len; j++) {
-							(function(jindex) {
-								window.getCoverPhoto(self.sites()[index].events()[jindex].id, function(coverURL) {
-									self.sites()[index].events()[jindex].cover = coverURL;
-								}, this);
-							})(j);
-						}
-					}, this);
-				})(i);
-			}
-		});
+			// Get events list for each site
+			(function(index) {
+				window.getEvents(self.sites()[index].pid(), timeStamp, function(response) {
+					self.sites()[index].events(response.data);
+					// Attach event cover photos to events
+					for (var j = 0, len = self.sites()[index].events().length; j < len; j++) {
+						(function(jindex) {
+							window.getCoverPhoto(self.sites()[index].events()[jindex].id, function(coverURL) {
+								self.sites()[index].events()[jindex].cover = coverURL;
+							}, this);
+						})(j);
+					}
+				}, this);
+			})(i);
+		}
 	};
 
 	// Clicks markers when list item is clicked
@@ -157,21 +154,6 @@ function ViewModel() {
 	}
 
 }
-
-// Here's a custom Knockout binding that makes elements shown/hidden via jQuery's fadeIn()/fadeOut() methods
-// Found at: http://knockoutjs.com/examples/animatedTransitions.html
-ko.bindingHandlers.fadeVisible = {
-    init: function(element, valueAccessor) {
-        // Initially set the element to be instantly visible/hidden depending on the value
-        var value = valueAccessor();
-        $(element).toggle(ko.utils.unwrapObservable(value)); // Use "unwrapObservable" so we can handle values that may or may not be observable
-    },
-    update: function(element, valueAccessor) {
-        // Whenever the value subsequently changes, slowly fade the element in or out
-        var value = valueAccessor();
-        ko.utils.unwrapObservable(value) ? $(element).fadeIn() : $(element).fadeOut();
-    }
-};
 
 var mapInit = function() {
 
