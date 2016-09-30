@@ -8,7 +8,9 @@ gulp.task('styles', function() {
             'src/css/login.css',
             'src/css/nav.css',
             'src/css/list.css',
-            'src/css/style.css'
+            'src/css/map.css',
+            'src/css/info.css',
+            'src/css/footer.css'
         ])
         .pipe(concat('bundle.css'))
         .pipe(gulp.dest('./static/'));

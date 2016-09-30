@@ -24,21 +24,27 @@
     </div>
   </div>
 
-
+  <!-- Main App -->
   <div class="app" data-bind="style: {display: loggedIn() === false ? 'none' : 'block'}">
 
       <!-- Nav View -->
       <div class="nav-view">
+
+        <!-- Mmm, burger -->
         <div class="list-toggle">
           <img class="nav-hamburger" src="images/hamburger.png" data-bind="click: toggleList">
         </div>
+
+        <!-- Search -->
         <input class="nav-search" type="text" data-bind="event: {keyup: liveSearch}, attr: { placeholder: 'Search Art Map ' + neighborhood()}">
-        <!-- Logout Button -->
+        
+        <!-- Logout -->
         <div class="logout-wrapper">
           <button class="fb-logout-button" data-bind="click: function(){logout();}">
             Logout
           </button>
         </div>
+      
       </div>
 
       <!-- List View -->
@@ -51,13 +57,31 @@
         </div>
       </div>
 
+      <!-- Map View -->
+      <div class="map-view">
+        <div data-bind="visible: gmErr()">
+          An error with Google Maps occurred and the page may not be displaying correctly. Please refresh or try again later.
+        </div>
+        <div id="map"></div>
+      </div>
+
       <!-- Info View -->
-      <div id="info-view">
+      <div id="info-view" data-bind="fadeVisible: showInfo">
         <div data-bind="visible: fbErr()">
           An error with Facebook occurred and the page may not be displaying correctly. Please refresh or try again later.
         </div>
-        <img class="cover-photo" data-bind="attr: {src: activeSiteCover()}" alt=""/>
+
+        <!-- General Information -->
+        <div class=".general-info" data-bind="if: !anyMarkerHasBeenClicked()">
+          <img class="cover-photo" src="images/pasadena_cover.jpg" />
+          <p class=".about-app">
+            Art Map Pasadena was originally written in 2015 by Justin Harrison. The project is now being revised, updated, upgraded, etc.
+          </p>
+        </div>
+        
+        <!-- Site Specific Information -->
         <div data-bind="visible: anyMarkerHasBeenClicked">
+          <img class="cover-photo" data-bind="attr: {src: activeSiteCover()}" alt=""/>
           <h4 data-bind="visible: activeSiteEvents().length > 0">Upcoming Events</h4>
           <h5 data-bind="if: anyMarkerHasBeenClicked, visible: activeSiteEvents().length < 1">No upcoming events to show.</h5>
           <div class="list-group" data-bind="foreach: activeSiteEvents.slice(0).reverse()">
@@ -73,14 +97,27 @@
             </div>
           </div>
         </div>
+
       </div>
 
-      <!-- Map View -->
-      <div class="map-view">
-        <div data-bind="visible: gmErr()">
-          An error with Google Maps occurred and the page may not be displaying correctly. Please refresh or try again later.
+      <!-- Footer View -->
+      <div class="footer-view" data-bind="click: toggleInfo">
+
+        <!-- State 1: no-info-view, no site selected-->
+        <div class="footer-wrapper" data-bind="if: (!showInfo() && !anyMarkerHasBeenClicked())">
+          <span class="app-info">Learn more about Art Map Pasadena.</span>
         </div>
-        <div id="map"></div>
+
+        <!-- State 2: no-info-view, site selected-->
+        <div class="footer-wrapper" data-bind="if: (!showInfo() && anyMarkerHasBeenClicked())">
+         <span class="site-info" data-bind="text: activeSiteName"></span>
+        </div>
+
+        <!-- State 3: info-view shown-->
+        <div class="footer-wrapper" data-bind="if: showInfo">
+          <img class="triangle-down" src="images/triangle-down.png">
+        </div>
+        
       </div>
 
   </div>

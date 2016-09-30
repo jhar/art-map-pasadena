@@ -16,54 +16,41 @@ function site(name, lat, lng, pid) {
 	this.visible = ko.observable(true);
 	this.events = ko.observableArray();
 	this.cover = ko.observable();
+	this.active = ko.observable(false);
 
 	// Create marker
 	this.marker = new google.maps.Marker({
 		position: new google.maps.LatLng(lat,lng),
 		map: map,
 		title: name,
-		animation: google.maps.Animation.DROP,
 		icon: redPin
 	});
 
-	// Animate marker when clicked and change color
-	google.maps.event.addListener(this.marker, 'click', function () {
-		if (this.marker.getAnimation() !== null) {
-			this.marker.setAnimation(null);
-		} else {
-			// Revert all markers to default state (redPin, no animation)
-			for (var i = 0, len = vm.sites().length; i < len; i++) {
-				vm.sites()[i].marker.setAnimation(null);
-				vm.sites()[i].marker.setIcon(redPin);
-			}
-			this.marker.setAnimation(google.maps.Animation.BOUNCE);
-			this.marker.setIcon(greenPin);
-		}
-	}.bind(this));
-
-	// Add infowindow to marker when clicked
+	// Everything that happens when a marker is clicked
 	google.maps.event.addListener(this.marker, 'click', function openWindow() {
 
-		vm.anyMarkerHasBeenClicked(true);
+		// Save previous active state
+		var previous = this.active();
 
-		// Change marker color
+		// Revert all markers to default state
+		vm.anyMarkerHasBeenClicked(false);
+		for (var i = 0, len = vm.sites().length; i < len; i++) {
+			vm.sites()[i].active(false);
+			vm.sites()[i].marker.setIcon(redPin);
+		}
 
-		// Call view model's functions to set active site
-		vm.activeSiteCover(this.cover());
-		vm.activeSiteEvents(this.events());
+		// Change active state
+		this.active(!previous);
 
-		// Recenter map to clicked marker
-		map.setCenter(this.marker.getPosition());
-
-		// Set the content of the infowindow
-		infowindow.setContent('<div class="info-window">' +
-							  '<h5 class="info-name">' +
-							  		name +
-							  	'</h5>' +
-							  '</div>');
-
-		// Open the infowindow
-		infowindow.open(map,this.marker);
+		// Update vm state if active and change color of marker
+		if (this.active()) {
+			vm.anyMarkerHasBeenClicked(true);
+			this.marker.setIcon(greenPin);
+			vm.activeSiteName(this.name());
+			vm.activeSiteCover(this.cover());
+			vm.activeSiteEvents(this.events());
+			map.setCenter(this.marker.getPosition());
+		}
 
 	}.bind(this));
 }
@@ -74,8 +61,10 @@ function ViewModel() {
 	self.sites = ko.observableArray();
 	self.neighborhood = ko.observable();
 	self.showList = ko.observable(false);
+	self.showInfo = ko.observable(false);
 	self.anyMarkerHasBeenClicked = ko.observable(false);
-	self.activeSiteCover = ko.observable('images/pasadena_cover.jpg');
+	self.activeSiteName = ko.observable();
+	self.activeSiteCover = ko.observable();
 	self.activeSiteEvents = ko.observableArray();
 	self.fbErr = ko.observable(false);
 	self.gmErr = ko.observable(false);
@@ -85,7 +74,7 @@ function ViewModel() {
 		$.getJSON("../pasadena.json", function(data) {
 			self.neighborhood(data.neighborhood);
 
-			// Clear entities array so that it isn't populated twice
+			// Clear sites array so that it isn't populated twice
 			self.sites.removeAll();
 
 			// Load JSON data into sites array
@@ -161,6 +150,11 @@ function ViewModel() {
 	self.toggleList = function() {
 		self.showList(!self.showList());
 	};
+
+	// Toggle info view
+	self.toggleInfo = function() {
+		self.showInfo(!self.showInfo());
+	}
 
 }
 

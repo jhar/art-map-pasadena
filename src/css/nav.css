@@ -1,9 +1,11 @@
 /* ------ Nav View ------ */
 
 .nav-view {
+	background-color: white;
 	height: 50px;
 	width: 100%;
-	position: relative;
+	position: fixed;
+	z-index: 4;
 }
 
 .list-toggle {
@@ -33,6 +35,11 @@
 	top: 0;
 	left: 50px;
 	min-width: 220px;
+}
+
+input {
+	margin: 0;
+	padding: 0;
 }
 
 input:focus {

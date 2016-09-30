@@ -16,14 +16,15 @@
 
 html,
 body,
-input {
+.app {
+	min-height: 100%;
+	min-width: 100%;
 	margin: 0;
 	padding: 0;
 }
 
 .app {
 	display: none;
-	height: 100%;
 }
 /* ------- Login View ----- */
 
@@ -116,9 +117,11 @@ input {
 /* ------ Nav View ------ */
 
 .nav-view {
+	background-color: white;
 	height: 50px;
 	width: 100%;
-	position: relative;
+	position: fixed;
+	z-index: 4;
 }
 
 .list-toggle {
@@ -148,6 +151,11 @@ input {
 	top: 0;
 	left: 50px;
 	min-width: 220px;
+}
+
+input {
+	margin: 0;
+	padding: 0;
 }
 
 input:focus {
@@ -200,11 +208,12 @@ input:-ms-input-placeholder { /* Internet Explorer 10-11 */
 /* ------ List View ------ */
 
 .list-view {
-	min-width: 371px;
+	display: none;
+	width: 100%;
 	padding: 0;
 	position: absolute;
 	top: 50px;
-	z-index: 2;
+	z-index: 3;
 }
 
 .list-group {
@@ -238,10 +247,25 @@ input:-ms-input-placeholder { /* Internet Explorer 10-11 */
 	max-height: 240px;
 	max-width: 360px;
 }
-
-
-
 /* ------ Info View ------ */
+
+#info-view {
+	background-color: white;
+	position: absolute;
+	top: 50px;
+	right: 0;
+	bottom: 50px;
+	left: 0;
+	z-index: 2;
+}
+
+.general-info {
+
+}
+
+.about-app {
+
+}
 
 .list-group-item-heading {
 	font-size: 16px !important;
@@ -249,9 +273,36 @@ input:-ms-input-placeholder { /* Internet Explorer 10-11 */
 
 .cover-photo {
 	max-width: 100%;
-	position: relative;
 }
 
+/* ------ Footer View ------ */
+.footer-view {
+	background-color: white;
+	height: 50px;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 4;
+}
 
+.footer-wrapper {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
 
+.app-info,
+.site-info,
+.triangle-down {
+	display: block;
+	margin: 0 auto;
+}
 
+.app-info,
+.site-info {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 18px;
+}

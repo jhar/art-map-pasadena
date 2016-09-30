@@ -18,20 +18,3 @@
 	max-height: 240px;
 	max-width: 360px;
 }
-
-
-
-/* ------ Info View ------ */
-
-.list-group-item-heading {
-	font-size: 16px !important;
-}
-
-.cover-photo {
-	max-width: 100%;
-	position: relative;
-}
-
-
-
-

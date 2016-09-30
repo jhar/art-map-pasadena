@@ -1,0 +1,27 @@
+/* ------ Info View ------ */
+
+#info-view {
+	background-color: white;
+	position: absolute;
+	top: 50px;
+	right: 0;
+	bottom: 50px;
+	left: 0;
+	z-index: 2;
+}
+
+.general-info {
+
+}
+
+.about-app {
+
+}
+
+.list-group-item-heading {
+	font-size: 16px !important;
+}
+
+.cover-photo {
+	max-width: 100%;
+}

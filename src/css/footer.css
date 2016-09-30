@@ -1,0 +1,31 @@
+/* ------ Footer View ------ */
+.footer-view {
+	background-color: white;
+	height: 50px;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 4;
+}
+
+.footer-wrapper {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.app-info,
+.site-info,
+.triangle-down {
+	display: block;
+	margin: 0 auto;
+}
+
+.app-info,
+.site-info {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 18px;
+}

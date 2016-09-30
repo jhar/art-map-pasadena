@@ -1,11 +1,12 @@
 /* ------ List View ------ */
 
 .list-view {
-	min-width: 371px;
+	display: none;
+	width: 100%;
 	padding: 0;
 	position: absolute;
 	top: 50px;
-	z-index: 2;
+	z-index: 3;
 }
 
 .list-group {
