@@ -23,7 +23,7 @@ function checkIfLoggedIn() {
       appInit();
       vm.loggedIn(true);
       mapInit();
-      vm.loadData();
+      vm.loadData(pasaData);
     } else if (response.status === 'not_authorized') {
       // the user is logged in to Facebook,
       // but has not authenticated your app

@@ -13,7 +13,7 @@ var gulp = require('gulp'),
 
 // Compile src scss to src css
 gulp.task('sass', function() {
-    return gulp.src('src/scss/*.scss')
+    return gulp.src('src/scss/**/**/*.scss')
         .pipe(sass())
         .pipe(gulp.dest('src/css'))
         .pipe(browserSync.reload({
@@ -23,8 +23,9 @@ gulp.task('sass', function() {
 
 // Watchers
 gulp.task('watch', ['browserSync', 'sass'], function() {
-    gulp.watch('src/scss/*.scss', ['sass']);
-    gulp.watch('src/*html', browserSync.reload);
+    gulp.watch('src/scss/**/**/*.scss', ['sass']);
+    gulp.watch('src/css/*.css', browserSync.reload);
+    gulp.watch('src/*.html', browserSync.reload);
     gulp.watch('src/js/*.js', browserSync.reload);
 });
 

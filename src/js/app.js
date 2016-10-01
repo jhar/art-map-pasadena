@@ -1,13 +1,7 @@
 // Global variables
 var map, infowindow, vm, mapStyle;
-var redPin = "images/red-pushpin.png";
-var greenPin = "images/grn-pushpin.png";
 
-// Detect if offline
-window.addEventListener('load', function(){
-    new Heyoffline();
-}, false);
-function site(name, lat, lng, pid) {
+function site(name, lat, lng, pid, icon, icon2) {
 	this.name = ko.observable(name);
 	this.lat = ko.observable(lat);
 	this.lng = ko.observable(lng);
@@ -16,13 +10,15 @@ function site(name, lat, lng, pid) {
 	this.events = ko.observableArray();
 	this.cover = ko.observable();
 	this.active = ko.observable(false);
+	this.icon = ko.observable(icon);
+	this.icon2 = ko.observable(icon2);
 
 	// Create marker
 	this.marker = new google.maps.Marker({
 		position: new google.maps.LatLng(lat,lng),
 		map: map,
 		title: name,
-		icon: redPin
+		icon: icon
 	});
 
 	// Everything that happens when a marker is clicked
@@ -35,7 +31,7 @@ function site(name, lat, lng, pid) {
 		vm.anyMarkerHasBeenClicked(false);
 		for (var i = 0, len = vm.sites().length; i < len; i++) {
 			vm.sites()[i].active(false);
-			vm.sites()[i].marker.setIcon(redPin);
+			vm.sites()[i].marker.setIcon(vm.sites()[i].icon());
 		}
 
 		// Change active state
@@ -44,7 +40,7 @@ function site(name, lat, lng, pid) {
 		// Update vm state if active and change color of marker
 		if (this.active()) {
 			vm.anyMarkerHasBeenClicked(true);
-			this.marker.setIcon(greenPin);
+			this.marker.setIcon(this.icon2());
 			vm.activeSiteName(this.name());
 			vm.activeSiteCover(this.cover());
 			vm.activeSiteEvents(this.events());
@@ -168,8 +164,9 @@ var mapInit = function() {
 
 	// Create Google Map
 	map = new google.maps.Map(document.getElementById('map'), {
-		center: {lat: 34.150596, lng: -118.137817},
-		zoom: 14
+		center: {lat: 34.151389, lng: -118.150281},
+		mapTypeControl: false,
+		zoom: 13
 		});
 
 	// Style the map

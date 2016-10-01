@@ -1,43 +1,53 @@
 /* ------ Nav View ------ */
 
+/* ------ Nav View ------ */
+
 .nav-view {
 	background-color: white;
-	height: 50px;
+	height: 57px;
 	width: 100%;
 	position: fixed;
 	z-index: 4;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+	background-image: -webkit-linear-gradient(left, white , #90caf9);
 }
 
 .list-toggle {
-	height: 50px;
-	width: 50px;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	height: 57px;
+	width: 57px;
 	position: absolute;
 	left: 0;
 	top: 0;
-	padding: 14px;
+	padding: 7px;
 }
 
 .nav-hamburger {
 	width: 100%;
 	height: 100%;
-	opacity: 0.68;
+	opacity: 0.53;
 }
 
 .nav-search {
 	border: 0;
-	color: black;
-	font-family: 'Montserrat', sans-serif;
-	font-size: 18px;
-	height: 50px;
+	color: rgba(0, 0, 0, 0.69);
+	font-family: 'Roboto-Thin', sans-serif;
+	font-weight: 100;
+	font-size: 23px;
+	letter-spacing: 2px;
+	height: 57px;
 	margin: 0;
 	padding: 0;
 	position: absolute;
 	top: 0;
-	left: 50px;
+	left: 57px;
 	min-width: 220px;
 }
 
 input {
+	background-color: transparent;
 	margin: 0;
 	padding: 0;
 }
@@ -46,46 +56,20 @@ input:focus {
     outline: none;
 }
 
-input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-	font-family: 'Montserrat', sans-serif;
-    color: black;
-    opacity: 0.68;
-}
-
-input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-   font-family: 'Montserrat', sans-serif;
-   color: black;
-   opacity: 0.68;
-}
-
-input::-moz-placeholder { /* Mozilla Firefox 19+ */
-   font-family: 'Montserrat', sans-serif;	
-   color: black;
-   opacity: 0.68;
-}
-
-input:-ms-input-placeholder { /* Internet Explorer 10-11 */
-   font-family: 'Montserrat', sans-serif;
-   color: black;
-   opacity: 0.68;
-}
-
 .logout-wrapper {
-	height: 50px;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	height: 57px;
+	width: 57px;
 	position: absolute;
 	right: 0;
 	top: 0;
 	padding: 9px;
 }
 
-.fb-logout-button {
-	background-color: #384683;
-	border: 1px solid rgba(0, 0, 0, 0.38);
-	border-radius: 4px;
-	color: white;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 14px;
-	padding: 0 6px;
+.logout-icon{
+	width: 100%;
 	height: 100%;
-	z-index: 3;
 }
+

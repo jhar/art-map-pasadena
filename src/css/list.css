@@ -1,12 +1,18 @@
 /* ------ List View ------ */
 
 .list-view {
-	display: none;
-	width: 100%;
-	padding: 0;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	background-color: white;
+	border-radius: 3px;
+	width: 365px;
+	max-width: 86%;
 	position: absolute;
-	top: 50px;
+	top: 136px;
+	left: 7%;
 	z-index: 3;
+	box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .list-group {
@@ -14,7 +20,12 @@
 }
 
 .list-group-item {
-	padding: 6px 0 6px 8px !important;
+	color: rgba(0, 0, 0, 0.58);
+	font-size: 18px;
+	font-family: 'Roboto-Bold', sans-serif;
+	font-weight: 300;
+	letter-spacing: 1px;
+	padding: 12px 0 12px 12px;
 }
 
 .list-group-item:hover {

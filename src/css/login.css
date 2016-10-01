@@ -1,17 +1,19 @@
 /* ------- Login View ----- */
 
 .login-view {
-	background-color: #eb232e;
+	background-color: #ff1744;
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
 	z-index: 1;
+	background-image: radial-gradient(circle, #b3e5fc 7%, #f8bbd0 99%);
 }
 
 .login-inner {
 	max-width: 666px;
+	width: 86%;
 	margin: 0 auto;
 	height: 100%;
 	display: block;
@@ -29,8 +31,9 @@
 	font-size: 3.9em;
 	letter-spacing: 0.23em;
 	position: absolute;
-	left: 20%;
-	top: 14%;
+	left: 12%;
+	top: 15%;
+	transform: translate();
 	z-index: 3;
 	text-shadow: 3px 3px 3px #5b0005;
 }
@@ -38,34 +41,33 @@
 .login-b {
 	text-transform: uppercase;
 	font-family: 'Montserrat', sans-serif;
-	font-size: 6.4em;
+	font-size: 3.8em;
 	font-weight: bold;
-	letter-spacing: 0.368em;
+	letter-spacing: 0.24em;
 	position: absolute;
-	right: 14%;
-	top: 33%;
+	left: 50%;
+	top: 45%;
+	transform: translate(-50%, -55%);
 	z-index: 2;
-	text-shadow: -50px -100px 0px #f56168,
-				 100px 100px 0px #fcbcbf,
-                 -38px 42px 0px #c3000a;
+	text-shadow: -110px 76px 0 #c3000a,
+				 -28px -85px 0 #f56168,
+				 135px 54px 0 #fcbcbf;
 }
 
 .login-c {
   	font-family: 'Norican', cursive;
-  	font-size: 4.6em;
+  	font-size: 3.9em;
   	position: absolute;
-  	right: 20%;
-  	top: 57%;
+  	right: 12%;
+  	bottom: 23%;
   	z-index: 3;
   	text-shadow: -3px 3px 3px #5b0005;
 }
 
-.fb-auth-button {
-	background-color: #384683;
-	border: 1px solid rgba(0, 0, 0, 0.38);
-	border-radius: 4px;
-	color: white;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+.fb-auth {
+	background-color: transparent;
+	border: 0;
+	color: rgba(0, 0, 0, 62);
 	font-size: 16px;
 	letter-spacing: 2px;
 	padding: 0;
@@ -74,15 +76,19 @@
 	left: 0;
 	right: 0;
 	margin: 0 auto;
-	text-align: left;
+	text-align: center;
 	width: 270px;
 	z-index: 3;
 }
 
 .fb-auth-icon {
-	border-right: 1px solid rgba(0, 0, 0, 0.38);
-	height: 48px;
-	width: 48px;
-	padding: 12px;
-	margin-right: 6px;
+	height: 57px;
+	width: 57px;
+	padding: 0;
+	margin-left: 6px;
+}
+
+.fb-auth-icon:hover {
+	cursor: help;
+	opacity: 86%;
 }
