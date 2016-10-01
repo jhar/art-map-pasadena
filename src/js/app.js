@@ -1,7 +1,20 @@
 // Global variables
 var map, infowindow, vm, mapStyle;
+var icon = {
+	url: "../images/alien-markers/a1s.png",
+	scaledSize: new google.maps.Size(67, 67),
+	origin: new google.maps.Point(0, 0),
+	anchor: new google.maps.Point(0, 0)
+};
+var icon2 = {
+	url: "../images/alien-markers/a2s.png",
+	scaledSize: new google.maps.Size(67, 67),
+	origin: new google.maps.Point(0, 0),
+	anchor: new google.maps.Point(0, 0)
+};
 
-function site(name, lat, lng, pid, icon, icon2) {
+
+function site(name, lat, lng, pid) {
 	this.name = ko.observable(name);
 	this.lat = ko.observable(lat);
 	this.lng = ko.observable(lng);
@@ -10,8 +23,6 @@ function site(name, lat, lng, pid, icon, icon2) {
 	this.events = ko.observableArray();
 	this.cover = ko.observable();
 	this.active = ko.observable(false);
-	this.icon = ko.observable(icon);
-	this.icon2 = ko.observable(icon2);
 
 	// Create marker
 	this.marker = new google.maps.Marker({
@@ -31,7 +42,7 @@ function site(name, lat, lng, pid, icon, icon2) {
 		vm.anyMarkerHasBeenClicked(false);
 		for (var i = 0, len = vm.sites().length; i < len; i++) {
 			vm.sites()[i].active(false);
-			vm.sites()[i].marker.setIcon(vm.sites()[i].icon());
+			vm.sites()[i].marker.setIcon(icon);
 		}
 
 		// Change active state
@@ -40,7 +51,7 @@ function site(name, lat, lng, pid, icon, icon2) {
 		// Update vm state if active and change color of marker
 		if (this.active()) {
 			vm.anyMarkerHasBeenClicked(true);
-			this.marker.setIcon(this.icon2());
+			this.marker.setIcon(icon2);
 			vm.activeSiteName(this.name());
 			vm.activeSiteCover(this.cover());
 			vm.activeSiteEvents(this.events());
@@ -166,7 +177,7 @@ var mapInit = function() {
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: 34.151389, lng: -118.150281},
 		mapTypeControl: false,
-		zoom: 13
+		zoom: 14
 		});
 
 	// Style the map
