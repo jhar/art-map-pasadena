@@ -4,6 +4,8 @@ Utilizes Google Maps, Facebook Graph API, and Knockout.js to create a local map 
 
 A simple node server is included for deploying to services like Heroku.
 
+The app's functionality is there, but it might not appear to be so because I'm in the middle of revising the UI.
+
 ## To do:
 * User should be able to interact with events (joining, etc)
 * The UI and visual effects could always be improved
