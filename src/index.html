@@ -18,9 +18,43 @@
 
   <!-- Facebook API -->
   <div id="fb-root"></div>
+  <script>
+    // Async JS handler
+    var fbLoaded, gmLoaded, appLoaded = false;
+    var jsIsReady = function(service) {
+      if (service === 'facebook') fbLoaded = true;
+      if (service === undefined) gmLoaded = true;
+      if (service === 'app') appLoaded = true;
+      
+      if (gmLoaded && appLoaded) mapInit();
+      if (fbLoaded && gmLoaded && appLoaded) appInit();
+    };
+
+    // Load the Facebook Graph API
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '695503930593092',
+        xfbml      : false,
+        version    : 'v2.7'
+      });
+
+      jsIsReady('facebook');
+    };
+
+    (function(d, s, id) {
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+
 
   <!-- Login View -->
-  <div class="login-view" data-bind="style: {display: loggedIn() === true ? 'none' : 'block'}">
+  <div class="shim" data-bind="updateVisible: !showApp()"></div>
+  <div class="login-view" data-bind="visible: !showApp()">
     <div class="login-inner">
       <span class="login-a">Art</span>
       <span class="login-b">Map</span>
@@ -29,12 +63,11 @@
         Do it.
         <img class="fb-auth-icon" src="images/press-button.png">
       </div>
-
     </div>
   </div>
 
   <!-- Main App -->
-  <div class="app" data-bind="style: {display: loggedIn() === false ? 'none' : 'block'}">
+  <div class="app" data-bind="updateVisible: showApp()">
 
      <!-- Nav View -->
       <div class="nav-view">
@@ -128,14 +161,15 @@
   </div>
 
   <footer>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-3tB7p20c-Zeb0GM3RxLB5ZSmFiZsIBQ"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXSNMOBqv06qzdPYMb14q9S_AhufB4jHo&callback=jsIsReady"></script>
     <!-- build:js js/build.js -->
     <script src="js/knockout-latest.debug.js"></script>
     <script src="js/data.js"></script>
     <script src="js/location.js"></script>
     <script src="js/viewModel.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/customBindings.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/facebook.js"></script>
     <!-- endbuild -->
   </footer>
 

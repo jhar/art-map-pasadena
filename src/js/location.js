@@ -13,11 +13,11 @@ var Location = function(name, lat, lng, pid) {
 		position: new google.maps.LatLng(lat,lng),
 		map: map,
 		title: name,
-		icon: icon
+		icon: gmMarkerIcon
 	});
 
 	// Everything that happens when a marker is clicked
-	google.maps.event.addListener(this.marker, 'click', function openWindow() {
+	google.maps.event.addListener(this.marker, 'click', function() {
 
 		// Save previous active state
 		var previous = this.active();
@@ -26,7 +26,7 @@ var Location = function(name, lat, lng, pid) {
 		vm.anyMarkerHasBeenClicked(false);
 		for (var i = 0, len = vm.locations().length; i < len; i++) {
 			vm.locations()[i].active(false);
-			vm.locations()[i].marker.setIcon(icon);
+			vm.locations()[i].marker.setIcon(gmMarkerIcon);
 		}
 
 		// Change active state
@@ -35,7 +35,7 @@ var Location = function(name, lat, lng, pid) {
 		// Update vm state if active and change color of marker
 		if (this.active()) {
 			vm.anyMarkerHasBeenClicked(true);
-			this.marker.setIcon(icon2);
+			this.marker.setIcon(gmMarkerIcon2);
 			vm.activeLocationName(this.name());
 			vm.activeLocationCover(this.cover());
 			vm.activeLocationEvents(this.events());
@@ -43,4 +43,4 @@ var Location = function(name, lat, lng, pid) {
 		}
 
 	}.bind(this));
-}
+};

@@ -1,4 +1,4 @@
-var pasaData = {
+var pasadena = {
     "neighborhood": "Pasadena",
     "locations": [
         {
