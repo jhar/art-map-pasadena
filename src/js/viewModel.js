@@ -1,22 +1,86 @@
 var ViewModel = function() {
 	var self = this;
-	self.loggedIn = ko.observable(false);
-	self.authorized = ko.observable(false);
-	self.wantsToSeeApp = ko.observable(false);
-	self.locations = ko.observableArray();
-	self.neighborhood = ko.observable();
-	self.showList = ko.observable(false);
-	self.showInfo = ko.observable(false);
-	self.anyMarkerHasBeenClicked = ko.observable(false);
+
 	self.activeLocationName = ko.observable();
 	self.activeLocationCover = ko.observable();
 	self.activeLocationEvents = ko.observableArray();
+	self.anyMarkerHasBeenClicked = ko.observable(false);
+	self.authorized = ko.observable(false);
+	self.loggedIn = ko.observable(false);
+	self.showInfo = ko.observable(false);
 	self.fbErr = ko.observable(false);
+	self.locations = ko.observableArray();
+	self.neighborhood = ko.observable();
+	self.showList = ko.observable(false);
 	self.gmErr = ko.observable(false);
+	self.wantsToSeeApp = ko.observable(false);
 
-	// Show app or not
-	self.showApp = function() {
-		return (self.loggedIn() && self.authorized() && self.wantsToSeeApp());
+	// Check users login & authorization state
+	self.checkIfLoggedIn = function() {
+		FB.getLoginStatus(function(response) {
+	    	if (response.status === 'connected') {
+	      		// the user is already logged in and has authenticated your app
+	      		vm.loggedIn(true);
+	      		vm.authorized(true);
+		    } else if (response.status === 'not_authorized') {
+		    	// the user is logged in to Facebook,
+		      	// but has not authenticated your app
+		      	vm.loggedIn(true);
+		      	vm.authorized(false);
+		    } else if (!response || response.error) {
+		      	vm.fbErr(true);
+		    } else {
+		      	// the user isn't logged in to Facebook.
+		      	vm.loggedIn(false);
+		    }
+		});
+	};
+
+	// Clicks markers when list item is clicked
+	self.clickedListItem = function() {
+		google.maps.event.trigger(this.marker, 'click');
+		self.toggleList();
+	};
+
+	// Get cover photo
+	self.getCoverPhoto = function(id, callback, object) {
+	  var query = "/" + id + "?fields=cover{source}";
+	    FB.api(query, function (response) {
+	      if (response && !response.error) {
+	        /* handle the result */
+	        callback.call(object, response.cover.source);
+	      } else if (!response || response.error) {
+	        vm.fbErr(true);
+	      }
+	    });
+	};
+
+	// Get events for a location
+	self.getEvents = function(pid, timeStamp, callback, object) {
+  		var query = "/" + pid + "/events?since=" + timeStamp;
+  		FB.api(query, function (response) {
+    		if (response && !response.error) {
+      			/* handle the result */
+     		 	callback.call(object, response);
+    		} else if (!response || response.error) {
+    			console.log(response);
+      			vm.fbErr(true);
+    		}
+  		});
+	};
+
+	// Live search function
+	self.liveSearch = function(model, obj) {
+		var pattern = new RegExp(obj.currentTarget.value.toLowerCase());
+		for (var i = 0, len = self.locations().length; i < len; i++) {
+			if (pattern.test(self.locations()[i].name().toLowerCase())) {
+				self.locations()[i].marker.setVisible(true);
+				self.locations()[i].visible(true);
+			} else {
+				self.locations()[i].marker.setVisible(false);
+				self.locations()[i].visible(false);
+			}
+		}
 	};
 
 	// Load JSON location data
@@ -51,6 +115,7 @@ var ViewModel = function() {
 			(function(index) {
 				self.getEvents(self.locations()[index].pid(), timeStamp, function(response) {
 					self.locations()[index].events(response.data);
+					console.log(response.data);
 					// Attach event cover photos to events
 					for (var j = 0, len = self.locations()[index].events().length; j < len; j++) {
 						(function(jindex) {
@@ -64,32 +129,17 @@ var ViewModel = function() {
 		}
 	};
 
-	// Clicks markers when list item is clicked
-	self.clickedListItem = function() {
-		google.maps.event.trigger(this.marker, 'click');
-		self.toggleList();
-	};
 
-	// Get events for a location
-	self.getEvents = function(pid, timeStamp, callback, object) {
-  		var query = "/" + pid + "/events?since=" + timeStamp;
-  		FB.api(query, function (response) {
-    		if (response && !response.error) {
-      			/* handle the result */
-     		 	callback.call(object, response);
-    		} else if (!response || response.error) {
-      			vm.fbErr(true);
-    		}
-  		});
-	};
 
 	// Begins Facebook login process
 	self.login = function() {
      	FB.login(function(response) {
+     		console.log("here");
 	    	if (response.authResponse) {
 	      		self.loggedIn(true);
 	      		self.authorized(true);
 	      		self.wantsToSeeApp(true);
+				self.loadData(pasadena);
 	    	} else if (!response || response.error) {
 	      		vm.fbErr(true);
 	    	} else {
@@ -115,18 +165,9 @@ var ViewModel = function() {
   		});
 	};
 
-	// Live search function
-	self.liveSearch = function(model, obj) {
-		var pattern = new RegExp(obj.currentTarget.value.toLowerCase());
-		for (var i = 0, len = self.locations().length; i < len; i++) {
-			if (pattern.test(self.locations()[i].name().toLowerCase())) {
-				self.locations()[i].marker.setVisible(true);
-				self.locations()[i].visible(true);
-			} else {
-				self.locations()[i].marker.setVisible(false);
-				self.locations()[i].visible(false);
-			}
-		}
+	// Show app or not
+	self.showApp = function() {
+		return (self.loggedIn() && self.authorized() && self.wantsToSeeApp());
 	};
 
 	// Toggle list view
@@ -137,39 +178,6 @@ var ViewModel = function() {
 	// Toggle info view
 	self.toggleInfo = function() {
 		self.showInfo(!self.showInfo());
-	};
-
-	// Check users login & authorization state
-	self.checkIfLoggedIn = function() {
-		FB.getLoginStatus(function(response) {
-	    	if (response.status === 'connected') {
-	      		// the user is already logged in and has authenticated your app
-	      		vm.loggedIn(true);
-	      		vm.authorized(true);
-		    } else if (response.status === 'not_authorized') {
-		    	// the user is logged in to Facebook,
-		      	// but has not authenticated your app
-		      	vm.loggedIn(true);
-		      	vm.authorized(false);
-		    } else if (!response || response.error) {
-		      	vm.fbErr(true);
-		    } else {
-		      	// the user isn't logged in to Facebook.
-		      	vm.loggedIn(false);
-		    }
-		});
-	};
-
-	self.getCoverPhoto = function(id, callback, object) {
-	  var query = "/" + id + "?fields=cover{source}";
-	    FB.api(query, function (response) {
-	      if (response && !response.error) {
-	        /* handle the result */
-	        callback.call(object, response.cover.source);
-	      } else if (!response || response.error) {
-	        vm.fbErr(true);
-	      }
-	    });
 	};
 
 }

@@ -3,9 +3,9 @@
 #info-view {
 	background-color: white;
 	position: absolute;
-	top: 50px;
+	top: 48px;
 	right: 0;
-	bottom: 50px;
+	bottom: 56px;
 	left: 0;
 	z-index: 2;
 }

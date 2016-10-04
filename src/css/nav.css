@@ -2,7 +2,7 @@
 
 .nav-view {
 	background-color: white;
-	height: 57px;
+	height: 48px;
 	width: 100%;
 	position: fixed;
 	z-index: 4;
@@ -14,34 +14,37 @@
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 	box-sizing: border-box;         /* Opera/IE 8+ */
-	height: 57px;
-	width: 57px;
+	height: 48px;
+	width: 56px;
 	position: absolute;
 	left: 0;
 	top: 0;
-	padding: 7px;
+	padding: 12px 16px;
 }
 
 .nav-hamburger {
 	width: 100%;
 	height: 100%;
-	opacity: 0.53;
+	opacity: 0.62;
 }
 
 .nav-search {
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
 	border: 0;
 	color: rgba(0, 0, 0, 0.69);
 	font-family: 'Roboto-Thin', sans-serif;
 	font-weight: 100;
-	font-size: 23px;
+	font-size: 18px;
 	letter-spacing: 2px;
-	height: 57px;
+	height: 48px;
 	margin: 0;
-	padding: 0;
+	padding: 12px 16px 12px 0px;
 	position: absolute;
 	top: 0;
-	left: 57px;
-	min-width: 220px;
+	left: 56px;
+	min-width: 264px;
 }
 
 input {
@@ -58,16 +61,28 @@ input:focus {
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 	box-sizing: border-box;         /* Opera/IE 8+ */
-	height: 57px;
-	width: 57px;
+	height: 56px;
+	width: 56px;
 	position: absolute;
-	right: 0;
-	top: 0;
-	padding: 9px;
+	right: 4px;
+	top: 20px;
+	padding: 4px;
 }
 
 .logout-icon{
+	box-shadow: 0 4px 5px 0 rgba(0,0,0,0.16);
+	background-color: #90caf9;
+	border-radius: 50%;
 	width: 100%;
 	height: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+	.logout-wrapper {
+		height: 66px;
+		width: 66px;
+		right: 30px;
+		top: 70px;
+	}
 }
 

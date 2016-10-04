@@ -85,8 +85,8 @@
       <div class="list-view" data-bind="visible: showList">
         <div class="list-group" data-bind="foreach: locations">
           <div class="list-group-item" data-bind="click: $parent.clickedListItem, fadeVisible: visible">
-            <i class="mdi-maps-pin-drop"></i>
-            <span data-bind="text: name"></span>
+            <img class="list-group-icon" src="images/list-icon.png">
+            <span class="list-group-text" data-bind="text: name"></span>
           </div>
         </div>
       </div>
@@ -139,21 +139,25 @@
 
         <!-- State 1: no-info-view, no location selected-->
         <div class="footer-wrapper" data-bind="if: (!showInfo() && !anyMarkerHasBeenClicked())">
-          <div class="explore-wrap">
-            <img class="explore-up" src="images/explore-white.png">
+          <div class="trigger-wrap">
+            <img class="trigger-up" src="images/arrow-up.png">
           </div>
-          <span class="app-info">Art Map Pasadena</span>
+          <span class="footer-info">Art Map Pasadena</span>
         </div>
 
         <!-- State 2: no-info-view, location selected-->
         <div class="footer-wrapper" data-bind="if: (!showInfo() && anyMarkerHasBeenClicked())">
-         <span class="location-info" data-bind="text: activeLocationName"></span>
-         <img class="trigger-up" src="images/white-chevron-up.png">
+          <div class="trigger-wrap">
+            <img class="trigger-up" src="images/arrow-up.png">
+          </div>
+         <span class="footer-info" data-bind="text: activeLocationName"></span>
         </div>
 
         <!-- State 3: info-view shown-->
         <div class="footer-wrapper" data-bind="if: showInfo">
-          <img class="trigger-down" src="images/white-chevron-down.png">
+          <div class="trigger-wrap">
+            <img class="trigger-down" src="images/arrow-down.png">
+          </div>
         </div>
         
       </div>
@@ -167,6 +171,7 @@
     <script src="js/data.js"></script>
     <script src="js/location.js"></script>
     <script src="js/viewModel.js"></script>
+    <script src="js/mapStyle.js"></script>
     <script src="js/map.js"></script>
     <script src="js/customBindings.js"></script>
     <script src="js/app.js"></script>

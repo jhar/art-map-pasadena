@@ -2,9 +2,9 @@
 
 .map-view {
 	position: absolute;
-	top: 57px;
+	top: 48px;
 	right: 0;
-	bottom: 69px;
+	bottom: 30px;
 	left: 0;
 	z-index: 1;
 }

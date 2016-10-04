@@ -1,5 +1,5 @@
 // Global variables
-var map, mapStyle, gmMarkerIcon, gmMarkerIcon2, gmReset;
+var map, gmMarkerIcon, gmMarkerIcon2, gmReset;
 
 var mapInit = function() {
 
@@ -24,17 +24,10 @@ var mapInit = function() {
 		zoom: 14
 	});
 
-	// Style the map
-	mapStyle = [
-	  {
-	    "featureType": "poi",
-	    "stylers": [
-	      { "visibility": "off" }
-	    ]
-	  }
-	];
-
-	map.setOptions({styles: mapStyle});
+	// Load the mapStyle
+	map.setOptions({
+		styles: mapStyle
+	});
 
 	gmReset = function() {
 		var center = map.getCenter();
