@@ -128,8 +128,6 @@ var ViewModel = function() {
 		}
 	};
 
-	// data-bind="click: function(){logout();}"
-
 	// Begins Facebook login process
 	self.login = function() {
 		if (self.loggedIn() && self.authorized()) {
@@ -196,6 +194,7 @@ var ViewModel = function() {
 	// Animate info window up
 	self.infoUp = function() {
 		self.showInfo(true);
+		ko.utils.toggleDomNodeCssClass(self.infoView, 'display-none', false);
         ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-up', true);
         ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-down', false);
 	};
@@ -205,6 +204,7 @@ var ViewModel = function() {
 		self.showInfo(false);
 		ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-down', true);
         ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-up', false);
+        ko.utils.toggleDomNodeCssClass(self.infoView, 'display-none', false);
 	};
 
 };
