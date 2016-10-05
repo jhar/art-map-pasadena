@@ -5,9 +5,7 @@ var pasadena = {
             "name": "Armory Center for the Arts",
             "lat": 34.1483608,
             "lng": -118.149099,
-            "pid": "armoryarts",
-            "icon": "../images/black-domain.png",
-            "icon2": "../images/white-domain.png"
+            "pid": "armoryarts"
         },
         {
             "name": "Norton Simon Museum",

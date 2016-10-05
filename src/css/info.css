@@ -1,13 +1,16 @@
 /* ------ Info View ------ */
 
 .info-view {
-	background-color: white;
+	background-color: #f8f4e8;
+	background-image: linear-gradient(180deg, #f8f4e8, #cde3be);
   	position: absolute;
   	left: 0;
+  	padding: 24px 72px;
   	right: 0;
   	z-index: 2;
   	top: 100%;
   	bottom: -100%;
+  	overflow-y: scroll;
 }
 
 .list-group-item-heading {
@@ -39,4 +42,21 @@
 	animation-duration: 0.5s;
 	animation-fill-mode: forwards;
 }
+
+@media only screen and (min-width: 768px) {
+	.info-view {
+		padding: 24px 113px;
+	}
+}
+
+@media only screen and (max-width: 540px) {
+
+}
+
+@media only screen and (max-width: 385px) {
+	.info-view {
+		padding: 12px;
+	}
+}
+
 

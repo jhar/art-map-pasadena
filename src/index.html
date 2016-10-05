@@ -126,50 +126,35 @@
         <div data-bind="visible: fbErr()">
           An error with Facebook occurred and the page may not be displaying correctly. Please refresh or try again later.
         </div>
-
-        <!-- General Information -->
-        <div class=".general-info" data-bind="if: !anyMarkerHasBeenClicked()">
-          <img class="cover-photo" src="" />
-          <p class=".about-app">
-            Art Map Pasadena was originally written in 2015 by Justin Harrison. The project is now being revised, updated, upgraded, etc.
-          </p>
-        </div>
-        
-        <!-- Location Specific Information -->
-        <div data-bind="visible: anyMarkerHasBeenClicked">
-          <img class="cover-photo" data-bind="attr: {src: activeLocationCover()}" alt=""/>
-          <h4 data-bind="visible: activeLocationEvents().length > 0">Upcoming Events</h4>
-          <h5 data-bind="if: anyMarkerHasBeenClicked, visible: activeLocationEvents().length < 1">No upcoming events to show.</h5>
-          <div class="list-group" data-bind="foreach: activeLocationEvents.slice(0).reverse()">
-            <div class="list-group-item" data-toggle="collapse" data-bind="attr: {href: '#' + id}">
-              <div class="row-picture">
-                <img class="circle img-responsive" data-bind="attr: {src: cover}" alt="">
-              </div>
-              <div class="row-content">
-                <span class="list-group-item-heading" data-bind="text: name, attr: {href: '#' + id}"></span>
-                <p class="list-group-item-text collapse" data-bind="attr: {id: id}, text: description"></p>
-              </div>
-              <div class="list-group-separator"></div>
+        <img class="cover-photo" data-bind="attr: {src: activeLocationCover().source}" alt=""/>
+        <h4 data-bind="if: activeLocationEvents().length > 0">Upcoming Events</h4>
+        <h5 data-bind="if: activeLocationEvents().length < 1">No upcoming events to show.</h5>
+        <div class="list-group" data-bind="foreach: activeLocationEvents.slice(0).reverse()">
+          <div class="list-group-item" data-toggle="collapse" data-bind="attr: {href: '#' + id}">
+            <div class="row-picture" data-bind="with: cover">
+              <img class="circle img-responsive" data-bind="attr: {src: source}" alt="">
             </div>
+            <div class="row-content">
+              <span class="list-group-item-heading" data-bind="text: name, attr: {href: '#' + id}"></span>
+              <p class="list-group-item-text collapse" data-bind="attr: {id: id}, text: description"></p>
+            </div>
+            <div class="list-group-separator"></div>
           </div>
         </div>
-
       </div>
-
+  
   </div>
 
-  <footer>
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXSNMOBqv06qzdPYMb14q9S_AhufB4jHo&callback=jsIsReady"></script>
-    <!-- build:js js/build.js -->
-    <script src="js/knockout-latest.debug.js"></script>
-    <script src="js/data.js"></script>
-    <script src="js/location.js"></script>
-    <script src="js/viewModel.js"></script>
-    <script src="js/mapStyle.js"></script>
-    <script src="js/map.js"></script>
-    <script src="js/init.js"></script>
-    <!-- endbuild -->
-  </footer>
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXSNMOBqv06qzdPYMb14q9S_AhufB4jHo&callback=jsIsReady"></script>
+  <!-- build:js js/build.js -->
+  <script src="js/knockout-latest.debug.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/location.js"></script>
+  <script src="js/viewModel.js"></script>
+  <script src="js/mapStyle.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/init.js"></script>
+  <!-- endbuild -->
 
 </body>
 </html>

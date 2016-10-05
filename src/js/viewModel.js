@@ -2,7 +2,11 @@ var ViewModel = function() {
 	var self = this;
 
 	self.activeLocationName = ko.observable();
-	self.activeLocationCover = ko.observable();
+	self.activeLocationCover = ko.observable({
+		source: '',
+		offset_x: '',
+		offset_y: ''
+	});
 	self.activeLocationEvents = ko.observableArray();
 	self.anyMarkerHasBeenClicked = ko.observable(false);
 	self.authorized = ko.observable(false);
@@ -46,15 +50,18 @@ var ViewModel = function() {
 	};
 
 	// Get cover photo
-	self.getCoverPhoto = function(id, callback, object) {
-	  var query = "/" + id + "?fields=cover{source}";
+	self.getCoverPhoto = function(id, loc, event) {
+	  	var query = "/" + id + "?fields=cover{source, offset_x, offset_y}";
 	    FB.api(query, function (response) {
-	      if (response && !response.error) {
-	        /* handle the result */
-	        callback.call(object, response.cover.source);
-	      } else if (!response || response.error) {
-	        vm.fbErr(true);
-	      }
+			if (response && !response.error) {
+				if (event === undefined) { 
+					self.locations()[loc].cover(response.cover);
+				} else {
+					self.locations()[loc].events()[event].cover = response.cover;
+				}
+			} else if (!response || response.error) {
+				vm.fbErr(true);
+			}
 	    });
 	};
 
@@ -106,9 +113,7 @@ var ViewModel = function() {
 		for (var i = 0, len = self.locations().length; i < len; i++) {
 			// Get cover photo for each location
 			(function(index) {
-				self.getCoverPhoto(self.locations()[index].pid(), function(response) {
-					self.locations()[index].cover(response);
-				}, this);
+				self.getCoverPhoto(self.locations()[index].pid(), index);
 			})(i);
 
 			// Get events list for each location
@@ -118,9 +123,7 @@ var ViewModel = function() {
 					// Attach event cover photos to events
 					for (var j = 0, len = self.locations()[index].events().length; j < len; j++) {
 						(function(jindex) {
-							self.getCoverPhoto(self.locations()[index].events()[jindex].id, function(coverURL) {
-								self.locations()[index].events()[jindex].cover = coverURL;
-							}, this);
+							self.getCoverPhoto(self.locations()[index].events()[jindex].id, index, jindex);
 						})(j);
 					}
 				}, this);
