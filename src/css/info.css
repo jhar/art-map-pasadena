@@ -1,6 +1,6 @@
 /* ------ Info View ------ */
 
-#info-view {
+.info-view {
 	background-color: white;
   	position: absolute;
   	left: 0;
@@ -8,14 +8,6 @@
   	z-index: 2;
   	top: 100%;
   	bottom: -100%;
-}
-
-.general-info {
-
-}
-
-.about-app {
-
 }
 
 .list-group-item-heading {

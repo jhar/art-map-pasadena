@@ -13,26 +13,27 @@ var ViewModel = function() {
 	self.neighborhood = ko.observable();
 	self.showList = ko.observable();
 	self.gmErr = ko.observable(false);
-	self.wantsToSeeApp = ko.observable(false);
 
-	self.infoView = document.getElementById("info-view");
+	self.loginView = document.getElementsByClassName("login-view")[0];
+	self.appView = document.getElementsByClassName("app")[0];
+	self.infoView = document.getElementsByClassName("info-view")[0];
+
 
 	// Check users login & authorization state
 	self.checkIfLoggedIn = function() {
 		FB.getLoginStatus(function(response) {
 	    	if (response.status === 'connected') {
-	      		// the user is already logged in and has authenticated your app
+	      		// Already logged in and authenticated
 	      		vm.loggedIn(true);
 	      		vm.authorized(true);
 		    } else if (response.status === 'not_authorized') {
-		    	// the user is logged in to Facebook,
-		      	// but has not authenticated your app
+		    	// Logged in but not authenticated
 		      	vm.loggedIn(true);
 		      	vm.authorized(false);
 		    } else if (!response || response.error) {
 		      	vm.fbErr(true);
 		    } else {
-		      	// the user isn't logged in to Facebook.
+		      	// Not logged in
 		      	vm.loggedIn(false);
 		    }
 		});
@@ -102,9 +103,7 @@ var ViewModel = function() {
 		}
 
 		var timeStamp = Math.floor(Date.now() / 1000);
-
 		for (var i = 0, len = self.locations().length; i < len; i++) {
-
 			// Get cover photo for each location
 			(function(index) {
 				self.getCoverPhoto(self.locations()[index].pid(), function(response) {
@@ -131,18 +130,23 @@ var ViewModel = function() {
 
 	// Begins Facebook login process
 	self.login = function() {
-     	FB.login(function(response) {
-	    	if (response.authResponse) {
-	      		self.loggedIn(true);
-	      		self.authorized(true);
-	      		self.wantsToSeeApp(true);
-				self.loadData(pasadena);
-	    	} else if (!response || response.error) {
-	      		vm.fbErr(true);
-	    	} else {
-	      		self.loggedIn(false);
-	    	}
-	  	},{scope: 'email'});
+		if (self.loggedIn() && self.authorized()) {
+			self.showApp();
+			self.loadData(pasadena);
+		} else {
+			FB.login(function(response) {
+		    	if (response.authResponse) {
+		      		self.loggedIn(true);
+		      		self.authorized(true);
+		      		self.showApp();
+					self.loadData(pasadena);
+		    	} else if (!response || response.error) {
+		      		vm.fbErr(true);
+		    	} else {
+		      		self.loggedIn(false);
+		    	}
+		  	},{scope: 'email'});
+		}
 	};
 
 	// Begins Facebook logout process
@@ -156,15 +160,30 @@ var ViewModel = function() {
       			vm.fbErr(true);
     		}
     		// Regardless of success of logout, user wants to return to title screen
-    		self.wantsToSeeApp(false);
-    		// Refresh the page to prevent bugs with Google Maps
-    		//location.reload();
+    		self.showLogin();
   		});
 	};
 
-	// Show app or not
+	// Reset UI
+	self.resetUI = function() {
+		self.showList(false);
+		self.showInfo(false);
+		ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-up', false);
+    	ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-down', false);
+	};
+
+	// Show main app view
 	self.showApp = function() {
-		return (self.loggedIn() && self.authorized() && self.wantsToSeeApp());
+		ko.utils.toggleDomNodeCssClass(self.loginView, 'display-none', true);
+        ko.utils.toggleDomNodeCssClass(self.appView, 'display-none', false);
+        gmReset();
+	};
+
+	// Show login screen
+	self.showLogin = function() {
+		self.resetUI();
+        ko.utils.toggleDomNodeCssClass(self.appView, 'display-none', true);
+        ko.utils.toggleDomNodeCssClass(self.loginView, 'display-none', false);
 	};
 
 	// Toggle list view
@@ -184,6 +203,6 @@ var ViewModel = function() {
 		self.showInfo(false);
 		ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-down', true);
         ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-up', false);
-	}
+	};
 
-}
+};
