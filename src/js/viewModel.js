@@ -11,9 +11,11 @@ var ViewModel = function() {
 	self.fbErr = ko.observable(false);
 	self.locations = ko.observableArray();
 	self.neighborhood = ko.observable();
-	self.showList = ko.observable(false);
+	self.showList = ko.observable();
 	self.gmErr = ko.observable(false);
 	self.wantsToSeeApp = ko.observable(false);
+
+	self.infoView = document.getElementById("info-view");
 
 	// Check users login & authorization state
 	self.checkIfLoggedIn = function() {
@@ -63,7 +65,6 @@ var ViewModel = function() {
       			/* handle the result */
      		 	callback.call(object, response);
     		} else if (!response || response.error) {
-    			console.log(response);
       			vm.fbErr(true);
     		}
   		});
@@ -115,7 +116,6 @@ var ViewModel = function() {
 			(function(index) {
 				self.getEvents(self.locations()[index].pid(), timeStamp, function(response) {
 					self.locations()[index].events(response.data);
-					console.log(response.data);
 					// Attach event cover photos to events
 					for (var j = 0, len = self.locations()[index].events().length; j < len; j++) {
 						(function(jindex) {
@@ -129,12 +129,9 @@ var ViewModel = function() {
 		}
 	};
 
-
-
 	// Begins Facebook login process
 	self.login = function() {
      	FB.login(function(response) {
-     		console.log("here");
 	    	if (response.authResponse) {
 	      		self.loggedIn(true);
 	      		self.authorized(true);
@@ -175,9 +172,18 @@ var ViewModel = function() {
 		self.showList(!self.showList());
 	};
 
-	// Toggle info view
-	self.toggleInfo = function() {
-		self.showInfo(!self.showInfo());
+	// Animate info window up
+	self.infoUp = function() {
+		self.showInfo(true);
+        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-up', true);
+        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-down', false);
 	};
+
+	// Animate info window down
+	self.infoDown = function() {
+		self.showInfo(false);
+		ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-down', true);
+        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-up', false);
+	}
 
 }

@@ -2,12 +2,12 @@
 
 #info-view {
 	background-color: white;
-	position: absolute;
-	top: 48px;
-	right: 0;
-	bottom: 56px;
-	left: 0;
-	z-index: 2;
+  	position: absolute;
+  	left: 0;
+  	right: 0;
+  	z-index: 2;
+  	top: 100%;
+  	bottom: -100%;
 }
 
 .general-info {
@@ -25,3 +25,26 @@
 .cover-photo {
 	max-width: 100%;
 }
+
+@keyframes animateInfoUp {
+	from { top: 100%; bottom: -100%; }
+	to { top: 48px; bottom: 56px; }
+}
+
+@keyframes animateInfoDown {
+	from { top: 48px; bottom: 56px; }
+	to { top: 100%; bottom: -100%; }
+}
+
+.info-animate-up {
+	animation-name: animateInfoUp;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+}
+
+.info-animate-down {
+	animation-name: animateInfoDown;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+}
+

@@ -99,8 +99,32 @@
         <div id="map"></div>
       </div>
 
+      <!-- Footer View -->
+      <div class="footer-view">
+        <!-- State 1: show info false, no location selected-->
+        <div class="footer-wrapper" data-bind="if: (!showInfo() && !anyMarkerHasBeenClicked())">
+          <div class="trigger-wrap">
+            <img class="trigger-up" src="images/arrow-up.png" data-bind="click: infoUp">
+          </div>
+          <span class="footer-info">Art Map Pasadena</span>
+        </div>
+        <!-- State 2: show info false, location selected-->
+        <div class="footer-wrapper" data-bind="if: (!showInfo() && anyMarkerHasBeenClicked())">
+          <div class="trigger-wrap">
+            <img class="trigger-up" src="images/arrow-up.png" data-bind="click: infoUp">
+          </div>
+         <span class="footer-info" data-bind="text: activeLocationName"></span>
+        </div>
+        <!-- State 3: info-view shown-->
+        <div class="footer-wrapper" data-bind="if: showInfo">
+          <div class="trigger-wrap">
+            <img class="trigger-down" src="images/arrow-down.png" data-bind="click: infoDown">
+          </div>
+        </div>
+      </div>
+
       <!-- Info View -->
-      <div id="info-view" data-bind="visible: showInfo">
+      <div id="info-view">
         <div data-bind="visible: fbErr()">
           An error with Facebook occurred and the page may not be displaying correctly. Please refresh or try again later.
         </div>
@@ -132,34 +156,6 @@
           </div>
         </div>
 
-      </div>
-
-      <!-- Footer View -->
-      <div class="footer-view" data-bind="click: toggleInfo">
-
-        <!-- State 1: no-info-view, no location selected-->
-        <div class="footer-wrapper" data-bind="if: (!showInfo() && !anyMarkerHasBeenClicked())">
-          <div class="trigger-wrap">
-            <img class="trigger-up" src="images/arrow-up.png">
-          </div>
-          <span class="footer-info">Art Map Pasadena</span>
-        </div>
-
-        <!-- State 2: no-info-view, location selected-->
-        <div class="footer-wrapper" data-bind="if: (!showInfo() && anyMarkerHasBeenClicked())">
-          <div class="trigger-wrap">
-            <img class="trigger-up" src="images/arrow-up.png">
-          </div>
-         <span class="footer-info" data-bind="text: activeLocationName"></span>
-        </div>
-
-        <!-- State 3: info-view shown-->
-        <div class="footer-wrapper" data-bind="if: showInfo">
-          <div class="trigger-wrap">
-            <img class="trigger-down" src="images/arrow-down.png">
-          </div>
-        </div>
-        
       </div>
 
   </div>
