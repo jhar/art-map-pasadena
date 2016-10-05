@@ -204,7 +204,9 @@ var ViewModel = function() {
 		self.showInfo(false);
 		ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-down', true);
         ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-up', false);
-        ko.utils.toggleDomNodeCssClass(self.infoView, 'display-none', false);
+        setTimeout(function() {
+        	ko.utils.toggleDomNodeCssClass(self.infoView, 'display-none', true);
+        }, 500);
 	};
 
 };
