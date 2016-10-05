@@ -79,7 +79,13 @@
 
 	}
 
+	.trigger-up,
+	.trigger-down {
+		background-color: transparent;
+		box-shadow: none;
+	}
+
 	.trigger-wrap {
 		bottom: 0;
 	}
-}*/
+}

@@ -58,9 +58,8 @@
       <span class="login-a">Art</span>
       <span class="login-b">Map</span>
       <span class="login-c">Pasadena</span>
-      <div class="fb-auth" data-bind="click: function(){login();}">
-        Log in with Facebook
-        <img class="fb-auth-icon" src="images/press-button.png">
+      <div class="fb-auth" data-bind="click: login">
+        <img class="fb-auth-icon" src="images/login.png">
       </div>
     </div>
   </div>
@@ -75,8 +74,8 @@
           <img class="nav-hamburger" data-bind="visible: showList()" src="images/black-x.png">
         </div>
         <input class="nav-search" type="text" data-bind="event: {keyup: liveSearch}" placeholder="Search Locations">
-        <div class="logout-wrapper" data-bind="click: function(){logout();}">
-          <img class="logout-icon" src="images/white-account.png">
+        <div class="logout-wrapper" data-bind="click: logout">
+          <img class="logout-icon" src="images/logout.png">
         </div>
       </div>
 

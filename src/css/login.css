@@ -72,7 +72,7 @@
 	letter-spacing: 2px;
 	padding: 0;
 	position: absolute;
-	top: 80%;
+	top: 85%;
 	left: 0;
 	right: 0;
 	margin: 0 auto;
@@ -82,13 +82,10 @@
 }
 
 .fb-auth-icon {
-	height: 57px;
-	width: 57px;
 	padding: 0;
-	margin-left: 6px;
 }
 
 .fb-auth-icon:hover {
-	cursor: help;
+	cursor: pointer;
 	opacity: 86%;
 }

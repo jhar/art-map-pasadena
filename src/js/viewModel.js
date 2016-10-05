@@ -128,6 +128,8 @@ var ViewModel = function() {
 		}
 	};
 
+	// data-bind="click: function(){logout();}"
+
 	// Begins Facebook login process
 	self.login = function() {
 		if (self.loggedIn() && self.authorized()) {
