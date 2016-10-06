@@ -129,16 +129,20 @@
         <img class="cover-photo" data-bind="attr: {src: activeLocationCover().source}" alt=""/>
         <h4 data-bind="if: activeLocationEvents().length > 0">Upcoming Events</h4>
         <h5 data-bind="if: activeLocationEvents().length < 1">No upcoming events to show.</h5>
-        <div class="list-group" data-bind="foreach: activeLocationEvents.slice(0).reverse()">
-          <div class="list-group-item" data-toggle="collapse" data-bind="attr: {href: '#' + id}">
-            <div class="row-picture" data-bind="with: cover">
-              <img class="circle img-responsive" data-bind="attr: {src: source}" alt="">
+        <div class="events-container" data-bind="foreach: activeLocationEvents.slice(0).reverse()">
+          <div class="event" data-bind="attr: {href: '#' + id}">
+            <div class="event-image-container" data-bind="with: cover">
+              <img class="event-image" data-bind="attr: { src: source , 'data-offsety': offset_y }" onload="vm.changeOffsetY(this)" alt="">
             </div>
-            <div class="row-content">
-              <span class="list-group-item-heading" data-bind="text: name, attr: {href: '#' + id}"></span>
-              <p class="list-group-item-text collapse" data-bind="attr: {id: id}, text: description"></p>
+            <div class="event-title-container">
+              <span class="event-title" data-bind="text: name, attr: {href: '#' + id}"></span>
             </div>
-            <div class="list-group-separator"></div>
+            <div class="event-extra-container display-none">
+              <p class="event-description" data-bind="attr: {id: id}, text: description"></p>
+            </div>
+            <div class="event-toggle-extra">
+              <img class="event-toggle-image" src="images/add.png">
+            </div>
           </div>
         </div>
       </div>

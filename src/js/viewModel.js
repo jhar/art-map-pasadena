@@ -78,6 +78,22 @@ var ViewModel = function() {
   		});
 	};
 
+	self.changeOffsetY = function(element) {
+		var oldWidth = element.naturalWidth;
+		var oldHeight = element.naturalHeight;
+		var width = element.offsetWidth || 503.41;
+		var scaleRatio = oldWidth/oldHeight;
+		var scaledHeight = width / scaleRatio;
+
+		if (scaleRatio > 1) {
+			var dy = - (element.dataset.offsety/320) * scaledHeight;
+		} else {
+			var dy = - (element.dataset.offsety/156) * scaledHeight;	
+		}
+
+		element.style.transform = 'matrix(1, 0, 0, 1, 0, ' + dy + ')'; 
+	};
+
 	// Live search function
 	self.liveSearch = function(model, obj) {
 		var pattern = new RegExp(obj.currentTarget.value.toLowerCase());

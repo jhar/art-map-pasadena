@@ -5,7 +5,7 @@
 	background-image: linear-gradient(180deg, #f8f4e8, #cde3be);
   	position: absolute;
   	left: 0;
-  	padding: 24px 72px;
+  	padding: 24px 19%;
   	right: 0;
   	z-index: 2;
   	top: 100%;
@@ -13,12 +13,78 @@
   	overflow-y: scroll;
 }
 
-.list-group-item-heading {
-	font-size: 16px !important;
-}
-
 .cover-photo {
 	max-width: 100%;
+	max-height: 315px;
+}
+
+.events-container {
+ 	display: block;
+ 	width: 100%;
+}
+
+.event {
+	background-color: #eee5c7;
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+	display: block;
+	margin-bottom: 48px;
+	position: relative;
+	width: 100%;
+}
+
+.event-image-container {
+	overflow: hidden;
+	display: block;
+	position: relative;
+	width: 100%;
+	padding-bottom: 36%;
+}
+
+.event-image {
+	position: absolute;
+	width: 100%;
+}
+
+.event-title-container {
+	width: 100%;
+}
+
+.event-title {
+	display: block;
+	font-family: 'Roboto-Regular', sans-serif;
+	font-size: 23px;
+	padding: 3% 7%;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+.event-extra-container {
+	width: 100%;
+}
+
+.event-description {
+	margin: 0;
+	padding: 7%;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+.event-toggle-extra {
+	position: absolute;
+	right: -18px;
+	bottom: -18px;
+	width: 48px;
+	height: 48px;
+}
+
+.event-toggle-image {
+	background-color: #eee5c7;
+	border-radius: 50%;
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+	width: 100%;
+	height: 100%;
 }
 
 @keyframes animateInfoUp {
@@ -45,17 +111,19 @@
 
 @media only screen and (min-width: 768px) {
 	.info-view {
-		padding: 24px 113px;
+		padding: 24px 23%;
 	}
 }
 
 @media only screen and (max-width: 540px) {
-
+  	.info-view {
+  		padding: 18px 13%;
+  	}
 }
 
 @media only screen and (max-width: 385px) {
 	.info-view {
-		padding: 12px;
+		padding: 12px 9%;
 	}
 }
 

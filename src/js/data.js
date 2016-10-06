@@ -20,12 +20,6 @@ var pasadena = {
             "pid": "KidspaceChildrensMuseum"
         },
         {
-            "name": "Rose Bowl Stadium",
-            "lat": 34.1613284,
-            "lng": -118.1676462,
-            "pid": "RoseBowlStadium"
-        },
-        {
             "name": "The Pasadena Playhouse",
             "lat": 34.145114,
             "lng": -118.137375,
