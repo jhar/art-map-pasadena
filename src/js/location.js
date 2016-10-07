@@ -39,7 +39,21 @@ var Location = function(name, lat, lng, pid) {
 			vm.activeLocationName(this.name());
 			vm.activeLocationCover(this.cover());
 			vm.activeLocationEvents(this.events());
-			map.setCenter(this.marker.getPosition());
+			if (vm.showInfo()) {
+				var ne = map.getBounds().getNorthEast();
+				var sw = map.getBounds().getSouthWest();
+				var mapRange = ne.lng() - sw.lng();
+				var infoWidth = document.getElementsByClassName("info-view")[0].offsetWidth;
+				var screenWidth = window.innerWidth;
+				var infoLng = (mapRange * infoWidth)/screenWidth;
+				var markerPos = this.marker.getPosition();
+				var absLng = (mapRange - infoLng)/2;
+				var newLng = markerPos.lng() - mapRange/2 + absLng;
+				map.setCenter(new google.maps.LatLng(markerPos.lat(), newLng));
+			} else {
+				map.setCenter(this.marker.getPosition());
+			}
+
 		}
 
 	}.bind(this));
