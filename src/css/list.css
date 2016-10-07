@@ -1,5 +1,4 @@
 /* ------ List View ------ */
-
 .list-view {
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
@@ -7,7 +6,6 @@
 	background-color: white;
 	border-radius: 0 0 3px 3px;
 	border-top: 1px solid rgba(0, 0, 0, 0.14);
-	background-image: -webkit-linear-gradient(left, white , #e1eefc);
 	width: 320px;
 	position: absolute;
 	top: 48px;
@@ -44,4 +42,18 @@
 
 .list-group-item:hover {
 	background-color: rgb(233,185,206);
+}
+
+.logout-wrapper {
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	height: 48px;
+	width: 48px;
+	padding: 4px;
+}
+
+.logout-icon {
+	width: 100%;
+	height: 100%;
 }

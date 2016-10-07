@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="css/list.css">
     <link rel="stylesheet" href="css/map.css">
     <link rel="stylesheet" href="css/info.css">
-    <link rel="stylesheet" href="css/footer.css">
     <!-- endbuild -->
   </head>
   <body>
@@ -73,10 +72,31 @@
           <img class="nav-hamburger" data-bind="visible: !showList()" src="images/list.png">
           <img class="nav-hamburger" data-bind="visible: showList()" src="images/black-x.png">
         </div>
-        <input class="nav-search" type="text" data-bind="event: {keyup: liveSearch}" placeholder="Search Locations">
-        <div class="logout-wrapper" data-bind="click: logout">
-          <img class="logout-icon" src="images/logout.png">
+        <!-- Trigger -->
+        <div class="trigger">
+          <!-- State 1: show info false, no location selected-->
+          <div class="title-and-trigger" data-bind="if: (!showInfo() && !anyMarkerHasBeenClicked())">
+            <span class="trigger-info">Art Map Pasadena</span>
+            <div class="trigger-wrap">
+              <img class="trigger-down" src="images/arrow-down.png" data-bind="click: infoUp">
+            </div>
+          </div>
+          <!-- State 2: show info false, location selected-->
+          <div class="title-and-trigger" data-bind="if: (!showInfo() && anyMarkerHasBeenClicked())">
+            <span class="trigger-info" data-bind="text: activeLocationName"></span>
+            <div class="trigger-wrap">
+              <img class="trigger-down" src="images/arrow-down.png" data-bind="click: infoUp">
+            </div>
+          </div>
+          <!-- State 3: info-view shown-->
+          <div class="title-and-trigger" data-bind="if: showInfo">
+            <span class="trigger-info" data-bind="text: activeLocationName"></span>
+            <div class="trigger-wrap">
+              <img class="trigger-down" src="images/arrow-up.png" data-bind="click: infoDown">
+            </div>
+          </div>
         </div>
+        <input class="nav-search" type="text" data-bind="event: {keyup: liveSearch}" placeholder="Search Locations">
       </div>
 
       <!-- List View -->
@@ -86,6 +106,10 @@
             <img class="list-group-icon" src="images/list-icon.png">
             <span class="list-group-text" data-bind="text: name"></span>
           </div>
+        </div>
+        <div class="list-group-item" data-bind="click: logout">
+          <img class="list-group-icon" src="images/logout.png">
+          <span class="list-group-text">Logout of Facebook</span>
         </div>
       </div>
 
@@ -97,37 +121,19 @@
         <div id="map"></div>
       </div>
 
-      <!-- Footer View -->
-      <div class="footer-view">
-        <!-- State 1: show info false, no location selected-->
-        <div class="footer-wrapper" data-bind="if: (!showInfo() && !anyMarkerHasBeenClicked())">
-          <div class="trigger-wrap">
-            <img class="trigger-up" src="images/arrow-up.png" data-bind="click: infoUp">
-          </div>
-          <span class="footer-info">Art Map Pasadena</span>
-        </div>
-        <!-- State 2: show info false, location selected-->
-        <div class="footer-wrapper" data-bind="if: (!showInfo() && anyMarkerHasBeenClicked())">
-          <div class="trigger-wrap">
-            <img class="trigger-up" src="images/arrow-up.png" data-bind="click: infoUp">
-          </div>
-         <span class="footer-info" data-bind="text: activeLocationName"></span>
-        </div>
-        <!-- State 3: info-view shown-->
-        <div class="footer-wrapper" data-bind="if: showInfo">
-          <div class="trigger-wrap">
-            <img class="trigger-down" src="images/arrow-down.png" data-bind="click: infoDown">
-          </div>
-        </div>
-      </div>
-
       <!-- Info View -->
       <div class="info-view display-none">
         <div data-bind="visible: fbErr()">
           An error with Facebook occurred and the page may not be displaying correctly. Please refresh or try again later.
         </div>
-        <img class="cover-photo" data-bind="attr: {src: activeLocationCover().source}" alt=""/>
-        <h4 data-bind="if: activeLocationEvents().length > 0">Upcoming Events</h4>
+        <div class="location-container">
+          <div class="cover-container">
+            <img class="cover-photo" data-bind="attr: {src: activeLocationCover().source, 'data-offsety': activeLocationCover().offset_y}" onload="vm.changeOffsetY(this)" alt=""/>
+            <div class="cover-scrim"></div>
+            <span class="location-title" data-bind="if: activeLocationEvents().length > 0">Upcoming Events</span>
+          </div>
+        </div>
+        <div class="separator"></div>
         <h5 data-bind="if: activeLocationEvents().length < 1">No upcoming events to show.</h5>
         <div class="events-container" data-bind="foreach: activeLocationEvents.slice(0).reverse()">
           <div class="event" data-bind="attr: {href: '#' + id}">
@@ -139,9 +145,6 @@
             </div>
             <div class="event-extra-container display-none">
               <p class="event-description" data-bind="attr: {id: id}, text: description"></p>
-            </div>
-            <div class="event-toggle-extra">
-              <img class="event-toggle-image" src="images/add.png">
             </div>
           </div>
         </div>

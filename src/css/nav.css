@@ -1,13 +1,11 @@
 /* ------ Nav View ------ */
-
 .nav-view {
-	background-color: white;
+	background-color: #e5f0fc;
 	height: 48px;
 	width: 100%;
 	position: fixed;
 	z-index: 4;
 	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
-	background-image: -webkit-linear-gradient(left, #f3f9fe , #90caf9);
 }
 
 .list-toggle {
@@ -28,12 +26,70 @@
 	opacity: 0.62;
 }
 
+/* Content Trigger */
+.title-and-trigger {
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	height: 48px;
+	margin: 0;
+	position: absolute;
+	left: 56px;
+	top: 0px;
+}
+
+.trigger-wrap {
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	position: absolute;
+	display: block;
+	right: -56px;
+	top: 0;
+	padding: 10px;
+}
+
+.trigger-up,
+.trigger-down {
+	box-shadow: 0 -3px 5px 0 rgba(0,0,0,0.16);
+	background-color: rgba(0, 0, 0, 0.62);
+	border-radius: 50%;
+	height: 28px;
+	width: 28px;
+}
+
+.trigger-info {
+	color: rgb(0, 0, 0);
+	display: block;
+	font-family: 'Roboto-Regular', sans-serif;
+	font-weight: 100;
+	font-size: 20px;
+	height: 48px;
+	letter-spacing: 2px;
+	padding: 14px 0;
+}
+
+@media only screen and (min-width: 768px) {
+
+}
+
+@media only screen and (max-width: 540px) {
+
+}
+
+
+@media only screen and (max-width: 385px) {
+
+}
+
+/* Search Functionality */
+
 .nav-search {
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 	box-sizing: border-box;         /* Opera/IE 8+ */
 	border: 0;
-	color: rgba(0, 0, 0, 0.86);
+	color: rgb(0, 0, 0);
 	font-family: 'Roboto-Regular', sans-serif;
 	font-weight: 100;
 	font-size: 18px;
@@ -43,9 +99,9 @@
 	padding: 12px 16px 12px 0px;
 	position: absolute;
 	top: 0;
-	left: 56px;
-	min-width: 264px;
+	right: 4px;
 }
+
 
 input {
 	background-color: transparent;
@@ -57,47 +113,13 @@ input:focus {
     outline: none;
 }
 
-.logout-wrapper {
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
-	height: 56px;
-	width: 56px;
-	position: absolute;
-	right: 4px;
-	top: 20px;
-	padding: 4px;
-}
-
-.logout-icon {
-	box-shadow: 0 4px 5px 0 rgba(0,0,0,0.16);
-	background-color: #90caf9;
-	border-radius: 50%;
-	width: 100%;
-	height: 100%;
-}
-
 @media only screen and (min-width: 768px) {
-	.logout-wrapper {
-		height: 66px;
-		width: 66px;
-		right: 30px;
-		top: 70px;
-	}
+
 }
 
 @media only screen and (max-width: 385px) {
 
-	.logout-icon {
-		box-shadow: none;
-		background-color: transparent;
-	}
 
-	.logout-wrapper {
-		top: 0;
-		height: 48px;
-		width: 48px;
-	}
 }
 
 
