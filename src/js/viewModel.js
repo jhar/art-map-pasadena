@@ -78,20 +78,31 @@ var ViewModel = function() {
   		});
 	};
 
-	self.changeOffsetY = function(element) {
+	self.changeOffsetY = function(element, eventCover) {
 		var oldWidth = element.naturalWidth;
 		var oldHeight = element.naturalHeight;
-		var width = element.offsetWidth || 503.41;
-		var scaleRatio = oldWidth/oldHeight;
-		var scaledHeight = width / scaleRatio;
 
-		if (scaleRatio > 1) {
-			var dy = - (element.dataset.offsety/320) * scaledHeight;
+		if (eventCover === true) {
+			var fbWidth = 826;
+			var fbHeight = 294;
 		} else {
-			var dy = - (element.dataset.offsety/156) * scaledHeight;	
+			var fbWidth = 828;
+			var fbHeight = 315;
 		}
 
-		element.style.transform = 'matrix(1, 0, 0, 1, 0, ' + dy + ')'; 
+		var newHeight = (fbWidth * oldHeight)/oldWidth;
+		var start = fbHeight/2;
+		var finish = newHeight - start;
+		var range = finish - start;
+		var middlePoint = range/100 * element.dataset.offsety + start;
+		var top = middlePoint - start;
+		var percentOffset = (top/newHeight);
+
+		var actualWidth = element.offsetWidth || 503;
+		var actualHeight = (actualWidth * oldHeight)/oldWidth;
+		var pixelOffset = actualHeight * percentOffset;
+
+		element.style.top = -pixelOffset + 'px';
 	};
 
 	// Live search function

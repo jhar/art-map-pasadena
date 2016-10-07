@@ -128,7 +128,7 @@
         </div>
         <div class="location-container">
           <div class="cover-container">
-            <img class="cover-photo" data-bind="attr: {src: activeLocationCover().source, 'data-offsety': activeLocationCover().offset_y}" onload="vm.changeOffsetY(this)" alt=""/>
+            <img class="cover-photo" data-bind="attr: {src: activeLocationCover().source, 'data-offsety': activeLocationCover().offset_y}" onload="vm.changeOffsetY(this, false)" alt=""/>
             <div class="cover-scrim"></div>
             <span class="location-title" data-bind="if: activeLocationEvents().length > 0">Upcoming Events</span>
           </div>
@@ -138,7 +138,7 @@
         <div class="events-container" data-bind="foreach: activeLocationEvents.slice(0).reverse()">
           <div class="event" data-bind="attr: {href: '#' + id}">
             <div class="event-image-container" data-bind="with: cover">
-              <img class="event-image" data-bind="attr: { src: source , 'data-offsety': offset_y }" onload="vm.changeOffsetY(this)" alt="">
+              <img class="event-image" data-bind="attr: { src: source , 'data-offsety': offset_y }" onload="vm.changeOffsetY(this, true)" alt="">
             </div>
             <div class="event-title-container">
               <span class="event-title" data-bind="text: name, attr: {href: '#' + id}"></span>
