@@ -7,6 +7,7 @@ var ViewModel = function() {
 
 	// Data
 	self.locations = ko.observableArray();
+	self.activeLocationMarker = ko.observable();
 	self.activeLocationName = ko.observable();
 	self.activeLocationCover = ko.observable({
 		source: '',
@@ -16,7 +17,6 @@ var ViewModel = function() {
 	self.activeLocationEvents = ko.observableArray();
 
 	// UI state
-	self.anyMarkerHasBeenClicked = ko.observable(false);
 	self.showInfo = ko.observable(false);
 	self.showList = ko.observable(false);
 	self.showSearch = ko.observable(false);
@@ -233,40 +233,37 @@ var ViewModel = function() {
     	}
 	};
 
-	// Animate info window right
-	self.infoRight = function() {
-		self.showInfo(true);
-		ko.utils.toggleDomNodeCssClass(self.infoView, 'display-none', false);
-        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-right', true);
-        ko.utils.toggleDomNodeCssClass(self.trigger, 'trigger-animate-out', true);
-        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-left', false);
-        ko.utils.toggleDomNodeCssClass(self.trigger, 'trigger-animate-in', false);
+	// Toggle info window
+	self.toggleInfo = function() {
+		self.showInfo(!self.showInfo());
+		if (self.showInfo()) {
+			ko.utils.toggleDomNodeCssClass(self.infoView, 'display-none', false);
+	        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-right', true);
+	        ko.utils.toggleDomNodeCssClass(self.trigger, 'trigger-animate-out', true);
+	        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-left', false);
+	        ko.utils.toggleDomNodeCssClass(self.trigger, 'trigger-animate-in', false);
+    	} else {
+			ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-left', true);
+			ko.utils.toggleDomNodeCssClass(self.trigger, 'trigger-animate-in', true);
+	        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-right', false);
+	        ko.utils.toggleDomNodeCssClass(self.trigger, 'trigger-animate-out', false);
+	        map.setCenter(self.activeLocationMarker().getPosition());
+	        setTimeout(function() {
+	        	ko.utils.toggleDomNodeCssClass(self.infoView, 'display-none', true);
+	        }, 500);
+    	}
 	};
 
-	// Animate info window left
-	self.infoLeft = function() {
-		self.showInfo(false);
-		ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-left', true);
-		ko.utils.toggleDomNodeCssClass(self.trigger, 'trigger-animate-in', true);
-        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-right', false);
-        ko.utils.toggleDomNodeCssClass(self.trigger, 'trigger-animate-out', false);
-        setTimeout(function() {
-        	ko.utils.toggleDomNodeCssClass(self.infoView, 'display-none', true);
-        }, 500);
-	};
-
-	// Animate search open
-	self.searchOpen = function() {
-		self.showSearch(true);
-        ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-open-animation', true);
-        ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-close-animation', false);
-	};
-
-	// Animate search close
-	self.searchClose = function() {
-		self.showSearch(false);
-		ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-close-animation', true);
-        ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-open-animation', false);
+	// Toggle search
+	self.toggleSearch = function() {
+		self.showSearch(!self.showSearch());
+		if (self.showSearch()) {
+	        ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-open-animation', true);
+	        ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-close-animation', false);
+	    } else {
+	    	ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-close-animation', true);
+        	ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-open-animation', false);
+	    }
 	};
 
 };

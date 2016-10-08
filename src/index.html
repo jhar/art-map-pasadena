@@ -77,9 +77,9 @@
         </div>
         <!-- Search -->
         <div class="search-container">
-          <img class="search-lens" src="images/search.png" data-bind="click: searchOpen">
+          <img class="search-lens" src="images/search.png" data-bind="click: toggleSearch">
           <input class="search-input" type="text" data-bind="event: {keyup: liveSearch}" placeholder="Search Locations">
-          <img class="search-close" src="images/black-x.png" data-bind="click: searchClose">
+          <img class="search-close" src="images/black-x.png" data-bind="click: toggleSearch">
         </div>
       </div>
 
@@ -107,8 +107,8 @@
 
       <!-- Trigger -->
       <div class="trigger-wrap">
-        <img class="trigger" src="images/arrow-right.png" data-bind="visible: !showInfo(), click: infoRight">
-        <img class="trigger" src="images/arrow-left.png" data-bind="visible: showInfo, click: infoLeft">
+        <img class="trigger" src="images/arrow-right.png" data-bind="visible: !showInfo(), click: toggleInfo">
+        <img class="trigger" src="images/arrow-left.png" data-bind="visible: showInfo, click: toggleInfo">
       </div>
 
       <!-- Info View -->

@@ -23,7 +23,6 @@ var Location = function(name, lat, lng, pid) {
 		var previous = this.active();
 
 		// Revert all markers to default state
-		vm.anyMarkerHasBeenClicked(false);
 		for (var i = 0, len = vm.locations().length; i < len; i++) {
 			vm.locations()[i].active(false);
 			vm.locations()[i].marker.setIcon(gmMarkerIcon);
@@ -34,26 +33,31 @@ var Location = function(name, lat, lng, pid) {
 
 		// Update vm state if active and change color of marker
 		if (this.active()) {
-			vm.anyMarkerHasBeenClicked(true);
 			this.marker.setIcon(gmMarkerIcon2);
+			vm.activeLocationMarker(this.marker);
 			vm.activeLocationName(this.name());
 			vm.activeLocationCover(this.cover());
 			vm.activeLocationEvents(this.events());
-			if (vm.showInfo()) {
-				var ne = map.getBounds().getNorthEast();
-				var sw = map.getBounds().getSouthWest();
-				var mapRange = ne.lng() - sw.lng();
-				var infoWidth = document.getElementsByClassName("info-view")[0].offsetWidth;
-				var screenWidth = window.innerWidth;
-				var infoLng = (mapRange * infoWidth)/screenWidth;
-				var markerPos = this.marker.getPosition();
-				var absLng = (mapRange - infoLng)/2;
-				var newLng = markerPos.lng() - mapRange/2 + absLng;
-				map.setCenter(new google.maps.LatLng(markerPos.lat(), newLng));
-			} else {
-				map.setCenter(this.marker.getPosition());
-			}
 
+			// Open info window if closed
+			if(!vm.showInfo()) vm.toggleInfo();
+
+
+			// Center map in remainder of screen
+			var ne = map.getBounds().getNorthEast();
+			var sw = map.getBounds().getSouthWest();
+			var mapRange = ne.lng() - sw.lng();
+			var infoWidth = document.getElementsByClassName("info-view")[0].offsetWidth;
+			var screenWidth = window.innerWidth;
+			var infoLng = (mapRange * infoWidth)/screenWidth;
+			var absLng = (mapRange - infoLng)/2;
+			var markerPos = this.marker.getPosition();
+			var newLng = markerPos.lng() - mapRange/2 + absLng;
+			map.setCenter(new google.maps.LatLng(markerPos.lat(), newLng));
+
+		} else {
+			if (vm.showInfo()) vm.toggleInfo();
+			map.setCenter(this.marker.getPosition());
 		}
 
 	}.bind(this));
