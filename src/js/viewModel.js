@@ -1,6 +1,12 @@
 var ViewModel = function() {
 	var self = this;
 
+	// Facebook login
+	self.authorized = ko.observable(false);
+	self.loggedIn = ko.observable(false);
+
+	// Data
+	self.locations = ko.observableArray();
 	self.activeLocationName = ko.observable();
 	self.activeLocationCover = ko.observable({
 		source: '',
@@ -8,20 +14,24 @@ var ViewModel = function() {
 		offset_y: ''
 	});
 	self.activeLocationEvents = ko.observableArray();
+
+	// UI state
 	self.anyMarkerHasBeenClicked = ko.observable(false);
-	self.authorized = ko.observable(false);
-	self.loggedIn = ko.observable(false);
 	self.showInfo = ko.observable(false);
+	self.showList = ko.observable(false);
+	self.showSearch = ko.observable(false);
+
+	// Errors
 	self.fbErr = ko.observable(false);
-	self.locations = ko.observableArray();
-	self.neighborhood = ko.observable();
-	self.showList = ko.observable();
 	self.gmErr = ko.observable(false);
 
+	// DOM Elements
 	self.loginView = document.getElementsByClassName("login-view")[0];
 	self.appView = document.getElementsByClassName("app")[0];
 	self.infoView = document.getElementsByClassName("info-view")[0];
-
+	self.searchBar = document.getElementsByClassName("search-container")[0];
+	self.trigger = document.getElementsByClassName("trigger-wrap")[0];
+	self.listView = document.getElementsByClassName("list-view")[0];
 
 	// Check users login & authorization state
 	self.checkIfLoggedIn = function() {
@@ -79,30 +89,19 @@ var ViewModel = function() {
 	};
 
 	self.changeOffsetY = function(element, eventCover) {
-		var oldWidth = element.naturalWidth;
-		var oldHeight = element.naturalHeight;
-
 		if (eventCover === true) {
-			var fbWidth = 826;
-			var fbHeight = 294;
+			var fw = 826;
+			var fh = 294;
 		} else {
-			var fbWidth = 828;
-			var fbHeight = 315;
+			var fw = 828;
+			var fh = 315;
 		}
-
-		var newHeight = (fbWidth * oldHeight)/oldWidth;
-		var start = fbHeight/2;
-		var finish = newHeight - start;
-		var range = finish - start;
-		var middlePoint = range/100 * element.dataset.offsety + start;
-		var top = middlePoint - start;
-		var percentOffset = (top/newHeight);
-
-		var actualWidth = element.offsetWidth || 503;
-		var actualHeight = (actualWidth * oldHeight)/oldWidth;
-		var pixelOffset = actualHeight * percentOffset;
-
-		element.style.top = -pixelOffset + 'px';
+		var nw = element.naturalWidth;
+		var nh = element.naturalHeight;
+		var ow = element.offsetWidth;
+		var oy = element.dataset.offsety;
+		var top = (oy * ow / 100) * ((nh / nw) - (fh / fw));
+		element.style.top = -top + 'px';
 	};
 
 	// Live search function
@@ -121,7 +120,6 @@ var ViewModel = function() {
 
 	// Load JSON location data
 	self.loadData = function(data) {
-		self.neighborhood(data.neighborhood);
 
 		// Clear locations array so that it isn't populated twice
 		self.locations.removeAll();
@@ -197,9 +195,16 @@ var ViewModel = function() {
 	// Reset UI
 	self.resetUI = function() {
 		self.showList(false);
+		ko.utils.toggleDomNodeCssClass(self.listView, 'list-animate-open', false);
+    	ko.utils.toggleDomNodeCssClass(self.listView, 'list-animate-close', false);
 		self.showInfo(false);
-		ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-up', false);
-    	ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-down', false);
+		ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-right', false);
+    	ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-left', false);
+    	self.showSearch(false);
+    	ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-open-animation', false);
+    	ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-close-animation', false);
+    	ko.utils.toggleDomNodeCssClass(self.searchBar, 'trigger-animate-out', false);
+    	ko.utils.toggleDomNodeCssClass(self.searchBar, 'trigger-animate-out', false);
 	};
 
 	// Show main app view
@@ -219,24 +224,49 @@ var ViewModel = function() {
 	// Toggle list view
 	self.toggleList = function() {
 		self.showList(!self.showList());
+		if (self.showList()) {
+			ko.utils.toggleDomNodeCssClass(self.listView, 'list-animate-open', true);
+    		ko.utils.toggleDomNodeCssClass(self.listView, 'list-animate-close', false);
+    	} else {
+    		ko.utils.toggleDomNodeCssClass(self.listView, 'list-animate-close', true);
+    		ko.utils.toggleDomNodeCssClass(self.listView, 'list-animate-open', false);
+    	}
 	};
 
-	// Animate info window up
-	self.infoUp = function() {
+	// Animate info window right
+	self.infoRight = function() {
 		self.showInfo(true);
 		ko.utils.toggleDomNodeCssClass(self.infoView, 'display-none', false);
-        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-up', true);
-        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-down', false);
+        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-right', true);
+        ko.utils.toggleDomNodeCssClass(self.trigger, 'trigger-animate-out', true);
+        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-left', false);
+        ko.utils.toggleDomNodeCssClass(self.trigger, 'trigger-animate-in', false);
 	};
 
-	// Animate info window down
-	self.infoDown = function() {
+	// Animate info window left
+	self.infoLeft = function() {
 		self.showInfo(false);
-		ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-down', true);
-        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-up', false);
+		ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-left', true);
+		ko.utils.toggleDomNodeCssClass(self.trigger, 'trigger-animate-in', true);
+        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-right', false);
+        ko.utils.toggleDomNodeCssClass(self.trigger, 'trigger-animate-out', false);
         setTimeout(function() {
         	ko.utils.toggleDomNodeCssClass(self.infoView, 'display-none', true);
         }, 500);
+	};
+
+	// Animate search open
+	self.searchOpen = function() {
+		self.showSearch(true);
+        ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-open-animation', true);
+        ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-close-animation', false);
+	};
+
+	// Animate search close
+	self.searchClose = function() {
+		self.showSearch(false);
+		ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-close-animation', true);
+        ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-open-animation', false);
 	};
 
 };

@@ -1,0 +1,89 @@
+/* Search Functionality */
+
+.search-container {
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	height: 48px;
+	margin: 0;
+	position: absolute;
+	top: 0;
+	right: -236px;
+	width: 284px;
+}
+
+.search-lens {
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	height: 48px;
+	width: 48px;
+	padding: 12px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0.62;
+}
+
+.search-input {
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	border: none;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.38);
+	color: rgb(0, 0, 0);
+	font-family: 'Roboto-Regular', sans-serif;
+	font-weight: 100;
+	font-size: 16px;
+	height: 24px;
+	margin: 12px 0;
+	position: absolute;
+	right: 48px;
+	letter-spacing: 2px;
+	width: 188px;
+}
+
+.search-close {
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	height: 48px;
+	width: 48px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 12px;
+	opacity: 0.62;
+}
+
+input {
+	background-color: transparent;
+	margin: 0;
+	padding: 0;
+}
+
+input:focus {
+    outline: none;
+}
+
+@keyframes searchOpen {
+	from { right: -236px; }
+	to { right: 0; }
+}
+
+@keyframes searchClose {
+	from { right: 0; }
+	to { right: -236px; }
+}
+
+.search-open-animation {
+	animation-name: searchOpen;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+}
+
+.search-close-animation {
+	animation-name: searchClose;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+}
