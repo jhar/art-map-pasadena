@@ -14,7 +14,6 @@ ko.bindingHandlers.toggleAnimation = {
 	        var open = allBindings.get('open');
 	        var close = allBindings.get('close');
 	        var classes = target.classList;
-	        var started = classes.contains(close) || classes.contains(open);
 	        if (value.show()) {
 	        	classes.add(open);
 	        	classes.remove(close);

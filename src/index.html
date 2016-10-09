@@ -107,8 +107,7 @@
       <!-- Info View -->
       <div class="info-view">
         <div class="arrow-wrap">
-          <img class="arrow" src="images/arrow-left.png" data-bind="click: toggleInfo">
-<!--           <img class="arrow" src="images/arrow-left.png" data-bind="toggleAnimation: showInfo, open: 'info-animate-right', close: 'info-animate-left'"> -->
+          <img class="arrow" src="images/arrow-left.png" data-bind="toggleAnimation: info, target: 'info-view', open: 'info-animate-right', close: 'info-animate-left'">
         </div>
         <div data-bind="visible: fbErr()">
           An error with Facebook occurred and the page may not be displaying correctly. Please refresh or try again later.

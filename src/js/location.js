@@ -19,6 +19,9 @@ var Location = function(name, lat, lng, pid) {
 	// Everything that happens when a marker is clicked
 	google.maps.event.addListener(this.marker, 'click', function() {
 
+		// Get info window's arrow element
+		var infoTrigger = document.getElementsByClassName('arrow')[0];
+
 		// Save previous active state
 		var previous = this.active();
 
@@ -40,7 +43,7 @@ var Location = function(name, lat, lng, pid) {
 			vm.activeLocationEvents(this.events());
 
 			// Open info window if closed
-			if(!vm.showInfo()) vm.toggleInfo();
+			if (!vm.info().show()) infoTrigger.click();
 
 
 			// Center map in remainder of screen
@@ -56,7 +59,7 @@ var Location = function(name, lat, lng, pid) {
 			map.setCenter(new google.maps.LatLng(markerPos.lat(), newLng));
 
 		} else {
-			if (vm.showInfo()) vm.toggleInfo();
+			if (vm.info().show()) infoTrigger.click();
 			map.setCenter(this.marker.getPosition());
 			vm.activeLocationMarker(null);
 			vm.activeLocationName(null);

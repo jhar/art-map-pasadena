@@ -17,7 +17,10 @@ var ViewModel = function() {
 	self.activeLocationEvents = ko.observableArray();
 
 	// UI state
-	self.showInfo = ko.observable(false);
+	self.info = ko.observable({
+		show: ko.observable(false),
+		started: ko.observable(false)
+	});
 	self.showList = ko.observable(false);
 	self.search = ko.observable({
 		show: ko.observable(false),
@@ -31,8 +34,6 @@ var ViewModel = function() {
 	// DOM Elements
 	self.loginView = document.getElementsByClassName("login-view")[0];
 	self.appView = document.getElementsByClassName("app")[0];
-	self.infoView = document.getElementsByClassName("info-view")[0];
-	self.arrow = document.getElementsByClassName("arrow")[0];
 	self.listView = document.getElementsByClassName("list-view")[0];
 
 	// Check users login & authorization state
@@ -234,31 +235,5 @@ var ViewModel = function() {
     		ko.utils.toggleDomNodeCssClass(self.listView, 'list-animate-open', false);
     	}
 	};
-
-	// Toggle info window
-	self.toggleInfo = function() {
-		self.showInfo(!self.showInfo());
-		if (self.showInfo()) {
-			ko.utils.toggleDomNodeCssClass(self.infoView, 'display-none', false);
-	        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-right', true);
-	        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-left', false);
-    	} else {
-			ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-left', true);
-	        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-right', false);
-	        if (self.activeLocationMarker()) map.setCenter(self.activeLocationMarker().getPosition());
-    	}
-	};
-
-	// // Toggle search
-	// self.toggleSearch = function() {
-	// 	self.showSearch(!self.showSearch());
-	// 	if (self.showSearch()) {
-	//         ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-open-animation', true);
-	//         ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-close-animation', false);
-	//     } else {
-	//     	ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-close-animation', true);
- //        	ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-open-animation', false);
-	//     }
-	// };
 
 };
