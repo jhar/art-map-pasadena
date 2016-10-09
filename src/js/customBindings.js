@@ -1,5 +1,9 @@
 ko.bindingHandlers.toggleAnimation = {
 	init: function(element, valueAccessor, allBindings) {
+		var accessor = valueAccessor();
+		accessor().target = document.getElementsByClassName(allBindings.get('target'))[0];
+		accessor().open = allBindings.get('open');
+		accessor().close = allBindings.get('close');
 		element.addEventListener("click", function() {
 			var accessor = valueAccessor();
 			var value = ko.unwrap(valueAccessor());
@@ -10,16 +14,13 @@ ko.bindingHandlers.toggleAnimation = {
 	update: function(element, valueAccessor, allBindings) {
         var value = ko.unwrap(valueAccessor());
         if (value.started()) {
-	        var target = document.getElementsByClassName(allBindings.get('target'))[0];
-	        var open = allBindings.get('open');
-	        var close = allBindings.get('close');
-	        var classes = target.classList;
+	        var classes = value.target.classList;
 	        if (value.show()) {
-	        	classes.add(open);
-	        	classes.remove(close);
+	        	classes.add(value.open);
+	        	classes.remove(value.close);
 	        } else {
-		        classes.add(close);
-		        classes.remove(open);
+		        classes.add(value.close);
+		        classes.remove(value.open);
 	        }
 	    }
 	}

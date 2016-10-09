@@ -199,7 +199,7 @@ var ViewModel = function() {
 
 	// Reset UI
 	self.resetUI = function() {
-		self.showList(false);
+		self.list(false);
 		ko.utils.toggleDomNodeCssClass(self.listView, 'list-animate-open', false);
     	ko.utils.toggleDomNodeCssClass(self.listView, 'list-animate-close', false);
 		
@@ -221,7 +221,7 @@ var ViewModel = function() {
 
 	// Show login screen
 	self.showLogin = function() {
-		self.resetUI();
+		// self.resetUI();
         ko.utils.toggleDomNodeCssClass(self.appView, 'display-none', true);
         ko.utils.toggleDomNodeCssClass(self.loginView, 'display-none', false);
 	};
