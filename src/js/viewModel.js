@@ -19,7 +19,10 @@ var ViewModel = function() {
 	// UI state
 	self.showInfo = ko.observable(false);
 	self.showList = ko.observable(false);
-	self.showSearch = ko.observable(false);
+	self.search = ko.observable({
+		show: ko.observable(false),
+		started: ko.observable(false)
+	});
 
 	// Errors
 	self.fbErr = ko.observable(false);
@@ -29,7 +32,6 @@ var ViewModel = function() {
 	self.loginView = document.getElementsByClassName("login-view")[0];
 	self.appView = document.getElementsByClassName("app")[0];
 	self.infoView = document.getElementsByClassName("info-view")[0];
-	self.searchBar = document.getElementsByClassName("search-container")[0];
 	self.arrow = document.getElementsByClassName("arrow")[0];
 	self.listView = document.getElementsByClassName("list-view")[0];
 
@@ -247,16 +249,16 @@ var ViewModel = function() {
     	}
 	};
 
-	// Toggle search
-	self.toggleSearch = function() {
-		self.showSearch(!self.showSearch());
-		if (self.showSearch()) {
-	        ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-open-animation', true);
-	        ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-close-animation', false);
-	    } else {
-	    	ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-close-animation', true);
-        	ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-open-animation', false);
-	    }
-	};
+	// // Toggle search
+	// self.toggleSearch = function() {
+	// 	self.showSearch(!self.showSearch());
+	// 	if (self.showSearch()) {
+	//         ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-open-animation', true);
+	//         ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-close-animation', false);
+	//     } else {
+	//     	ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-close-animation', true);
+ //        	ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-open-animation', false);
+	//     }
+	// };
 
 };

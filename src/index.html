@@ -76,9 +76,9 @@
         </div>
         <!-- Search -->
         <div class="search-container">
-          <img class="search-lens" src="images/search.png" data-bind="click: toggleSearch">
+          <img class="search-lens" src="images/search.png" data-bind="toggleAnimation: search, target: 'search-container', open: 'search-open-animation', close: 'search-close-animation'">
           <input class="search-input" type="text" data-bind="event: {keyup: liveSearch}" placeholder="Search Locations">
-          <img class="search-close" src="images/black-x.png" data-bind="click: toggleSearch">
+          <img class="search-close" src="images/black-x.png" data-bind="toggleAnimation: search, target: 'search-container', open: 'search-open-animation', close: 'search-close-animation'">
         </div>
       </div>
 
@@ -108,6 +108,7 @@
       <div class="info-view">
         <div class="arrow-wrap">
           <img class="arrow" src="images/arrow-left.png" data-bind="click: toggleInfo">
+<!--           <img class="arrow" src="images/arrow-left.png" data-bind="toggleAnimation: showInfo, open: 'info-animate-right', close: 'info-animate-left'"> -->
         </div>
         <div data-bind="visible: fbErr()">
           An error with Facebook occurred and the page may not be displaying correctly. Please refresh or try again later.
@@ -119,8 +120,7 @@
             <h1 class="title" data-bind="text: activeLocationName() || 'Art Map Pasadena'"></h1>
           </div>
         </div>
-        <h3 class="upcoming-events" data-bind="if: activeLocationEvents().length > 0">Upcoming Events</h3>
-        <h3 class="upcoming-events" data-bind="if: activeLocationEvents().length < 1">No upcoming events to show.</h3>
+        <h3 class="upcoming-events" data-bind="text: activeLocationEvents().length > 0 ? 'Upcoming Events' : 'No upcoming events'"></h3>
         <div class="events-container" data-bind="foreach: activeLocationEvents.slice(0).reverse()">
           <div class="event" data-bind="attr: {href: '#' + id}">
             <div class="event-image-container" data-bind="with: cover">
@@ -144,6 +144,7 @@
     <script src="js/data.js"></script>
     <script src="js/location.js"></script>
     <script src="js/viewModel.js"></script>
+    <script src="js/customBindings.js"></script>
     <script src="js/mapStyle.js"></script>
     <script src="js/map.js"></script>
     <script src="js/init.js"></script>
