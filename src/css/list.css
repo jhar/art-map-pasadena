@@ -6,12 +6,16 @@
 	background-color: white;
 	border-radius: 0 0 3px 3px;
 	border-top: 1px solid rgba(0, 0, 0, 0.14);
-	width: 320px;
-	position: absolute;
-	top: -100%;
-	left: 0;
-	z-index: 4;
 	box-shadow: 0 6px 5px 0 rgba(0,0,0,0.16);
+	left: 0;
+	padding-top: 48px;
+	max-height: 100%;
+	overflow-y: scroll;
+	position: absolute;
+	top: 0px;
+	transform: translateY(-100%);
+	width: 320px;
+	z-index: 4;
 }
 
 .list-group {
@@ -59,13 +63,13 @@
 }
 
 @keyframes listOpen {
-	from { top: -100%; }
-	to { top: 48px; }
+	from { transform: translateY(-100%); }
+	to { transform: translateY(0); }
 }
 
 @keyframes listClose {
-	from { top: 48px; }
-	to { top: -100%; }
+	from { transform: translateY(0); }
+	to { transform: translateY(-100%); }
 }
 
 .list-animate-open {

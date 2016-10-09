@@ -30,7 +30,7 @@ var ViewModel = function() {
 	self.appView = document.getElementsByClassName("app")[0];
 	self.infoView = document.getElementsByClassName("info-view")[0];
 	self.searchBar = document.getElementsByClassName("search-container")[0];
-	self.trigger = document.getElementsByClassName("trigger-wrap")[0];
+	self.arrow = document.getElementsByClassName("arrow")[0];
 	self.listView = document.getElementsByClassName("list-view")[0];
 
 	// Check users login & authorization state
@@ -197,14 +197,14 @@ var ViewModel = function() {
 		self.showList(false);
 		ko.utils.toggleDomNodeCssClass(self.listView, 'list-animate-open', false);
     	ko.utils.toggleDomNodeCssClass(self.listView, 'list-animate-close', false);
+		
 		self.showInfo(false);
 		ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-right', false);
     	ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-left', false);
+    	
     	self.showSearch(false);
     	ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-open-animation', false);
     	ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-close-animation', false);
-    	ko.utils.toggleDomNodeCssClass(self.searchBar, 'trigger-animate-out', false);
-    	ko.utils.toggleDomNodeCssClass(self.searchBar, 'trigger-animate-out', false);
 	};
 
 	// Show main app view
@@ -239,18 +239,11 @@ var ViewModel = function() {
 		if (self.showInfo()) {
 			ko.utils.toggleDomNodeCssClass(self.infoView, 'display-none', false);
 	        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-right', true);
-	        ko.utils.toggleDomNodeCssClass(self.trigger, 'trigger-animate-out', true);
 	        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-left', false);
-	        ko.utils.toggleDomNodeCssClass(self.trigger, 'trigger-animate-in', false);
     	} else {
 			ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-left', true);
-			ko.utils.toggleDomNodeCssClass(self.trigger, 'trigger-animate-in', true);
 	        ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-right', false);
-	        ko.utils.toggleDomNodeCssClass(self.trigger, 'trigger-animate-out', false);
-	        map.setCenter(self.activeLocationMarker().getPosition());
-	        setTimeout(function() {
-	        	ko.utils.toggleDomNodeCssClass(self.infoView, 'display-none', true);
-	        }, 500);
+	        if (self.activeLocationMarker()) map.setCenter(self.activeLocationMarker().getPosition());
     	}
 	};
 

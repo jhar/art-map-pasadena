@@ -58,6 +58,14 @@ var Location = function(name, lat, lng, pid) {
 		} else {
 			if (vm.showInfo()) vm.toggleInfo();
 			map.setCenter(this.marker.getPosition());
+			vm.activeLocationMarker(null);
+			vm.activeLocationName(null);
+			vm.activeLocationCover({
+				source: '',
+				offset_x: '',
+				offset_y: ''
+			});
+			vm.activeLocationEvents([]);
 		}
 
 	}.bind(this));

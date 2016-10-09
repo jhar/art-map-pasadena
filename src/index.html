@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/search.css">
-    <link rel="stylesheet" href="css/trigger.css">
     <link rel="stylesheet" href="css/list.css">
     <link rel="stylesheet" href="css/map.css">
     <link rel="stylesheet" href="css/info.css">
@@ -17,58 +16,58 @@
   </head>
   <body>
 
-  <!-- Facebook API -->
-  <div id="fb-root"></div>
-  <script>
-    // Async JS handler
-    var fbLoaded, gmLoaded, appLoaded = false;
-    var jsIsReady = function(service) {
-      if (service === 'facebook') fbLoaded = true;
-      if (service === undefined) gmLoaded = true;
-      if (service === 'app') appLoaded = true;
-      
-      if (gmLoaded && appLoaded) mapInit();
-      if (fbLoaded && gmLoaded && appLoaded) appInit();
-    };
+    <!-- Facebook API -->
+    <div id="fb-root"></div>
+    <script>
+      // Async JS handler
+      var fbLoaded, gmLoaded, appLoaded = false;
+      var jsIsReady = function(service) {
+        if (service === 'facebook') fbLoaded = true;
+        if (service === undefined) gmLoaded = true;
+        if (service === 'app') appLoaded = true;
+        
+        if (gmLoaded && appLoaded) mapInit();
+        if (fbLoaded && gmLoaded && appLoaded) appInit();
+      };
 
-    // Load the Facebook Graph API
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '695503930593092',
-        xfbml      : false,
-        version    : 'v2.7'
-      });
+      // Load the Facebook Graph API
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '695503930593092',
+          xfbml      : false,
+          version    : 'v2.7'
+        });
 
-      jsIsReady('facebook');
-    };
+        jsIsReady('facebook');
+      };
 
-    (function(d, s, id) {
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "//connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  </script>
+      (function(d, s, id) {
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
 
 
 
-  <!-- Login View -->
-  <div class="login-view">
-    <div class="login-inner">
-      <span class="login-a">Art</span>
-      <span class="login-b">Map</span>
-      <span class="login-c">Pasadena</span>
-      <div class="fb-auth" data-bind="click: login">
-        <img class="fb-auth-icon" src="images/login.png">
+    <!-- Login View -->
+    <div class="login-view">
+      <div class="login-inner">
+        <span class="login-a">Art</span>
+        <span class="login-b">Map</span>
+        <span class="login-c">Pasadena</span>
+        <div class="fb-auth" data-bind="click: login">
+          <img class="fb-auth-icon" src="images/login.png">
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Main App -->
-  <div class="app display-none">
+    <!-- Main App -->
+    <div class="app display-none">
 
-     <!-- Nav View -->
+       <!-- Nav View -->
       <div class="nav-view">
         <!-- Toggle List -->
         <div class="list-toggle" data-bind="click: toggleList">
@@ -105,28 +104,23 @@
         <div id="map"></div>
       </div>
 
-      <!-- Trigger -->
-      <div class="trigger-wrap">
-        <img class="trigger" src="images/arrow-right.png" data-bind="visible: !showInfo(), click: toggleInfo">
-        <img class="trigger" src="images/arrow-left.png" data-bind="visible: showInfo, click: toggleInfo">
-      </div>
-
       <!-- Info View -->
-      <div class="info-view display-none">
+      <div class="info-view">
+        <div class="arrow-wrap">
+          <img class="arrow" src="images/arrow-left.png" data-bind="click: toggleInfo">
+        </div>
         <div data-bind="visible: fbErr()">
           An error with Facebook occurred and the page may not be displaying correctly. Please refresh or try again later.
         </div>
-        <!-- Title -->
-        <h1 class="title" data-bind="text: activeLocationName() || 'Art Map Pasadena'"></h1>
-        <div class="location-container">
-          <div class="cover-container">
+        <div class="cover-outer-container">
+          <div class="cover-inner-container">
             <img class="cover-photo" data-bind="attr: {src: activeLocationCover().source, 'data-offsety': activeLocationCover().offset_y}" onload="vm.changeOffsetY(this, false)" alt=""/>
             <div class="cover-scrim"></div>
-            <h2 class="upcoming-events" data-bind="if: activeLocationEvents().length > 0">Upcoming Events</h2>
+            <h1 class="title" data-bind="text: activeLocationName() || 'Art Map Pasadena'"></h1>
           </div>
         </div>
-        <div class="separator"></div>
-        <h5 data-bind="if: activeLocationEvents().length < 1">No upcoming events to show.</h5>
+        <h3 class="upcoming-events" data-bind="if: activeLocationEvents().length > 0">Upcoming Events</h3>
+        <h3 class="upcoming-events" data-bind="if: activeLocationEvents().length < 1">No upcoming events to show.</h3>
         <div class="events-container" data-bind="foreach: activeLocationEvents.slice(0).reverse()">
           <div class="event" data-bind="attr: {href: '#' + id}">
             <div class="event-image-container" data-bind="with: cover">
@@ -140,20 +134,20 @@
             </div>
           </div>
         </div>
-      </div>
-  
-  </div>
+      </div> <!-- end info -->
 
-  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXSNMOBqv06qzdPYMb14q9S_AhufB4jHo&callback=jsIsReady"></script>
-  <!-- build:js js/build.js -->
-  <script src="js/knockout-latest.debug.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/location.js"></script>
-  <script src="js/viewModel.js"></script>
-  <script src="js/mapStyle.js"></script>
-  <script src="js/map.js"></script>
-  <script src="js/init.js"></script>
-  <!-- endbuild -->
+    </div> <!-- end main app -->
 
-</body>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXSNMOBqv06qzdPYMb14q9S_AhufB4jHo&callback=jsIsReady"></script>
+    <!-- build:js js/build.js -->
+    <script src="js/knockout-latest.debug.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/location.js"></script>
+    <script src="js/viewModel.js"></script>
+    <script src="js/mapStyle.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/init.js"></script>
+    <!-- endbuild -->
+
+  </body>
 </html>

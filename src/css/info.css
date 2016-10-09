@@ -6,41 +6,47 @@
 	box-sizing: border-box;         /* Opera/IE 8+ */
 	background-color: white;
 	bottom: 0;
+	box-shadow: 0 0 20px rgba(0,0,0,0.3);
 	display: block;
-	left: -100%;
+	left: 0;
+	transform: translateX(-100%);
+	overflow-y: scroll;
   	position: absolute;
   	padding: 8px;
-  	overflow-y: scroll;
   	top: 48px;
   	max-width: 469px;
   	width: 100%;
   	z-index: 2;
 }
 
-/* Title */
+/* Arrow */
 
-.title {
-	color: rgba(0, 0, 0, 0.57);
+.arrow-wrap {
 	display: block;
-	font-family: 'Roboto-Regular', sans-serif;
-	font-weight: 100;
-	font-size: 28px;
-	letter-spacing: 1px;
-	margin: 0;
-	padding: 12px;
+	text-align: right;
+	width: 100%;
+	height: 28px;
+	z-index: 3;
+}
+
+.arrow {
+	background-color: white;
+	border-radius: 50%;
+	height: 100%;
+	opacity: 0.68;
+	width: 28px;
 }
 
 /* Cover */
 
-.location-container {
+.cover-outer-container {
 	display: block;
-	margin-bottom: 48px;
 	position: relative;
 	max-width: 469px;
 	width: 100%;
 }
 
-.cover-container {
+.cover-inner-container {
 	overflow: hidden;
 	position: relative;
 	max-height: 169px;
@@ -55,7 +61,7 @@
 }
 
 .cover-scrim {
-	background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.38) 66%, rgba(0, 0, 0, 0.86));
+	background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.38) 62%, rgba(0, 0, 0, 1));
 	bottom: 0;
 	height: 100%;
 	left: 0;
@@ -65,21 +71,34 @@
 	z-index: 3;
 }
 
-/* Events */
-
-.upcoming-events {
+.title {
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 	box-sizing: border-box;         /* Opera/IE 8+ */
 	bottom: 0;
-	color: rgba(255, 255, 255, 0.87);
+	color: rgba(255, 255, 255, 1);
 	display: block;
-	font-family: 'Roboto-Regular', sans-serif;
-	font-size: 24px;
+	font-family: 'Roboto-Thin', sans-serif;
+	font-weight: 100;
+	font-size: 25px;
+	letter-spacing: 1px;
 	margin: 0;
 	padding: 12px;
 	position: absolute;
 	z-index: 4;
+}
+
+/* Events */
+
+.upcoming-events {
+	color: rgba(0, 0, 0, 0.57);
+	display: block;
+	font-family: 'Roboto-Regular', sans-serif;
+	font-weight: 100;
+	font-size: 20px;
+	letter-spacing: 1px;
+	margin: 0;
+	padding: 12px;
 }
 
 .events-container {
@@ -114,7 +133,7 @@
 
 .event-title {
 	color: rgba(0, 0, 0, 0.87);
-	font-size: 20px;
+	font-size: 23px;
 	display: block;
 	font-family: 'Roboto-Regular', sans-serif;
 	margin: 0;
@@ -139,13 +158,13 @@
 /* Animation */
 
 @keyframes animateInfoRight {
-	from { left: -100%; }
-	to { left: 0; }
+	from { transform: translateX(-100%); }
+	to { transform: translateX(0); }
 }
 
 @keyframes animateInfoLeft {
-	from { left: 0; }
-	to { left: -100%; }
+	from { transform: translateX(0);  }
+	to { transform: translateX(-100%);}
 }
 
 .info-animate-right {
