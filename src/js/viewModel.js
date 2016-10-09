@@ -17,6 +17,7 @@ var ViewModel = function() {
 	self.activeLocationEvents = ko.observableArray();
 
 	// UI state
+	self.app = ko.observable(false);
 	self.info = ko.observable({
 		show: ko.observable(false),
 		started: ko.observable(false)
@@ -33,10 +34,6 @@ var ViewModel = function() {
 	// Errors
 	self.fbErr = ko.observable(false);
 	self.gmErr = ko.observable(false);
-
-	// DOM Elements
-	self.loginView = document.getElementsByClassName("login-view")[0];
-	self.appView = document.getElementsByClassName("app")[0];
 
 	// Check users login & authorization state
 	self.checkIfLoggedIn = function() {
@@ -92,6 +89,7 @@ var ViewModel = function() {
   		});
 	};
 
+	// Reposition cover photos based on offset_y
 	self.changeOffsetY = function(element, eventCover) {
 		if (eventCover === true) {
 			var fw = 826;
@@ -163,14 +161,15 @@ var ViewModel = function() {
 	// Begins Facebook login process
 	self.login = function() {
 		if (self.loggedIn() && self.authorized()) {
-			self.showApp();
+			self.app(true);
+			gmReset();
 			self.loadData(pasadena);
 		} else {
 			FB.login(function(response) {
 		    	if (response.authResponse) {
 		      		self.loggedIn(true);
 		      		self.authorized(true);
-		      		self.showApp();
+		      		self.app(true);
 					self.loadData(pasadena);
 		    	} else if (!response || response.error) {
 		      		vm.fbErr(true);
@@ -192,37 +191,27 @@ var ViewModel = function() {
       			vm.fbErr(true);
     		}
     		// Regardless of success of logout, user wants to return to title screen
-    		self.showLogin();
+    		self.app(false);
+    		self.resetUI();
   		});
 	};
 
 	// Reset UI
 	self.resetUI = function() {
-		self.list(false);
-		ko.utils.toggleDomNodeCssClass(self.listView, 'list-animate-open', false);
-    	ko.utils.toggleDomNodeCssClass(self.listView, 'list-animate-close', false);
-		
-		self.showInfo(false);
-		ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-right', false);
-    	ko.utils.toggleDomNodeCssClass(self.infoView, 'info-animate-left', false);
-    	
-    	self.showSearch(false);
-    	ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-open-animation', false);
-    	ko.utils.toggleDomNodeCssClass(self.searchBar, 'search-close-animation', false);
-	};
+		self.list().show(false);
+		self.list().started(false);
+		ko.utils.toggleDomNodeCssClass(self.list().target, self.list().open, false);
+    	ko.utils.toggleDomNodeCssClass(self.list().target, self.list().close, false);
 
-	// Show main app view
-	self.showApp = function() {
-		ko.utils.toggleDomNodeCssClass(self.loginView, 'display-none', true);
-        ko.utils.toggleDomNodeCssClass(self.appView, 'display-none', false);
-        gmReset();
-	};
+    	self.info().show(false);
+		self.info().started(false);
+		ko.utils.toggleDomNodeCssClass(self.info().target, self.info().open, false);
+    	ko.utils.toggleDomNodeCssClass(self.info().target, self.info().close, false);
 
-	// Show login screen
-	self.showLogin = function() {
-		// self.resetUI();
-        ko.utils.toggleDomNodeCssClass(self.appView, 'display-none', true);
-        ko.utils.toggleDomNodeCssClass(self.loginView, 'display-none', false);
+    	self.search().show(false);
+		self.search().started(false);
+		ko.utils.toggleDomNodeCssClass(self.search().target, self.search().open, false);
+    	ko.utils.toggleDomNodeCssClass(self.search().target, self.search().close, false);
 	};
 
 };

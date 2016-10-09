@@ -50,7 +50,7 @@
     </script>
 
     <!-- Login View -->
-    <div class="login-view">
+    <div class="login-view" data-bind="css: { 'display-none': app() }">
       <div class="login-inner">
         <span class="login-a">Art</span>
         <span class="login-b">Map</span>
@@ -62,7 +62,7 @@
     </div>
 
     <!-- Main App -->
-    <div class="app display-none">
+    <div class="app" data-bind="css: { 'display-none': !app() }">
 
        <!-- Nav View -->
       <div class="nav-view">
