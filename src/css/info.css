@@ -1,9 +1,6 @@
 /* ------ Info View ------ */
 
 .info-view {
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
 	background-color: white;
 	bottom: 0;
 	box-shadow: 0 0 20px rgba(0,0,0,0.3);
@@ -71,9 +68,6 @@
 }
 
 .title {
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
 	bottom: 0;
 	color: rgba(255, 255, 255, 1);
 	display: block;
@@ -137,9 +131,6 @@
 	font-family: 'Roboto-Regular', sans-serif;
 	margin: 0;
 	padding: 12px;
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
 .event-extra-container {
@@ -148,10 +139,7 @@
 
 .event-description {
 	margin: 0;
-	padding: 7%;
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
+	padding: 7%; 
 }
 
 /* Animation */

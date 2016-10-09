@@ -3,7 +3,6 @@
   <head>
     <title>Art Map Pasadena</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- build:css build.css -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/login.css">
@@ -50,8 +49,6 @@
       }(document, 'script', 'facebook-jssdk'));
     </script>
 
-
-
     <!-- Login View -->
     <div class="login-view">
       <div class="login-inner">
@@ -85,7 +82,7 @@
       <!-- List View -->
       <div class="list-view">
         <div class="list-group" data-bind="foreach: locations">
-          <div class="list-group-item" data-bind="click: $parent.clickedListItem, fadeVisible: visible">
+          <div class="list-group-item" data-bind="click: $parent.clickedListItem">
             <img class="list-group-icon" src="images/list-icon.png">
             <span class="list-group-text" data-bind="text: name"></span>
           </div>

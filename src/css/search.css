@@ -1,9 +1,6 @@
 /* Search Functionality */
 
 .search-container {
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
 	height: 48px;
 	margin: 0;
 	position: absolute;
@@ -13,9 +10,6 @@
 }
 
 .search-lens {
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
 	height: 48px;
 	width: 48px;
 	padding: 12px;
@@ -26,9 +20,6 @@
 }
 
 .search-input {
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
 	border: none;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.38);
 	color: rgb(0, 0, 0);
@@ -44,9 +35,6 @@
 }
 
 .search-close {
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
 	height: 48px;
 	width: 48px;
 	position: absolute;

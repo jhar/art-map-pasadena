@@ -19,8 +19,9 @@ var Location = function(name, lat, lng, pid) {
 	// Everything that happens when a marker is clicked
 	google.maps.event.addListener(this.marker, 'click', function() {
 
-		// Get info window's arrow element
+		// Get DOM triggers - Knockout can't bind to GM markers directly
 		var infoTrigger = document.getElementsByClassName('arrow')[0];
+		var listTrigger = document.getElementsByClassName('list-toggle')[0];
 
 		// Save previous active state
 		var previous = this.active();
@@ -42,9 +43,11 @@ var Location = function(name, lat, lng, pid) {
 			vm.activeLocationCover(this.cover());
 			vm.activeLocationEvents(this.events());
 
-			// Open info window if closed
+			// Open info view if closed
 			if (!vm.info().show()) infoTrigger.click();
 
+			// Close list view if opened
+			if (vm.list().show()) listTrigger.click();
 
 			// Center map in remainder of screen
 			var ne = map.getBounds().getNorthEast();
@@ -59,6 +62,7 @@ var Location = function(name, lat, lng, pid) {
 			map.setCenter(new google.maps.LatLng(markerPos.lat(), newLng));
 
 		} else {
+			// Reset active info & recenter map
 			if (vm.info().show()) infoTrigger.click();
 			vm.activeLocationMarker(null);
 			vm.activeLocationName(null);

@@ -61,7 +61,6 @@ var ViewModel = function() {
 	// Clicks markers when list item is clicked
 	self.clickedListItem = function() {
 		google.maps.event.trigger(this.marker, 'click');
-		self.toggleList();
 	};
 
 	// Get cover photo
