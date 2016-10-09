@@ -60,7 +60,6 @@ var Location = function(name, lat, lng, pid) {
 
 		} else {
 			if (vm.info().show()) infoTrigger.click();
-			map.setCenter(this.marker.getPosition());
 			vm.activeLocationMarker(null);
 			vm.activeLocationName(null);
 			vm.activeLocationCover({
@@ -69,6 +68,7 @@ var Location = function(name, lat, lng, pid) {
 				offset_y: ''
 			});
 			vm.activeLocationEvents([]);
+			map.setCenter(this.marker.getPosition());
 		}
 
 	}.bind(this));

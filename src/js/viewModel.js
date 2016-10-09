@@ -21,7 +21,10 @@ var ViewModel = function() {
 		show: ko.observable(false),
 		started: ko.observable(false)
 	});
-	self.showList = ko.observable(false);
+	self.list = ko.observable({
+		show: ko.observable(false),
+		started: ko.observable(false)
+	});
 	self.search = ko.observable({
 		show: ko.observable(false),
 		started: ko.observable(false)
@@ -34,7 +37,6 @@ var ViewModel = function() {
 	// DOM Elements
 	self.loginView = document.getElementsByClassName("login-view")[0];
 	self.appView = document.getElementsByClassName("app")[0];
-	self.listView = document.getElementsByClassName("list-view")[0];
 
 	// Check users login & authorization state
 	self.checkIfLoggedIn = function() {
@@ -222,18 +224,6 @@ var ViewModel = function() {
 		self.resetUI();
         ko.utils.toggleDomNodeCssClass(self.appView, 'display-none', true);
         ko.utils.toggleDomNodeCssClass(self.loginView, 'display-none', false);
-	};
-
-	// Toggle list view
-	self.toggleList = function() {
-		self.showList(!self.showList());
-		if (self.showList()) {
-			ko.utils.toggleDomNodeCssClass(self.listView, 'list-animate-open', true);
-    		ko.utils.toggleDomNodeCssClass(self.listView, 'list-animate-close', false);
-    	} else {
-    		ko.utils.toggleDomNodeCssClass(self.listView, 'list-animate-close', true);
-    		ko.utils.toggleDomNodeCssClass(self.listView, 'list-animate-open', false);
-    	}
 	};
 
 };

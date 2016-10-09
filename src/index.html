@@ -70,9 +70,9 @@
        <!-- Nav View -->
       <div class="nav-view">
         <!-- Toggle List -->
-        <div class="list-toggle" data-bind="click: toggleList">
-          <img class="nav-hamburger" data-bind="visible: !showList()" src="images/list.png">
-          <img class="nav-hamburger" data-bind="visible: showList()" src="images/black-x.png">
+        <div class="list-toggle" data-bind="toggleAnimation: list, target: 'list-view', open: 'list-animate-open', close: 'list-animate-close'">
+          <img class="nav-hamburger" data-bind="visible: !list().show()" src="images/list.png">
+          <img class="nav-hamburger" data-bind="visible: list().show()" src="images/black-x.png">
         </div>
         <!-- Search -->
         <div class="search-container">
