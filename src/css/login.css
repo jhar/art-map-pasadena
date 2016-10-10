@@ -1,73 +1,55 @@
 /* ------- Login View ----- */
 
 .login-view {
-	background-color: #ff1744;
+	background-color: #e5f0fc;
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
 	z-index: 6;
-	background-image: radial-gradient(circle, #b3e5fc 7%, #f8bbd0 99%);
 }
 
 .login-inner {
-	max-width: 666px;
-	width: 86%;
+	width: 94%;
 	margin: 0 auto;
 	height: 100%;
 	display: block;
 	position: relative;
 }
 
-.login-a, .login-b, .login-c {
+.login-title {
 	color: white;
-	display: block;
-}
-
-.login-a {
-	text-transform: lowercase;
-	font-family: 'Alegreya', serif;
-	font-size: 3.9em;
-	letter-spacing: 0.23em;
+	font-family: 'Roboto-Light';
+	font-size: 3em;
+	line-height: 1.61em;
 	position: absolute;
-	left: 12%;
-	top: 15%;
-	transform: translate();
+	left: 50%;
+	top: 10%;
+	transform: translate(-50%, -32%);
 	z-index: 3;
 	text-shadow: 3px 3px 3px #5b0005;
 }
 
-.login-b {
-	text-transform: uppercase;
-	font-family: 'Montserrat', sans-serif;
-	font-size: 3.8em;
-	font-weight: bold;
-	letter-spacing: 0.24em;
+.login-background {
+	color: grey;
+	font-family: monospace;
+	font-size: 3em;
+	line-height: 1.61em;
 	position: absolute;
-	left: 50%;
-	top: 45%;
-	transform: translate(-50%, -55%);
-	z-index: 2;
-	text-shadow: -110px 76px 0 #c3000a,
-				 -28px -85px 0 #f56168,
-				 135px 54px 0 #fcbcbf;
-}
-
-.login-c {
-  	font-family: 'Norican', cursive;
-  	font-size: 3.9em;
-  	position: absolute;
-  	right: 12%;
-  	bottom: 23%;
-  	z-index: 3;
-  	text-shadow: -3px 3px 3px #5b0005;
+	top: 50%;
+	left: 0;
+	text-transform: uppercase;
+	text-shadow: salmon 20px 20px 3px;
+	transform: translateY(-50%);
+	width: 100%;
+	z-index: 0;
 }
 
 .fb-auth {
 	background-color: transparent;
 	border: 0;
-	color: rgba(0, 0, 0, 62);
+	color: rgba(0, 0, 0, 0.62);
 	font-size: 16px;
 	letter-spacing: 2px;
 	padding: 0;
@@ -89,3 +71,30 @@
 	cursor: pointer;
 	opacity: 86%;
 }
+
+.scrim {
+	background: linear-gradient(180deg, rgba(0, 0, 0, 0.57) 0%, rgba(0, 0, 0, 0.38) 38%, rgba(0, 0, 0, 0) 100%);
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+@keyframes titleScreen {
+	from { letter-spacing: 3em; font-size: 2.5em;}
+	38% { letter-spacing: 2em; font-size: 2em;}
+	50% { letter-spancing: 1em; font-size: 3.8em; }
+	62% { letter-spacing: 1em; font-size: 2em;}
+	to { letter-spacing: 3em; font-size: 2.5em; }
+}
+
+.animate-title-screen {
+	animation-name: titleScreen;
+	animation-duration: 60s;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
+}
+
+
+
