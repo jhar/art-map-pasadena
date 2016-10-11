@@ -80,6 +80,13 @@ gulp.task('default', function(callback) {
   );
 });
 
+// For marking beginning/ending of file lists
+gulp.task('useref', function() {
+    return gulp.src('src/*.html')
+        .pipe(useref())
+        .pipe(gulp.dest('dist'))
+});
+
 // Build task
 gulp.task('build', function(callback) {
   runSequence(
