@@ -1,8 +1,7 @@
 ko.bindingHandlers.toggleAnimation = {
 	init: function(element, valueAccessor, allBindings) {
-		// Pre-define target, open, and close
+		// Pre-define open, and close
 		var accessor = valueAccessor();
-		accessor().target = document.getElementsByClassName(allBindings.get('target'))[0];
 		accessor().open = allBindings.get('open');
 		accessor().close = allBindings.get('close');
 
@@ -15,7 +14,19 @@ ko.bindingHandlers.toggleAnimation = {
 		});
 	},
 	update: function(element, valueAccessor, allBindings) {
-        var value = ko.unwrap(valueAccessor());
+		// Define target (necessary to be in update because of foreach elements)
+		var accessor = valueAccessor();
+        var target = allBindings.get('target');
+		if (isNaN(target.charAt(0))) {
+			console.log("here");
+			accessor().target = document.getElementsByClassName(target)[0];
+		} else {
+			console.log(document.getElementById(target));
+			accessor().target = document.getElementById(target);
+		}
+
+		// Animate
+		var value = ko.unwrap(valueAccessor());
         if (value.started()) {
 	        var classes = value.target.classList;
 	        if (value.show()) {

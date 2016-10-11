@@ -98,12 +98,12 @@
 
 .events-container {
  	display: block;
+ 	margin-bottom: 96px;
  	width: 100%;
 }
 
 .event {
 	display: block;
-	margin-bottom: 48px;
 	position: relative;
 	max-width: 469px;
 }
@@ -123,28 +123,37 @@
 }
 
 .event-title-container {
+	color: rgba(0, 0, 0, 0.57);
 	width: 100%;
 }
 
 .event-title {
-	color: rgba(0, 0, 0, 0.87);
-	font-size: 23px;
+	font-size: 20px;
+	font-weight: 100;
 	display: block;
 	font-family: 'Roboto-Regular', sans-serif;
 	margin: 0;
 	padding: 12px;
 }
 
-.event-extra-container {
-	width: 100%;
+.event-title-container:hover {
+	color: rgba(0, 0, 0, 1);
 }
 
 .event-description {
-	margin: 0;
-	padding: 7%; 
+	max-height: 0;
+	overflow: hidden;
+	width: 100%;
 }
 
-/* Animation */
+.event-description-text {
+	color: rgba(0, 0, 0, 0.71);
+	font: 16px 'Roboto-Regular', sans-serif;
+	margin: 0;
+	padding: 0 12px 24px 12px; 
+}
+
+/* Animations */
 
 @keyframes animateInfoRight {
 	from { transform: translateX(-100%); }
@@ -152,8 +161,8 @@
 }
 
 @keyframes animateInfoLeft {
-	from { transform: translateX(0);  }
-	to { transform: translateX(-100%);}
+	from { transform: translateX(0); }
+	to { transform: translateX(-100%); }
 }
 
 .info-animate-right {
@@ -165,5 +174,27 @@
 .info-animate-left {
 	animation-name: animateInfoLeft;
 	animation-duration: 0.8s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes descriptionOpen {
+	from { max-height: 0; }
+	to { max-height: 1000px; }
+}
+
+@keyframes descriptionClose {
+	from { max-height: 1000px; }
+	to { max-height: 0; }
+}
+
+.description-open {
+	animation-name: descriptionOpen;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+}
+
+.description-close {
+	animation-name: descriptionClose;
+	animation-duration: 0.5s;
 	animation-fill-mode: forwards;
 }
