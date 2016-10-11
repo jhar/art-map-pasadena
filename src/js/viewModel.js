@@ -162,8 +162,8 @@ var ViewModel = function() {
 	self.login = function() {
 		if (self.loggedIn() && self.authorized()) {
 			self.app(true);
-			gmReset();
 			self.loadData(pasadena);
+			gmReset();
 		} else {
 			FB.login(function(response) {
 		    	if (response.authResponse) {
@@ -171,6 +171,7 @@ var ViewModel = function() {
 		      		self.authorized(true);
 		      		self.app(true);
 					self.loadData(pasadena);
+					gmReset();
 		    	} else if (!response || response.error) {
 		      		vm.fbErr(true);
 		    	} else {
