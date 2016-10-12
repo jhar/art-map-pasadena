@@ -12,16 +12,19 @@ ko.bindingHandlers.toggleAnimation = {
             accessor().show(!value.show());
             accessor().started(true);
 		});
+
+		// Disposal logic
+		ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+			element.parentNode.removeChild(element);
+		});
 	},
 	update: function(element, valueAccessor, allBindings) {
 		// Define target (necessary to be in update because of foreach elements)
 		var accessor = valueAccessor();
         var target = allBindings.get('target');
 		if (isNaN(target.charAt(0))) {
-			console.log("here");
 			accessor().target = document.getElementsByClassName(target)[0];
 		} else {
-			console.log(document.getElementById(target));
 			accessor().target = document.getElementById(target);
 		}
 

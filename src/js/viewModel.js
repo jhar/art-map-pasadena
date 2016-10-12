@@ -14,7 +14,7 @@ var ViewModel = function() {
 		offset_x: '',
 		offset_y: ''
 	});
-	self.activeLocationEvents = ko.observableArray();
+	self.activeLocationEvents = ko.observableArray().extend({ rateLimit: 100 });
 
 	// UI state
 	self.app = ko.observable(false);
