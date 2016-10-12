@@ -6,7 +6,8 @@ var ViewModel = function() {
 	self.loggedIn = ko.observable(false);
 
 	// Data
-	self.locations = ko.observableArray();
+	self.locations = [];
+	self.names = ko.observableArray();
 	self.activeLocationMarker = ko.observable();
 	self.activeLocationName = ko.observable();
 	self.activeLocationCover = ko.observable({
@@ -56,8 +57,8 @@ var ViewModel = function() {
 	};
 
 	// Clicks markers when list item is clicked
-	self.clickedListItem = function() {
-		google.maps.event.trigger(this.marker, 'click');
+	self.clickedListItem = function(name) {
+		google.maps.event.trigger(self.locations[self.names.indexOf(name)].marker, 'click');
 	};
 
 	// Get cover photo
@@ -66,9 +67,9 @@ var ViewModel = function() {
 	    FB.api(query, function (response) {
 			if (response && !response.error) {
 				if (event === undefined) { 
-					self.locations()[loc].cover(response.cover);
+					self.locations[loc].cover = response.cover;
 				} else {
-					self.locations()[loc].events()[event].cover = response.cover;
+					self.locations[loc].events[event].cover = response.cover;
 				}
 			} else if (!response || response.error) {
 				vm.fbErr(true);
@@ -109,13 +110,15 @@ var ViewModel = function() {
 	// Live search function
 	self.liveSearch = function(model, obj) {
 		var pattern = new RegExp(obj.currentTarget.value.toLowerCase());
-		for (var i = 0, len = self.locations().length; i < len; i++) {
-			if (pattern.test(self.locations()[i].name().toLowerCase())) {
-				self.locations()[i].marker.setVisible(true);
-				self.locations()[i].visible(true);
+		for (var i = 0, len = self.locations.length; i < len; i++) {
+			var name = self.locations[i].name;
+			var lower = name.toLowerCase();
+			if (pattern.test(lower)) {
+				self.locations[i].marker.setVisible(true);
+				self.names.replace(self.names()[i], name);
 			} else {
-				self.locations()[i].marker.setVisible(false);
-				self.locations()[i].visible(false);
+				self.locations[i].marker.setVisible(false);
+				self.names.replace(self.names()[i], null);
 			}
 		}
 	};
@@ -124,7 +127,7 @@ var ViewModel = function() {
 	self.loadData = function(data) {
 
 		// Clear locations array so that it isn't populated twice
-		self.locations.removeAll();
+		self.locations.length = 0;
 
 		// Load JSON data into locations array
 		for (var i = 0, len = data.locations.length; i < len; i++) {
@@ -134,27 +137,28 @@ var ViewModel = function() {
 				data.locations[i].lng,
 				data.locations[i].pid
 			));
+			self.names.push(data.locations[i].name);
 		}
 
 		var timeStamp = Math.floor(Date.now() / 1000);
-		for (var i = 0, len = self.locations().length; i < len; i++) {
+		for (var i = 0, len = self.locations.length; i < len; i++) {
 			// Get cover photo for each location
 			(function(index) {
-				self.getCoverPhoto(self.locations()[index].pid(), index);
+				self.getCoverPhoto(self.locations[index].pid, index);
 			})(i);
 
 			// Get events list for each location
 			(function(index) {
-				self.getEvents(self.locations()[index].pid(), timeStamp, function(response) {
-					self.locations()[index].events(response.data);
+				self.getEvents(self.locations[index].pid, timeStamp, function(response) {
+					self.locations[index].events = response.data;
 					// Attach event cover photos and animation handlers to events
-					for (var j = 0, len = self.locations()[index].events().length; j < len; j++) {
+					for (var j = 0, len = self.locations[index].events.length; j < len; j++) {
 						(function(jindex) {
-							self.locations()[index].events()[jindex].animation = ko.observable({
+							self.locations[index].events[jindex].animation = ko.observable({
 								show: ko.observable(false),
 								started: ko.observable(false)
 							});
-							self.getCoverPhoto(self.locations()[index].events()[jindex].id, index, jindex);
+							self.getCoverPhoto(self.locations[index].events[jindex].id, index, jindex);
 						})(j);
 					}
 				}, this);

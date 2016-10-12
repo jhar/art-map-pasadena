@@ -88,15 +88,15 @@
 
       <!-- List View -->
       <div class="list-view">
-        <div class="list-group" data-bind="foreach: locations">
-          <div class="list-group-item" data-bind="click: $parent.clickedListItem">
-            <img class="list-group-icon" src="images/list-icon.png">
-            <span class="list-group-text" data-bind="text: name"></span>
+        <div class="list-container" data-bind="foreach: names">
+          <div class="list-item" data-bind="visible: $data, click: $parent.clickedListItem">
+            <img class="list-icon" src="images/list-icon.png">
+            <span class="list-text" data-bind="text: $data"></span>
           </div>
         </div>
-        <div class="list-group-item" data-bind="click: logout">
-          <img class="list-group-icon" src="images/logout.png">
-          <span class="list-group-text">Logout of Facebook</span>
+        <div class="list-item" data-bind="click: logout">
+          <img class="list-icon" src="images/logout.png">
+          <span class="list-text">Logout of Facebook</span>
         </div>
       </div>
 
