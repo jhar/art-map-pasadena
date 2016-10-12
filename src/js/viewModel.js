@@ -151,7 +151,7 @@ var ViewModel = function() {
 			(function(index) {
 				self.getEvents(self.locations[index].pid, timeStamp, function(response) {
 					self.locations[index].events = response.data;
-					// Attach event cover photos and animation handlers to events
+					// Attach event cover photos
 					for (var j = 0, len = self.locations[index].events.length; j < len; j++) {
 						(function(jindex) {
 							self.locations[index].events[jindex].animation = ko.observable({

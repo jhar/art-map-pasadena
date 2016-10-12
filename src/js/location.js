@@ -30,6 +30,10 @@ var Location = function(name, lat, lng, pid) {
 		for (var i = 0, len = vm.locations.length; i < len; i++) {
 			vm.locations[i].active = false;
 			vm.locations[i].marker.setIcon(gmMarkerIcon);
+			for (var j = 0, len = vm.locations[i].events.length; j < len; j++) {
+				vm.locations[i].events[j].animation().show(false);
+				vm.locations[i].events[j].animation().started(false);
+			}
 		}
 
 		// Change active state
@@ -64,14 +68,6 @@ var Location = function(name, lat, lng, pid) {
 		} else {
 			// Reset active info & recenter map
 			if (vm.info().show()) infoTrigger.click();
-			vm.activeLocationMarker(null);
-			vm.activeLocationName(null);
-			vm.activeLocationCover({
-				source: '',
-				offset_x: '',
-				offset_y: ''
-			});
-			vm.activeLocationEvents().length = 0;
 			map.setCenter(this.marker.getPosition());
 		}
 

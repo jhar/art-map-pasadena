@@ -117,15 +117,15 @@
         </div>
         <h3 class="upcoming-events" data-bind="text: activeLocationEvents().length > 0 ? 'Upcoming Events' : 'No upcoming events'"></h3>
         <div class="events-container" data-bind="foreach: activeLocationEvents.slice(0).reverse()">
-          <div class="event" data-bind="attr: {href: '#' + id}">
+          <div class="event">
             <div class="event-image-container" data-bind="with: cover">
-              <img class="event-image" data-bind="attr: { src: source , 'data-offsety': offset_y }" onload="vm.changeOffsetY(this, true)" alt="">
+              <img class="event-image" data-bind="attr: { src: source , 'data-offsety': offset_y }" onload="vm.changeOffsetY(this, true)">
             </div>
-            <div class="event-title-container" data-bind="toggleAnimation: animation, target: id, open: 'description-open', close: 'description-close'">
-              <h3 class="event-title" data-bind="text: name, attr: {href: '#' + id}"></h3>
+            <div class="event-title-container" data-bind="toggleAnimation: animation, target: { 'event-' + $index }, open: 'description-open', close: 'description-close'">
+              <h3 class="event-title" data-bind="text: name"></h3>
             </div>
-            <div class="event-description" data-bind="attr: {id: id}">
-              <p class="event-description-text" data-bind="attr: {id: id}, text: description"></p>
+            <div class="event-description" data-bind="css: { 'event-' + $index }">
+              <p class="event-description-text" data-bind="text: description"></p>
             </div>
           </div>
         </div>

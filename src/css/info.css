@@ -86,11 +86,11 @@
 /* Events */
 
 .upcoming-events {
-	color: rgba(0, 0, 0, 0.57);
+	color: rgba(0, 0, 0, 0.54);
 	display: block;
 	font-family: 'Roboto-Regular', sans-serif;
 	font-weight: 100;
-	font-size: 20px;
+	font-size: 18px;
 	letter-spacing: 1px;
 	margin: 0;
 	padding: 12px;
@@ -123,12 +123,12 @@
 }
 
 .event-title-container {
-	color: rgba(0, 0, 0, 0.57);
 	width: 100%;
 }
 
 .event-title {
-	font-size: 20px;
+	color: rgba(0, 0, 0, 0.87);
+	font-size: 18px;
 	font-weight: 100;
 	display: block;
 	font-family: 'Roboto-Regular', sans-serif;
@@ -148,7 +148,8 @@
 
 .event-description-text {
 	color: rgba(0, 0, 0, 0.71);
-	font: 16px 'Roboto-Regular', sans-serif;
+	font: 13px 'Roboto-Regular', sans-serif;
+	line-height: 19px;
 	margin: 0;
 	padding: 0 12px 24px 12px; 
 }
