@@ -3,7 +3,7 @@
   <head>
     <title>Art Map Pasadena</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- build:css build.css -->
+    <!-- build:css css/build.css -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/nav.css">
@@ -24,7 +24,6 @@
         if (service === 'facebook') fbLoaded = true;
         if (service === undefined) gmLoaded = true;
         if (service === 'app') appLoaded = true;
-        
         if (gmLoaded && appLoaded) mapInit();
         if (fbLoaded && gmLoaded && appLoaded) appInit();
       };
@@ -34,7 +33,7 @@
         FB.init({
           appId      : '695503930593092',
           xfbml      : false,
-          version    : 'v2.7'
+          version    : 'v2.8'
         });
 
         jsIsReady('facebook');
@@ -72,7 +71,7 @@
     <!-- Main App -->
     <div class="app" data-bind="css: { 'display-none': !app() }">
 
-       <!-- Nav View -->
+      <!-- Nav View -->
       <div class="nav-view">
         <!-- Toggle List -->
         <div class="list-toggle" data-bind="toggleAnimation: list, target: 'list-view', open: 'list-animate-open', close: 'list-animate-close'">

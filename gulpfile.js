@@ -38,18 +38,9 @@ gulp.task('browserSync', function() {
     });
 });
 
-// Concat & minify JS & CSS from HTML tags
-gulp.task('minify', function() {
-    return gulp.src('src/index.html')
-        .pipe(useref())
-        .pipe(gulpIf('*.js', uglify()))
-        .pipe(gulpIf('*.css', cssnano()))
-        .pipe(gulp.dest('dist'));
-});
-
 // Optimize images
 gulp.task('images', function() {
-    return gulp.src('src/images/*.+(png|jpg|gif|svg)')
+    return gulp.src('src/images/**/*.+(png|jpg|gif|svg)')
         .pipe(cache(imagemin({
             interlaced: true
         })))
@@ -80,11 +71,13 @@ gulp.task('default', function(callback) {
   );
 });
 
-// For marking beginning/ending of file lists
-gulp.task('useref', function() {
-    return gulp.src('src/*.html')
+// Concat & minify JS & CSS from HTML tags
+gulp.task('minify', function() {
+    return gulp.src('src/index.html')
         .pipe(useref())
-        .pipe(gulp.dest('dist'))
+        .pipe(gulpIf('*.js', uglify()))
+        .pipe(gulpIf('*.css', cssnano()))
+        .pipe(gulp.dest('dist'));
 });
 
 // Build task
@@ -92,7 +85,7 @@ gulp.task('build', function(callback) {
   runSequence(
     'clean:dist',
     'sass',
-    ['useref', 'images', 'fonts'],
+    ['favicon', 'minify', 'images', 'fonts'],
     callback
   );
 });

@@ -5,13 +5,13 @@ var mapInit = function() {
 
 	// Pre-load map markers
 	gmMarkerIcon = {
-		url: "../images/alien-markers/a1s.png",
+		url: "../images/a1s.png",
 		scaledSize: new google.maps.Size(67, 67),
 		origin: new google.maps.Point(0, 0),
 		anchor: new google.maps.Point(0, 0)
 	};
 	gmMarkerIcon2 = {
-		url: "../images/alien-markers/a2s.png",
+		url: "../images/a2s.png",
 		scaledSize: new google.maps.Size(67, 67),
 		origin: new google.maps.Point(0, 0),
 		anchor: new google.maps.Point(0, 0)
