@@ -1,33 +1,11 @@
-@import 'https://fonts.googleapis.com/css?family=Norican';
-
-@font-face {
-  font-family: 'Roboto-Light';
-  src:  url('../fonts/roboto/Roboto-Light.woff2') format('woff2'),
-        url('../fonts/roboto/Roboto-Light.woff') format('woff');
-}
-
 @font-face {
   font-family: 'Roboto-Thin';
-  src:  url('../fonts/roboto/Roboto-Thin.woff2') format('woff2'),
-        url('../fonts/roboto/Roboto-Thin.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'Roboto-Bold';
-  src:  url('../fonts/roboto/Roboto-Bold.woff2') format('woff2'),
-        url('../fonts/roboto/Roboto-Bold.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'Roboto-Medium';
-  src:  url('../fonts/roboto/Roboto-Medium.woff2') format('woff2'),
-        url('../fonts/roboto/Roboto-Medium.woff') format('woff');
+  src: url('../fonts/roboto/Roboto-Thin.woff') format('woff');
 }
 
 @font-face {
   font-family: 'Roboto-Regular';
-  src:  url('../fonts/roboto/Roboto-Regular.woff2') format('woff2'),
-        url('../fonts/roboto/Roboto-Regular.woff') format('woff');
+  src: url('../fonts/roboto/Roboto-Regular.woff') format('woff');
 }
 
 html,

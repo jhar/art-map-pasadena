@@ -27,10 +27,10 @@ var Location = function(name, lat, lng, pid) {
 		var previous = this.active;
 
 		// Revert all markers to default state
-		for (var i = 0, len = vm.locations.length; i < len; i++) {
+		for (var i = 0; i < vm.locations.length; i++) {
 			vm.locations[i].active = false;
 			vm.locations[i].marker.setIcon(gmMarkerIcon);
-			for (var j = 0, len = vm.locations[i].events.length; j < len; j++) {
+			for (var j = 0; j < vm.locations[i].events.length; j++) {
 				vm.locations[i].events[j].animation().show(false);
 				vm.locations[i].events[j].animation().started(false);
 			}
