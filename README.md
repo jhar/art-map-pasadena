@@ -6,7 +6,7 @@ The overall look and feel was partially guided by Material Design, with use of R
 
 No CSS framework like Bootstrap is used. All CSS is hand-coded. Animations and transitions are defined within CSS, but are guided by the logic of Knockout's system for custom bindings.
 
-Gulp is currently used for automating tasks. A simple node server is included for deploying to services like Heroku.
+Gulp is currently used for automating tasks.ß
 
 ## To do:
 * User should be able to interact with events (joining, etc)

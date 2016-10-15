@@ -19,6 +19,25 @@
     "knockout": "^3.4.0",
     "run-sequence": "^1.2.2"
   },
+  "jshintConfig" : {
+    "bitwise": true,
+    "curly": true,
+    "eqeqeq": true,
+    "esversion": 5,
+    "freeze": true,
+    "unused": true,
+    "latedef": "nofunc",
+    "maxdepth": 4,
+    "nonew": true,
+    "shadow": "inner",
+    "strict": "implied",
+    "globals": {
+      "document": true,
+      "FB": true,
+      "ko": true,
+      "vm": true
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"

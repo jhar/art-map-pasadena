@@ -18,12 +18,7 @@ var ViewModel = function() {
 	self.activeLocationEvents = ko.observableArray().extend({ rateLimit: 100 });
 
 	// UI state
-	self.app = ko.observable(false);
 	self.info = ko.observable({
-		show: ko.observable(false),
-		started: ko.observable(false)
-	});
-	self.list = ko.observable({
 		show: ko.observable(false),
 		started: ko.observable(false)
 	});
@@ -32,26 +27,25 @@ var ViewModel = function() {
 		started: ko.observable(false)
 	});
 
-	// Errors
 	self.fbErr = ko.observable(false);
 	self.gmErr = ko.observable(false);
 
-	// Check users login & authorization state
+	// See if user is already logged in or authorized
 	self.checkIfLoggedIn = function() {
 		FB.getLoginStatus(function(response) {
-	    	if (response.status === 'connected') {
-	      		// Already logged in and authenticated
-	      		vm.loggedIn(true);
-	      		vm.authorized(true);
+			if (response.status === 'connected') {
+				// Already logged in and authenticated
+				vm.loggedIn(true);
+				vm.authorized(true);
 		    } else if (response.status === 'not_authorized') {
 		    	// Logged in but not authenticated
-		      	vm.loggedIn(true);
-		      	vm.authorized(false);
+				vm.loggedIn(true);
+				vm.authorized(false);
 		    } else if (!response || response.error) {
-		      	vm.fbErr(true);
+		    	vm.fbErr(true);
 		    } else {
-		      	// Not logged in
-		      	vm.loggedIn(false);
+		    	// Not logged in
+				vm.loggedIn(false);
 		    }
 		});
 	};
@@ -61,7 +55,6 @@ var ViewModel = function() {
 		google.maps.event.trigger(self.locations[self.names.indexOf(name)].marker, 'click');
 	};
 
-	// Get cover photo
 	self.getCoverPhoto = function(id, loc, event) {
 	  	var query = "/" + id + "?fields=cover{source, offset_x, offset_y}";
 	    FB.api(query, function (response) {
@@ -77,7 +70,6 @@ var ViewModel = function() {
 	    });
 	};
 
-	// Get events for a location
 	self.getEvents = function(pid, timeStamp, callback, object) {
   		var query = "/" + pid + "/events?since=" + timeStamp;
   		FB.api(query, function (response) {
@@ -91,6 +83,7 @@ var ViewModel = function() {
 	};
 
 	// Reposition cover photos based on offset_y
+	// TODO: recalculate offset_y on screen resizes when screen is < 520px
 	self.changeOffsetY = function(element, eventCover) {
 		if (eventCover === true) {
 			var fw = 826;
@@ -107,7 +100,6 @@ var ViewModel = function() {
 		element.style.top = -top + 'px';
 	};
 
-	// Live search function
 	self.liveSearch = function(model, obj) {
 		var pattern = new RegExp(obj.currentTarget.value.toLowerCase());
 		for (var i = 0, len = self.locations.length; i < len; i++) {
@@ -123,7 +115,6 @@ var ViewModel = function() {
 		}
 	};
 
-	// Load JSON location data
 	self.loadData = function(data) {
 
 		// Clear locations array so that it isn't populated twice
@@ -166,10 +157,9 @@ var ViewModel = function() {
 		}
 	};
 
-	// Begins Facebook login process
 	self.login = function() {
 		if (self.loggedIn() && self.authorized()) {
-			self.app(true);
+			fbl.toggleLogin();
 			self.loadData(pasadena);
 			gmReset();
 		} else {
@@ -177,7 +167,7 @@ var ViewModel = function() {
 		    	if (response.authResponse) {
 		      		self.loggedIn(true);
 		      		self.authorized(true);
-		      		self.app(true);
+		      		fbl.toggleLogin();
 					self.loadData(pasadena);
 					gmReset();
 		    	} else if (!response || response.error) {
@@ -189,7 +179,6 @@ var ViewModel = function() {
 		}
 	};
 
-	// Begins Facebook logout process
 	self.logout = function() {
 		FB.getLoginStatus(function(response) {
     		if (response.authResponse) {
@@ -199,18 +188,19 @@ var ViewModel = function() {
     		} else if (!response || response.error) {
       			vm.fbErr(true);
     		}
-    		// Regardless of success of logout, user wants to return to title screen
-    		self.app(false);
+    		fbl.toggleLogin();
     		self.resetUI();
   		});
 	};
 
 	// Reset UI
 	self.resetUI = function() {
-		self.list().show(false);
-		self.list().started(false);
-		ko.utils.toggleDomNodeCssClass(self.list().target, self.list().open, false);
-    	ko.utils.toggleDomNodeCssClass(self.list().target, self.list().close, false);
+		// self.list().show(false);
+		// self.list().started(false);
+		// ko.utils.toggleDomNodeCssClass(self.list().target,
+		// self.list().open, false);
+    	//ko.utils.toggleDomNodeCssClass(self.list().target,
+		// self.list().close, false);
 
     	self.info().show(false);
 		self.info().started(false);

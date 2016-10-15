@@ -1,5 +1,5 @@
 ko.bindingHandlers.toggleAnimation = {
-	init: function(element, valueAccessor, allBindings) {
+	init: function(element, valueAccessor) {
 		// Add click handler for trigger element
 		element.addEventListener("click", function() {
 			var accessor = valueAccessor();

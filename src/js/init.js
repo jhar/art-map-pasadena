@@ -1,7 +1,8 @@
-var vm;
+var state, vm;
 
 var appInit = function() {
-	// Create view model object and apply bindings
+	fbl = new fbLogin();
+	uit = new uiTransitions();
 	vm = new ViewModel();
 	ko.applyBindings(vm);
 	vm.checkIfLoggedIn();
