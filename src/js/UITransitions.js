@@ -1,4 +1,5 @@
-var UITransitions = function() {
+var UITransitions;
+UITransitions = function () {
 	var self = this;
 	self.list = document.getElementsByClassName('list-view')[0];
 	self.listTgl = document.getElementsByClassName('list-toggle')[0];
@@ -15,12 +16,20 @@ var UITransitions = function() {
 	self.infoStarted = false;
 
 	// Attach event listeners
-	self.listTgl.addEventListener('click', function() {uit.anim('list');});
-	self.searchTgl.addEventListener('click', function() {uit.anim('search');});
-	self.searchClose.addEventListener('click', function() {uit.anim('search');});
-	self.arrow.addEventListener('click', function() {uit.anim('info');});
+	self.listTgl.addEventListener('click', function () {
+		uit.animation('list');
+	});
+	self.searchTgl.addEventListener('click', function () {
+		uit.animation('search');
+	});
+	self.searchClose.addEventListener('click', function () {
+		uit.animation('search');
+	});
+	self.arrow.addEventListener('click', function () {
+		uit.animation('info');
+	});
 
-	self.anim = function(target) {
+	self.animation = function (target) {
 		if (target === 'list' && self.listStarted === false) {
 			self.list.classList.toggle('list-view-open');
 			self.listShow = true;
@@ -48,7 +57,7 @@ var UITransitions = function() {
 		}
 	};
 
-	self.resetUI = function() {
+	self.resetUI = function () {
 		self.listShow = false;
 		self.listStarted = false;
 		self.list.classList.remove('list-view-open');

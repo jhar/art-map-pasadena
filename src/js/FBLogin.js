@@ -1,6 +1,3 @@
-// TODO: data-bind="event: {keyup: liveSearch}"
-// TODO: Alternate list open/close icons
-
 var FBLogin = function() {
 	var self = this;
 	self.authorized = false;

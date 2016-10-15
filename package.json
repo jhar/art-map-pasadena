@@ -5,6 +5,7 @@
   "main": "server.js",
   "devDependencies": {
     "browser-sync": "^2.17.2",
+    "chai": "^3.5.0",
     "del": "^2.2.2",
     "express": "^4.13.3",
     "gulp": "^3.9.0",
@@ -17,9 +18,10 @@
     "gulp-uglify": "^2.0.0",
     "gulp-useref": "^3.1.2",
     "knockout": "^3.4.0",
+    "mocha": "^3.1.2",
     "run-sequence": "^1.2.2"
   },
-  "jshintConfig" : {
+  "jshintConfig": {
     "bitwise": true,
     "curly": true,
     "eqeqeq": true,

@@ -1,9 +1,17 @@
-// visible: $data, click: $parent.clickedListItem"
-
-var LoopRender = function() {
+var ListRender = function() {
 	var self = this;
 	self.listParent = document.getElementsByClassName('list-container')[0];
 	self.names = [];
+	self.trigger = document.getElementsByClassName('nav-trigger')[0];
+
+	// Attach event listeners for trigger elements
+	self.trigger.addEventListener('click', function () {
+		if (this.src === location.origin + '/images/list.png') {
+			this.src = location.origin + '/images/black-x.png';
+		} else {
+			this.src = location.origin + '/images/list.png';
+		}
+	});
 
 	self.listItems = function() {
 		self.listParent.innerHTML = '';
@@ -15,6 +23,7 @@ var LoopRender = function() {
 					'<span class="list-text">' + name + '</span></div>';
 				var newDiv = document.createElement("div");
 				newDiv.innerHTML = listItemTempl;
+				newDiv.addEventListener('click', function() {lr.clickback(index)});
 				self.listParent.appendChild(newDiv);
 			})(i);
 		}
@@ -30,8 +39,8 @@ var LoopRender = function() {
 		}
 	};
 
-	// // Clicks markers when list item is clicked
-	// self.clickedListItem = function(name) {
-	// 	google.maps.event.trigger(self.locations[self.names.indexOf(name)].marker, 'click');
-	// };
+	// Clicks markers when list item is clicked
+	self.clickback = function(i) {
+		google.maps.event.trigger(self.locations[i].marker, 'click');
+	};
 };
