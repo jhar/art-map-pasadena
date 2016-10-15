@@ -1,140 +1,81 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Art Map Pasadena</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/build.css">
+	<title>Art Map Pasadena</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/build.css">
   </head>
   <body>
+	<section class="login-view">
+	  <div class="login-inner">
+		<span class="login-title">art map pasadena</span>
+		<div class="fb-auth">
+		  <img class="fb-auth-icon" src="images/login.png">
+		</div>
+	  </div>
+	</section>
+	<main class="app">
+	  <header>
+		<div class="list-toggle">
+		  <img class="nav-trigger" src="images/list.png">
+		</div>
+		<div class="search-container">
+		  <img class="search-lens" src="images/search.png">
+		  <input class="search-input" type="text" data-bind="event: {keyup: liveSearch}" placeholder="Search Locations">
+		  <img class="search-close" src="images/black-x.png">
+		</div>
+	  </header>
+	  <nav class="list-view">
+		<div class="list-container">
+		  <div class="list-item">
+			<img class="list-icon" src="images/list-icon.png">
+			<span class="list-text"></span>
+		  </div>
+		</div>
+		<div class="list-item fb-auth-out">
+		  <img class="list-icon" src="images/logout.png">
+		  <span class="list-text">Logout of Facebook</span>
+		</div>
+	  </nav>
+	  <section class="map-view">
+		<div data-bind="visible: gmErr()">
+		  An error with Google Maps occurred and the page may not be displaying correctly. Please refresh or try again later.
+		</div>
+		<div id="map"></div>
+	  </section>
 
-    <!-- Facebook API -->
-    <div id="fb-root"></div>
-    <script>
-      // Async JS handler
-      var fbLoaded, gmLoaded, appLoaded = false;
-      var jsIsReady = function(service) {
-        if (service === 'facebook') fbLoaded = true;
-        if (service === undefined) gmLoaded = true;
-        if (service === 'app') appLoaded = true;
-        if (gmLoaded && appLoaded) mapInit();
-        if (fbLoaded && gmLoaded && appLoaded) appInit();
-      };
-
-      // Load the Facebook Graph API
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '670403756436443',
-          xfbml      : false,
-          version    : 'v2.8'
-        });
-
-        jsIsReady('facebook');
-      };
-
-      (function(d, s, id) {
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement(s); js.id = id;
-         js.src = "//connect.facebook.net/en_US/sdk.js";
-         fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-    </script>
-
-    <!-- Login View -->
-    <div class="login-view" data-bind="css: { 'display-none': app() }">
-      <div class="login-inner">
-        <span class="login-background animate-title-screen">
-          <span>armoryarts</span>
-          <span>nortonsimonmuseum</span>
-          <span>kidspacechildrensmuseum</span>
-          <span>pasadenaplayhouse</span>
-          <span>pasadenamuseumofcaliforniaart</span>
-          <span>uscpacificasiamuseum</span>
-          <span>thegamblehouse</span>
-        </span>
-        <span class="login-title">art map pasadena</span>
-        <div class="fb-auth" data-bind="click: login">
-          <img class="fb-auth-icon" src="images/login.png">
-        </div>
-      </div>
-      <div class="scrim"></div>
-    </div>
-
-    <!-- Main App -->
-    <div class="app" data-bind="css: { 'display-none': !app() }">
-
-      <!-- Nav View -->
-      <div class="nav-view">
-        <!-- Toggle List -->
-        <div class="list-toggle" data-bind="toggleAnimation: list, target: 'list-view', open: 'list-animate-open', close: 'list-animate-close'">
-          <img class="nav-hamburger" data-bind="visible: !list().show()" src="images/list.png">
-          <img class="nav-hamburger" data-bind="visible: list().show()" src="images/black-x.png">
-        </div>
-        <!-- Search -->
-        <div class="search-container">
-          <img class="search-lens" src="images/search.png" data-bind="toggleAnimation: search, target: 'search-container', open: 'search-open-animation', close: 'search-close-animation'">
-          <input class="search-input" type="text" data-bind="event: {keyup: liveSearch}" placeholder="Search Locations">
-          <img class="search-close" src="images/black-x.png" data-bind="toggleAnimation: search, target: 'search-container', open: 'search-open-animation', close: 'search-close-animation'">
-        </div>
-      </div>
-
-      <!-- List View -->
-      <div class="list-view">
-        <div class="list-container" data-bind="foreach: names">
-          <div class="list-item" data-bind="visible: $data, click: $parent.clickedListItem">
-            <img class="list-icon" src="images/list-icon.png">
-            <span class="list-text" data-bind="text: $data"></span>
-          </div>
-        </div>
-        <div class="list-item" data-bind="click: logout">
-          <img class="list-icon" src="images/logout.png">
-          <span class="list-text">Logout of Facebook</span>
-        </div>
-      </div>
-
-      <!-- Map View -->
-      <div class="map-view">
-        <div data-bind="visible: gmErr()">
-          An error with Google Maps occurred and the page may not be displaying correctly. Please refresh or try again later.
-        </div>
-        <div id="map"></div>
-      </div>
-
-      <!-- Info View -->
-      <div class="info-view">
-        <div class="arrow-wrap">
-          <img class="arrow" src="images/arrow-left.png" data-bind="toggleAnimation: info, target: 'info-view', open: 'info-animate-right', close: 'info-animate-left'">
-        </div>
-        <div data-bind="visible: fbErr()">
-          An error with Facebook occurred and the page may not be displaying correctly. Please refresh or try again later.
-        </div>
-        <div class="cover-outer-container">
-          <div class="cover-inner-container">
-            <img class="cover-photo" data-bind="attr: {src: activeLocationCover().source, 'data-offsety': activeLocationCover().offset_y}" onload="vm.changeOffsetY(this, false)" alt=""/>
-            <div class="cover-scrim"></div>
-            <h1 class="title" data-bind="text: activeLocationName() || 'Art Map Pasadena'"></h1>
-          </div>
-        </div>
-        <h3 class="upcoming-events" data-bind="text: activeLocationEvents().length > 0 ? 'Upcoming Events' : 'No upcoming events'"></h3>
-        <div class="events-container" data-bind="foreach: activeLocationEvents.slice(0).reverse()">
-          <div class="event">
-            <div class="event-image-container" data-bind="with: cover">
-              <img class="event-image" data-bind="attr: { src: source , 'data-offsety': offset_y }" onload="vm.changeOffsetY(this, true)">
-            </div>
-            <div class="event-title-container" data-bind="toggleAnimation: animation, target: id, open: 'description-open', close: 'description-close'">
-              <h3 class="event-title" data-bind="text: name"></h3>
-            </div>
-            <div class="event-description" data-bind="attr: {id: id}">
-              <p class="event-description-text" data-bind="text: description"></p>
-            </div>
-          </div>
-        </div>
-      </div> <!-- end info -->
-
-    </div> <!-- end main app -->
-
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXSNMOBqv06qzdPYMb14q9S_AhufB4jHo&callback=jsIsReady"></script>
+	  <!-- TODO: Add default content - information about the me & the app -->
+	  <section class="info-view">
+		<div class="arrow-wrap">
+		  <img class="arrow" src="images/arrow-left.png">
+		</div>
+		<div class="fb-error display-none">
+		  An error with Facebook occurred and the page may not be displaying correctly. Please refresh or try again later.
+		</div>
+		<div class="cover-outer-container">
+		  <div class="cover-inner-container">
+			<img class="cover-photo" data-bind="attr: {src: activeLocationCover().source, 'data-offsety': activeLocationCover().offset_y}" onload="vm.changeOffsetY(this, false)" alt=""/>
+			<div class="cover-scrim"></div>
+			<h1 class="title" data-bind="text: activeLocationName() || 'Art Map Pasadena'"></h1>
+		  </div>
+		</div>
+		<h3 class="upcoming-events" data-bind="text: activeLocationEvents().length > 0 ? 'Upcoming Events' : 'No upcoming events'"></h3>
+		<div class="events-container" data-bind="foreach: activeLocationEvents.slice(0).reverse()">
+		  <div class="event">
+			<div class="event-image-container" data-bind="with: cover">
+			  <img class="event-image" data-bind="attr: { src: source , 'data-offsety': offset_y }" onload="vm.changeOffsetY(this, true)">
+			</div>
+			<div class="event-title-container" data-bind="toggleAnimation: animation, target: id, open: 'description-open', close: 'description-close'">
+			  <h3 class="event-title" data-bind="text: name"></h3>
+			</div>
+			<div class="event-description" data-bind="attr: {id: id}">
+			  <p class="event-description-text" data-bind="text: description"></p>
+			</div>
+		  </div>
+		</div>
+	  </section> <!-- end info -->
+	</main> <!-- end main app -->
     <script src="js/build.js"></script>
-
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXSNMOBqv06qzdPYMb14q9S_AhufB4jHo&callback=jsIsReady"></script>
   </body>
 </html>
