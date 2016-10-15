@@ -1,11 +1,12 @@
-var state, vm;
+var fbl, uit, vm;
 
 var appInit = function() {
-	fbl = new fbLogin();
-	uit = new uiTransitions();
+	fbl = new FBLogin();
+	uit = new UITransitions();
 	vm = new ViewModel();
+	lr = new LoopRender();
 	ko.applyBindings(vm);
-	vm.checkIfLoggedIn();
+	fbl.checkIfLoggedIn();
 };
 
 // App is loaded

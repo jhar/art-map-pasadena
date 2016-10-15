@@ -1,75 +1,77 @@
-// Get DOM triggers - Knockout can't bind to GM markers directly
-var infoTrigger = document.getElementsByClassName('arrow')[0];
-var listTrigger = document.getElementsByClassName('list-toggle')[0];
-
 var Location = function(name, lat, lng, pid) {
-	this.name = name;
-	this.lat = lat;
-	this.lng = lng;
-	this.pid = pid;
-	this.visible = true;
-	this.events = [];
-	this.cover;
-	this.active = false;
+	var self = this;
+	self.name = name;
+	self.lat = lat;
+	self.lng = lng;
+	self.pid = pid;
+	self.visible = true;
+	self.events = [];
+	self.cover;
+	self.active = false;
 
 	// Create marker
-	this.marker = new google.maps.Marker({
+	self.marker = new google.maps.Marker({
 		position: new google.maps.LatLng(lat,lng),
 		map: map,
 		title: name,
 		icon: gmMarkerIcon
 	});
 
-	// Everything that happens when a marker is clicked
-	google.maps.event.addListener(this.marker, 'click', function() {
+	google.maps.event.addListener(self.marker, 'click', function() {
+		self.revertStates();
 
+		// Update vm state if active and change color of marker
+		if (self.active) {
+			self.updateMarkerToActive();
+			if (!uit.infoShow) uit.arrow.click();
+			if (uit.listShow) uit.listTgl.click();
+			self.offCenterMap();
+		} else {
+			// Recenter map if not active & close info window
+			if (uit.infoShow) uit.arrow.click();
+			map.setCenter(self.marker.getPosition());
+		}
+
+	}.bind(self));
+
+	// Center map on location marker when map isn't full screen
+	self.offCenterMap = function() {
+		var ne = map.getBounds().getNorthEast();
+		var sw = map.getBounds().getSouthWest();
+		var mapRange = ne.lng() - sw.lng();
+		var infoWidth = uit.info.offsetWidth;
+		var screenWidth = window.innerWidth;
+		var infoLng = (mapRange * infoWidth)/screenWidth;
+		var absLng = (mapRange - infoLng)/2;
+		var markerPos = self.marker.getPosition();
+		var newLng = markerPos.lng() - mapRange/2 + absLng;
+		map.setCenter(new google.maps.LatLng(markerPos.lat(), newLng));
+	};
+
+	// Revert all other location markers to default animation state
+	self.revertStates = function() {
 		// Save previous active state
-		var previous = this.active;
+		var previous = self.active;
 
-		// Revert all markers to default state
+		// Revert all markers & events to default state
 		for (var i = 0; i < vm.locations.length; i++) {
 			vm.locations[i].active = false;
 			vm.locations[i].marker.setIcon(gmMarkerIcon);
 			for (var j = 0; j < vm.locations[i].events.length; j++) {
-				vm.locations[i].events[j].animation().show(false);
-				vm.locations[i].events[j].animation().started(false);
+				vm.locations[i].events[j].show = false;
+				vm.locations[i].events[j].started = false;
 			}
 		}
 
 		// Change active state
-		this.active = !previous;
+		self.active = !previous;
+	};
 
-		// Update vm state if active and change color of marker
-		if (this.active) {
-			this.marker.setIcon(gmMarkerIcon2);
-			vm.activeLocationMarker(this.marker);
-			vm.activeLocationName(this.name);
-			vm.activeLocationCover(this.cover);
-			vm.activeLocationEvents(this.events);
-
-			// Open info view if closed
-			if (!vm.info().show()) infoTrigger.click();
-
-			// Close list view if opened
-			if (vm.list().show()) listTrigger.click();
-
-			// Center map in remainder of screen
-			var ne = map.getBounds().getNorthEast();
-			var sw = map.getBounds().getSouthWest();
-			var mapRange = ne.lng() - sw.lng();
-			var infoWidth = document.getElementsByClassName("info-view")[0].offsetWidth;
-			var screenWidth = window.innerWidth;
-			var infoLng = (mapRange * infoWidth)/screenWidth;
-			var absLng = (mapRange - infoLng)/2;
-			var markerPos = this.marker.getPosition();
-			var newLng = markerPos.lng() - mapRange/2 + absLng;
-			map.setCenter(new google.maps.LatLng(markerPos.lat(), newLng));
-
-		} else {
-			// Reset active info & recenter map
-			if (vm.info().show()) infoTrigger.click();
-			map.setCenter(this.marker.getPosition());
-		}
-
-	}.bind(this));
+	self.updateMarkerToActive = function() {
+		self.marker.setIcon(gmMarkerIcon2);
+		vm.activeLocationMarker(self.marker);
+		vm.activeLocationName(self.name);
+		vm.activeLocationCover(self.cover);
+		vm.activeLocationEvents(self.events);
+	};
 };

@@ -1,13 +1,8 @@
 var ViewModel = function() {
 	var self = this;
 
-	// Facebook login
-	self.authorized = ko.observable(false);
-	self.loggedIn = ko.observable(false);
-
 	// Data
 	self.locations = [];
-	self.names = ko.observableArray();
 	self.activeLocationMarker = ko.observable();
 	self.activeLocationName = ko.observable();
 	self.activeLocationCover = ko.observable({
@@ -17,43 +12,8 @@ var ViewModel = function() {
 	});
 	self.activeLocationEvents = ko.observableArray().extend({ rateLimit: 100 });
 
-	// UI state
-	self.info = ko.observable({
-		show: ko.observable(false),
-		started: ko.observable(false)
-	});
-	self.search = ko.observable({
-		show: ko.observable(false),
-		started: ko.observable(false)
-	});
 
-	self.fbErr = ko.observable(false);
 	self.gmErr = ko.observable(false);
-
-	// See if user is already logged in or authorized
-	self.checkIfLoggedIn = function() {
-		FB.getLoginStatus(function(response) {
-			if (response.status === 'connected') {
-				// Already logged in and authenticated
-				vm.loggedIn(true);
-				vm.authorized(true);
-		    } else if (response.status === 'not_authorized') {
-		    	// Logged in but not authenticated
-				vm.loggedIn(true);
-				vm.authorized(false);
-		    } else if (!response || response.error) {
-		    	vm.fbErr(true);
-		    } else {
-		    	// Not logged in
-				vm.loggedIn(false);
-		    }
-		});
-	};
-
-	// Clicks markers when list item is clicked
-	self.clickedListItem = function(name) {
-		google.maps.event.trigger(self.locations[self.names.indexOf(name)].marker, 'click');
-	};
 
 	self.getCoverPhoto = function(id, loc, event) {
 	  	var query = "/" + id + "?fields=cover{source, offset_x, offset_y}";
@@ -107,10 +67,10 @@ var ViewModel = function() {
 			var lower = name.toLowerCase();
 			if (pattern.test(lower)) {
 				self.locations[i].marker.setVisible(true);
-				self.names.replace(self.names()[i], name);
+				lr.updateItem(i, name);
 			} else {
 				self.locations[i].marker.setVisible(false);
-				self.names.replace(self.names()[i], null);
+				lr.updateItem(i, null);
 			}
 		}
 	};
@@ -128,8 +88,9 @@ var ViewModel = function() {
 				data.locations[i].lng,
 				data.locations[i].pid
 			));
-			self.names.push(data.locations[i].name);
+			lr.names.push(data.locations[i].name);
 		}
+		lr.listItems();
 
 		var timeStamp = Math.floor(Date.now() / 1000);
 		for (var i = 0, len = self.locations.length; i < len; i++) {
@@ -156,61 +117,4 @@ var ViewModel = function() {
 			})(i);
 		}
 	};
-
-	self.login = function() {
-		if (self.loggedIn() && self.authorized()) {
-			fbl.toggleLogin();
-			self.loadData(pasadena);
-			gmReset();
-		} else {
-			FB.login(function(response) {
-		    	if (response.authResponse) {
-		      		self.loggedIn(true);
-		      		self.authorized(true);
-		      		fbl.toggleLogin();
-					self.loadData(pasadena);
-					gmReset();
-		    	} else if (!response || response.error) {
-		      		vm.fbErr(true);
-		    	} else {
-		      		self.loggedIn(false);
-		    	}
-		  	},{scope: 'email'});
-		}
-	};
-
-	self.logout = function() {
-		FB.getLoginStatus(function(response) {
-    		if (response.authResponse) {
-      			FB.logout(function(response) {
-        			self.loggedIn(false);
-      			});
-    		} else if (!response || response.error) {
-      			vm.fbErr(true);
-    		}
-    		fbl.toggleLogin();
-    		self.resetUI();
-  		});
-	};
-
-	// Reset UI
-	self.resetUI = function() {
-		// self.list().show(false);
-		// self.list().started(false);
-		// ko.utils.toggleDomNodeCssClass(self.list().target,
-		// self.list().open, false);
-    	//ko.utils.toggleDomNodeCssClass(self.list().target,
-		// self.list().close, false);
-
-    	self.info().show(false);
-		self.info().started(false);
-		ko.utils.toggleDomNodeCssClass(self.info().target, self.info().open, false);
-    	ko.utils.toggleDomNodeCssClass(self.info().target, self.info().close, false);
-
-    	self.search().show(false);
-		self.search().started(false);
-		ko.utils.toggleDomNodeCssClass(self.search().target, self.search().open, false);
-    	ko.utils.toggleDomNodeCssClass(self.search().target, self.search().close, false);
-	};
-
 };

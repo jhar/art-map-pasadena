@@ -35,10 +35,10 @@
         </div>
       </header>
       <nav class="list-view">
-        <div class="list-container" data-bind="foreach: names">
-          <div class="list-item" data-bind="visible: $data, click: $parent.clickedListItem">
+        <div class="list-container">
+          <div class="list-item">
             <img class="list-icon" src="images/list-icon.png">
-            <span class="list-text" data-bind="text: $data"></span>
+            <span class="list-text"></span>
           </div>
         </div>
         <div class="list-item fb-auth-out">
@@ -58,7 +58,7 @@
         <div class="arrow-wrap">
           <img class="arrow" src="images/arrow-left.png">
         </div>
-        <div data-bind="visible: fbErr()">
+        <div class="fb-error display-none">
           An error with Facebook occurred and the page may not be displaying correctly. Please refresh or try again later.
         </div>
         <div class="cover-outer-container">
@@ -91,10 +91,11 @@
     <script src="js/knockout-latest.debug.js"></script>
     <script src="js/data.js"></script>
     <script src="js/location.js"></script>
+    <script src="js/LoopRender.js"></script>
     <script src="js/viewModel.js"></script>
     <script src="js/customBindings.js"></script>
-    <script src="js/fbLogin.js"></script>
-    <script src="js/uiTransitions.js"></script>
+    <script src="js/FBLogin.js"></script>
+    <script src="js/UITransitions.js"></script>
     <script src="js/map.js"></script>
     <script src="js/init.js"></script>
     <!-- endbuild -->

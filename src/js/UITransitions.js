@@ -1,4 +1,4 @@
-var uiTransitions = function() {
+var UITransitions = function() {
 	var self = this;
 	self.list = document.getElementsByClassName('list-view')[0];
 	self.listTgl = document.getElementsByClassName('list-toggle')[0];
@@ -15,10 +15,10 @@ var uiTransitions = function() {
 	self.infoStarted = false;
 
 	// Attach event listeners
-	self.listTgl.addEventListener('click', function() {uit.anim('list')});
-	self.searchTgl.addEventListener('click', function() {uit.anim('search')});
-	self.searchClose.addEventListener('click', function() {uit.anim('search')});
-	self.arrow.addEventListener('click', function() {uit.anim('info')});
+	self.listTgl.addEventListener('click', function() {uit.anim('list');});
+	self.searchTgl.addEventListener('click', function() {uit.anim('search');});
+	self.searchClose.addEventListener('click', function() {uit.anim('search');});
+	self.arrow.addEventListener('click', function() {uit.anim('info');});
 
 	self.anim = function(target) {
 		if (target === 'list' && self.listStarted === false) {
@@ -44,7 +44,24 @@ var uiTransitions = function() {
 		} else if (target === 'info') {
 			self.info.classList.toggle('info-animate-left');
 			self.info.classList.toggle('info-animate-right');
-			self.infoShow = !self.searchShow;
+			self.infoShow = !self.infoShow;
 		}
+	};
+
+	self.resetUI = function() {
+		self.listShow = false;
+		self.listStarted = false;
+		self.list.classList.remove('list-view-open');
+		self.list.classList.remove('list-view-close');
+
+		self.infoShow = false;
+		self.infoStarted = false;
+		self.info.classList.remove('search-close-animation');
+		self.info.classList.remove('search-open-animation');
+
+		self.searchShow = false;
+		self.searchStarted = false;
+		self.search.classList.remove('info-animate-right');
+		self.search.classList.remove('info-animate-left');
 	};
 };
