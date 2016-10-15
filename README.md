@@ -1,12 +1,12 @@
-# Art Map Pasadena
+# Artenings
 
-This single-page app is an interactive map of events at a curated list of arts organizations in my neighborhood. The map is created and populated with markers by the Google Maps JavaScript API. Information and imagery about the locations and their upcoming events are dynamically loaded with the Facebook Graph API. DOM manipulation and UI state are primarily managed by Knockout.js and an MVVM design pattern.
+Modern urban life can be alienating. All too often I've felt disconnected and out-of-touch with my local community. I have trouble figuring out where to go and what to do with my spare time. If you're like me, then you appreciate being kept up-to-speed on what's going on around you, especially if it involves something that you care about. I care about art, so I decided to map local events in my neighborhood. It's one small step towards being better informed and thus a better citizen. And aliens - there are reasons.
 
-The overall look and feel was partially guided by Material Design, with use of Roboto fonts and Google's free Material icons. The aliens were my own invention and were created with GIMP.
+The interactive map is a single-page app. It represents a curated list of arts and community organizations in Pasadana, California -- my current home. The map itself and the markers are created with the Google Maps JavaScript API. Information and imagery about the locations and their upcoming events are dynamically loaded with the Facebook Graph API. Originally, this project also used the Knockout.js MVVM framework, Bootstrap, and things like jQuery. It was horribly slow though, so I've tasked myself with rewriting it all with Vanilla JavaScript. It's already a faster.
 
-No CSS framework like Bootstrap is used. All CSS is hand-coded. Animations and transitions are defined within CSS, but are guided by the logic of Knockout's system for custom bindings.
+The overall look and feel was partially guided by Material Design, with use of Roboto fonts and Google's free Material icons. The aliens were my own invention and were created with GIMP. 
 
-Gulp is currently used for automating tasks.ß
+Gulp is currently used for automating tasks. Mocha and Chai have been recently employed for testing duties.
 
 ## To do:
 * User should be able to interact with events (joining, etc)
