@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+	include = require('gulp-include'),
     concat = require('gulp-concat'),
     sass = require('gulp-sass'),
     browserSync = require('browser-sync').create(),
@@ -71,8 +72,15 @@ gulp.task('default', function(callback) {
   );
 });
 
+// Concatenate scripts/styles from HTML
+gulp.task('useref', function(){
+	return gulp.src('app/*.html')
+		.pipe(useref())
+		.pipe(gulp.dest('dist'))
+});
+
 // Concat & minify JS & CSS from HTML tags
-gulp.task('minify', function() {
+gulp.task('useref', function() {
     return gulp.src('src/index.html')
         .pipe(useref())
         .pipe(gulpIf('*.js', uglify()))
@@ -85,7 +93,7 @@ gulp.task('build', function(callback) {
   runSequence(
     'clean:dist',
     'sass',
-    ['favicon', 'minify', 'images', 'fonts'],
+    ['favicon', 'useref', 'images', 'fonts'],
     callback
   );
 });

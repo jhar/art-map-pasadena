@@ -41,6 +41,6 @@ var ListRender = function() {
 
 	// Clicks markers when list item is clicked
 	self.clickback = function(i) {
-		google.maps.event.trigger(self.locations[i].marker, 'click');
+		google.maps.event.trigger(vm.locations[i].marker, 'click');
 	};
 };
