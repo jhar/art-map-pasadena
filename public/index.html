@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+	    <title>artenings</title>
+        <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <!-- build:styles styles/build.styles -->
+	    <link rel="stylesheet" href="../src/styles/main.css">
+	    <link rel="stylesheet" href="../src/styles/login.css">
+	    <link rel="stylesheet" href="../src/styles/header.css">
+	    <link rel="stylesheet" href="../src/styles/search.css">
+	    <link rel="stylesheet" href="../src/styles/list.css">
+	    <link rel="stylesheet" href="../src/styles/map.css">
+	    <link rel="stylesheet" href="../src/styles/info.css">
+	    <!-- endbuild -->
+    </head>
+    <body>
+        <script>
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId      : '659270444240956',
+                    cookie     : true,
+                    xfbml      : true,
+                    version    : 'v2.8'
+                });
+                checkIfLoggedIn();
+            };
+
+            (function(d, s, id){
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+        <div class="arteningsApp" id="root"></div>
+        <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXSNMOBqv06qzdPYMb14q9S_AhufB4jHo"></script>
+        <script async src="build.js"></script>
+    </body>
+</html>
