@@ -1,4 +1,4 @@
-var pasadena = {
+{
     "neighborhood": "Pasadena",
     "locations": [{
         "name": "Armory Center for the Arts",
@@ -36,4 +36,4 @@ var pasadena = {
         "lng": -118.1609495,
         "pid": "thegamblehouse"
     }]
-};
+}
