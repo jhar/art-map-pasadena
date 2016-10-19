@@ -1,5 +1,5 @@
 module.exports = {
-	entry: ['./src/scripts/index.js'],
+	entry: ['babel-polyfill', 'isomorphic-fetch', './src/scripts/App.js'],
 	output: {
 		path: __dirname + '/public/',
 		publicPath: 'public/',
@@ -13,7 +13,7 @@ module.exports = {
 		}]
 	},
 	babel: {
-		presets: ['react', 'es2015'],
+		presets: ['es2015', 'react', 'stage-2'],
 		plugins: ['transform-runtime']
 	}
 };
