@@ -44,7 +44,7 @@ class App extends Component {
     componentWillMount() {
         this.loadData()
     }
-	render() {
+    render() {
         // Only show the login screen if user is not authorized
         if (this.state.show_login) {
             return ( <Login toggleLogin={this.toggleLogin} /> )

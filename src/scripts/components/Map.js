@@ -93,6 +93,8 @@ export default class Map extends Component {
         for (let marker of this.state.markers) {
             if (marker.index === nextProps.active) {
                 marker.setIcon(icon_2)
+                // Center map on selected marker
+                map.setCenter(marker.getPosition())
             } else {
                 marker.setIcon(icon_1)
             }
