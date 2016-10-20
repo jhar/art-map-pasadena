@@ -4,7 +4,7 @@ export default class List extends Component {
 	render() {
         let listItems = this.props.locations.map((location, index) => {
             return (
-                <div className="list-item" key={index}>
+                <div className="list-item" onClick={() => {this.props.selectActive(index)}} key={index}>
                     <img className="list-icon" src="images/list-icon.png" />
                     <span className="list-text">{location.name}</span>
                 </div>

@@ -10,6 +10,7 @@ class App extends Component {
     state = {
         active_location: null,
         locations: [],
+        info_clicked: false,
         list_clicked: false,
         show_info: false,
         show_list: false,
@@ -23,6 +24,9 @@ class App extends Component {
             // Otherwise set the active location
             this.setState({ active_location: value })
         }
+    }
+    toggleInfo = () => {
+        this.setState({ show_info: !this.state.show_info, info_clicked: true })
     }
     toggleList = () => {
         this.setState({ show_list: !this.state.show_list, list_clicked: true })
@@ -50,21 +54,36 @@ class App extends Component {
     }
     render() {
         console.log(this.state)
+
         let listClasses = 'list-view'
         if (this.state.show_list && this.state.list_clicked) {
             listClasses = 'list-view list-view-open'
         } else if (this.state.list_clicked){
             listClasses = 'list-view list-view-close'
         }
+
+        let infoClasses = 'info-view'
+        if (this.state.show_info && this.state.info_clicked) {
+            infoClasses = 'info-view info-animate-right'
+        } else if (this.state.info_clicked) {
+            infoClasses = 'info-view info-animate-left'
+        }
+
         if (this.state.show_login) {
             return ( <Login toggleLogin={this.toggleLogin} /> )
         } else {
             return ( 
                 <div>
                     <Header toggleList={this.toggleList} />
-                    <List listClasses={listClasses} locations={this.state.locations}/>
-                    <Map active={this.state.active_location} selectActive={this.selectActive} locations={this.state.locations} />
-                    <Info />
+                    <List   listClasses={listClasses} 
+                            locations={this.state.locations}
+                            selectActive={this.selectActive} />
+                    <Map    active={this.state.active_location} 
+                            selectActive={this.selectActive} 
+                            locations={this.state.locations}
+                            toggleInfo={this.toggleInfo} />
+                    <Info   infoClasses={infoClasses}
+                            toggleInfo={this.toggleInfo} />
                 </div>
             )
         }
