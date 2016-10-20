@@ -62,7 +62,7 @@ class App extends Component {
             return ( 
                 <div>
                     <Header toggleList={this.toggleList} />
-                    <List listClasses={listClasses}/>
+                    <List listClasses={listClasses} locations={this.state.locations}/>
                     <Map active={this.state.active_location} selectActive={this.selectActive} locations={this.state.locations} />
                     <Info />
                 </div>
