@@ -10,6 +10,7 @@ class App extends Component {
     state = {
         active_location: null,
         locations: [],
+        list_clicked: false,
         show_info: false,
         show_list: false,
         show_login: true
@@ -22,6 +23,9 @@ class App extends Component {
             // Otherwise set the active location
             this.setState({ active_location: value })
         }
+    }
+    toggleList = () => {
+        this.setState({ show_list: !this.state.show_list, list_clicked: true })
     }
     toggleLogin = value => {
         this.setState({ show_login: value })
@@ -45,14 +49,20 @@ class App extends Component {
         this.loadData()
     }
     render() {
-        // Only show the login screen if user is not authorized
+        console.log(this.state)
+        let listClasses = 'list-view'
+        if (this.state.show_list && this.state.list_clicked) {
+            listClasses = 'list-view list-view-open'
+        } else if (this.state.list_clicked){
+            listClasses = 'list-view list-view-close'
+        }
         if (this.state.show_login) {
             return ( <Login toggleLogin={this.toggleLogin} /> )
         } else {
             return ( 
                 <div>
-                    <Header />
-                    <List />
+                    <Header toggleList={this.toggleList} />
+                    <List listClasses={listClasses}/>
                     <Map active={this.state.active_location} selectActive={this.selectActive} locations={this.state.locations} />
                     <Info />
                 </div>

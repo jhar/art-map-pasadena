@@ -6,11 +6,7 @@ export default class Header extends Component {
         show_search: false
     }
     toggleSearch = () => {
-        console.log(this.state)
-        this.setState({
-            show_search: !this.state.show_search,
-            search_clicked: true
-        })
+        this.setState({ show_search: !this.state.show_search, search_clicked: true })
     }
 	render() {
         let searchClasses = 'search-container'
@@ -22,7 +18,7 @@ export default class Header extends Component {
 		return (
 			<header>
 				<div className="list-toggle">
-					<img className="nav-trigger" src="images/list.png" />
+					<img className="nav-trigger" onClick={this.props.toggleList} src="images/list.png" />
 				</div>
 				<div className={searchClasses}>
                     <img className="search-lens" onClick={this.toggleSearch} src="images/search.png" />

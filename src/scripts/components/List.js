@@ -3,7 +3,7 @@ import React, { PropTypes, Component } from 'react'
 export default class List extends Component {
 	render() {
 		return (
-			<nav className="list-view">
+			<nav className={this.props.listClasses}>
 				<div className="list-container">
 					<div className="list-item">
 						<img className="list-icon" src="images/list-icon.png" />
