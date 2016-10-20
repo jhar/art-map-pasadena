@@ -1,16 +1,33 @@
 import React, { PropTypes, Component } from 'react'
 
 export default class Header extends Component {
+    state = {
+        search_clicked: false,
+        show_search: false
+    }
+    toggleSearch = () => {
+        console.log(this.state)
+        this.setState({
+            show_search: !this.state.show_search,
+            search_clicked: true
+        })
+    }
 	render() {
+        let searchClasses = 'search-container'
+        if (this.state.show_search && this.state.search_clicked) {
+            searchClasses = 'search-container search-open-animation'
+        } else if (this.state.search_clicked) {
+            searchClasses = 'search-container search-close-animation'
+        }
 		return (
 			<header>
 				<div className="list-toggle">
 					<img className="nav-trigger" src="images/list.png" />
 				</div>
-				<div className="search-container">
-					<img className="search-lens" src="images/search.png" />
+				<div className={searchClasses}>
+                    <img className="search-lens" onClick={this.toggleSearch} src="images/search.png" />
 					<input className="search-input" type="text" placeholder="Search Locations" />
-					<img className="search-close" src="images/black-x.png" />
+					<img className="search-close" onClick={this.toggleSearch} src="images/black-x.png" />
 				</div>
 			</header>
 		)

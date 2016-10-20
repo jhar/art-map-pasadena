@@ -88,7 +88,6 @@ let map = null
 
 export default class Map extends Component {
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
         // Change all marker icons to icon_1, unless marker is active
         for (let marker of this.state.markers) {
             if (marker.index === nextProps.active) {
