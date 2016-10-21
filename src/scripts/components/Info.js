@@ -13,11 +13,45 @@ export default class Info extends Component {
 
 	render() {
         let locCoverSrc = ''
+        let eventsArray = null
         if (this.props.activeLocation !== null) {
             locCoverSrc = this.props.covers[this.props.activeLocation][0].source
+            eventsArray = this.props.events[this.props.activeLocation]
         } else if (this.state.previous_location !== null) {
             locCoverSrc = this.props.covers[this.state.previous_location][0].source
+            eventsArray = this.props.events[this.state.previous_location]
         }
+
+        // TODO: Add dates (event.start_time)
+        // TODO: Add locations (event.place.location.city,country,state,street,zip) of events
+        let eventItems
+        if (eventsArray !== null) {
+            eventItems = eventsArray.map((event, index) => {
+                let evtCoverSrc = ''
+                if (this.props.activeLocation !== null) {
+                    evtCoverSrc = this.props.covers[this.props.activeLocation][index+1].source
+                } else if (this.state.previous_location !== null) {
+                    evtCoverSrc = this.props.covers[this.state.previous_location][index+1].source
+                }
+
+                return (
+                    <div className="event" key={this.activeLocation + '-' + index}>
+				        <div className="event-image-container">
+					        <img className="event-image" src={evtCoverSrc} />
+					    </div>
+					    <div className="event-title-container">
+						    <h3 className="event-title">{event.name}</h3>
+					    </div>
+					    <div className="event-description">
+						    <p className="event-description-text">{event.description}</p>
+					    </div>
+				    </div>
+                )
+            })
+        } else {
+            eventItems = ''
+        }
+
         return(
 			<section className={this.props.infoClasses}>
 				<div className="arrow-wrap">
@@ -32,18 +66,8 @@ export default class Info extends Component {
 				</div>
 				<h3 className="upcoming-events"></h3>
 				<div className="events-container">
-					<div className="event">
-						<div className="event-image-container">
-							<img className="event-image" />
-						</div>
-						<div className="event-title-container">
-							<h3 className="event-title"></h3>
-						</div>
-						<div className="event-description">
-							<p className="event-description-text"></p>
-						</div>
-					</div>
-				</div>
+				    {eventItems}
+                </div>
 			</section>
 		)
 	}

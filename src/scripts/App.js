@@ -28,7 +28,7 @@ class App extends Component {
                 if (evtIndex === undefined) {
                     this.covers[locIndex] = [response.cover]
                 } else {
-                    this.covers[locIndex][evtIndex] = response.cover
+                    this.covers[locIndex][evtIndex+1] = response.cover
                 }
             } else {
                 // TODO: Handle error
@@ -101,9 +101,12 @@ class App extends Component {
         for (let i = 0; i < length; i++) {
             this.getCover(this.locations[i].pid, i)
             this.getEvents(this.locations[i].pid, timeStamp, (response) => {
-
+                this.events[i] = response.data
+                let length2 = this.events[i].length
+                for (let j = 0; j < length2; j++) {
+                    this.getCover(this.events[i][j].id, i, j)
+                }
             })
-            // then for each event getCover()
         }
     }
 
