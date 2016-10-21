@@ -1,18 +1,31 @@
 import React, { Component } from 'react'
 
 export default class Info extends Component {
+    state = {
+        previous_location: null
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if ((nextProps.activeLocation === null) && (this.props.activeLocation !== null)) {
+            this.setState({ previous_location: this.props.activeLocation })
+        }
+    }
+
 	render() {
-		return(
+        let locCoverSrc = ''
+        if (this.props.activeLocation !== null) {
+            locCoverSrc = this.props.covers[this.props.activeLocation][0].source
+        } else if (this.state.previous_location !== null) {
+            locCoverSrc = this.props.covers[this.state.previous_location][0].source
+        }
+        return(
 			<section className={this.props.infoClasses}>
 				<div className="arrow-wrap">
 					<img className="arrow" onClick={this.props.toggleInfo} src="images/arrow-left.png" />
 				</div>
-				<div className="fb-error display-none">
-					An error with Facebook occurred and the page may not be displaying correctly. Please refresh or try again later.
-				</div>
 				<div className="cover-outer-container">
 					<div className="cover-inner-container">
-						<img className="cover-photo" alt="" />
+						<img className="cover-photo" src={locCoverSrc} alt="" />
 						<div className="cover-scrim"></div>
 						<h1 className="title"></h1>
 					</div>

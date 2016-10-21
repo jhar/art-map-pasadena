@@ -9,32 +9,36 @@ import Info from './components/Info'
 class App extends Component {
     state = {
         active_location: null,
-        covers: [],
-        events: [],
-        locations: [],
         info_clicked: false,
         list_clicked: false,
         show_info: false,
         show_list: false,
         show_login: true
-    } 
-    getCoverPhoto = (pid, locIndex, evtIndex) => {
-        let query = '/${pid}?fields=cover{source, offset_y}'
+    }
+
+    // Data that shouldn't trigger re-renders
+    covers = []
+    events = []
+    locations = []
+
+    getCover = (pid, locIndex, evtIndex) => {
+        let query = `/${pid}?fields=cover{source, offset_y}`
         FB.api(query, (response) => {
             if (response && !response.error) {
-                if (event === undefined) {
-                    covers[locIndex] = [response.cover]
+                if (evtIndex === undefined) {
+                    this.covers[locIndex] = [response.cover]
                 } else {
-                    covers[locIndex][evtIndex] = response.cover
+                    this.covers[locIndex][evtIndex] = response.cover
                 }
             } else {
                 // TODO: Handle error
             }
         })
     }
+
     getEvents = (pid, timeStamp, callback, object) => {
-        let query = '/${pid}/events?since=${timeStamp}'
-        Fb.api(query, (response) => {
+        let query = `/${pid}/events?since=${timeStamp}`
+        FB.api(query, (response) => {
             if (response && !response.error) {
                 callback.call(object, response)
             } else {
@@ -42,6 +46,7 @@ class App extends Component {
             }
         })
     }
+
     liveSearch = (model, obj) => {
         let pattern = new RegExp(obj.currentTarget.value.toLowerCase())
         let length = this.state.locations.length
@@ -49,14 +54,14 @@ class App extends Component {
             let name = this.state.locations[i].name
             let lower = name.toLowerCase()
             if (pattern.test(lower)) {
-                // set visibility to true
+                // TODO: set visibility to true
             } else {
-                // set visibility to false
+                // TODO: set visibility to false
             }
         }
     }
+
     selectActive = value => {
-        this.toggleInfo()
         // Turn off already active locations
         if (this.state.active_location === value) {
             this.setState({ active_location: null })
@@ -64,40 +69,61 @@ class App extends Component {
             // Otherwise set the active location
             this.setState({ active_location: value })
         }
+
+        // Toggle info window if closed
+        if (this.state.show_info === false) {
+            this.toggleInfo()
+        } else if (this.state.active_location === null) {
+            // Or if there's no active location
+            this.toggleInfo()
+        }
+
     }
+
     toggleInfo = () => {
         this.setState({ show_info: !this.state.show_info, info_clicked: true })
     }
+
     toggleList = () => {
         this.setState({ show_list: !this.state.show_list, list_clicked: true })
     }
-    toggleLogin = value => {
-        this.setState({ show_login: value })
-        if (value === false) {
 
+    toggleLogin = value => {
+        if (value === false) {
+            let timeStamp = Math.floor(Date.now() /1000)
+            this.loadAuthorizedData(timeStamp)
+        }
+        this.setState({ show_login: value })
+    }
+
+    loadAuthorizedData = (timeStamp) => {
+        let length = this.locations.length
+        for (let i = 0; i < length; i++) {
+            this.getCover(this.locations[i].pid, i)
+            this.getEvents(this.locations[i].pid, timeStamp, (response) => {
+
+            })
+            // then for each event getCover()
         }
     }
+
     loadData = () => {
-        this.setState({ locations: [] })
-        let newLocations = []
         fetch('pasadena.json')
             .then(response => response.json())
             .then(json => {
-                let newLocations = []
                 let len = json.locations.length
                 // Construct our locations array from JSON
                 for (let i = 0; i < len; i++) {
-                    newLocations.push({...json.locations[i], visible: false})
+                    this.locations.push({...json.locations[i], visible: false})
                 }
-                this.setState({ locations: newLocations })
             })
     }
+
     componentWillMount() {
         this.loadData()
     }
-    render() {
-        console.log(this.state)
 
+    render() {
         let listClasses = 'list-view'
         if (this.state.show_list && this.state.list_clicked) {
             listClasses = 'list-view list-view-open'
@@ -120,13 +146,16 @@ class App extends Component {
                     <Header showList={this.state.show_list}
                             toggleList={this.toggleList} />
                     <List   listClasses={listClasses} 
-                            locations={this.state.locations}
+                            locations={this.locations}
                             selectActive={this.selectActive} />
                     <Map    active={this.state.active_location} 
                             selectActive={this.selectActive} 
-                            locations={this.state.locations}
+                            locations={this.locations}
                             toggleInfo={this.toggleInfo} />
-                    <Info   infoClasses={infoClasses}
+                    <Info   activeLocation={this.state.active_location}
+                            covers={this.covers}
+                            events={this.events}
+                            infoClasses={infoClasses}
                             toggleInfo={this.toggleInfo} />
                 </div>
             )
