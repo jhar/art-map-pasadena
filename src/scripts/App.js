@@ -9,14 +9,54 @@ import Info from './components/Info'
 class App extends Component {
     state = {
         active_location: null,
+        covers: [],
+        events: [],
         locations: [],
         info_clicked: false,
         list_clicked: false,
         show_info: false,
         show_list: false,
         show_login: true
+    } 
+    getCoverPhoto = (pid, locIndex, evtIndex) => {
+        let query = '/${pid}?fields=cover{source, offset_y}'
+        FB.api(query, (response) => {
+            if (response && !response.error) {
+                if (event === undefined) {
+                    covers[locIndex] = [response.cover]
+                } else {
+                    covers[locIndex][evtIndex] = response.cover
+                }
+            } else {
+                // TODO: Handle error
+            }
+        })
+    }
+    getEvents = (pid, timeStamp, callback, object) => {
+        let query = '/${pid}/events?since=${timeStamp}'
+        Fb.api(query, (response) => {
+            if (response && !response.error) {
+                callback.call(object, response)
+            } else {
+                // TODO: Handle error
+            }
+        })
+    }
+    liveSearch = (model, obj) => {
+        let pattern = new RegExp(obj.currentTarget.value.toLowerCase())
+        let length = this.state.locations.length
+        for (let i = 0; i < length; i++) {
+            let name = this.state.locations[i].name
+            let lower = name.toLowerCase()
+            if (pattern.test(lower)) {
+                // set visibility to true
+            } else {
+                // set visibility to false
+            }
+        }
     }
     selectActive = value => {
+        this.toggleInfo()
         // Turn off already active locations
         if (this.state.active_location === value) {
             this.setState({ active_location: null })
@@ -33,6 +73,9 @@ class App extends Component {
     }
     toggleLogin = value => {
         this.setState({ show_login: value })
+        if (value === false) {
+
+        }
     }
     loadData = () => {
         this.setState({ locations: [] })
@@ -74,7 +117,8 @@ class App extends Component {
         } else {
             return ( 
                 <div>
-                    <Header toggleList={this.toggleList} />
+                    <Header showList={this.state.show_list}
+                            toggleList={this.toggleList} />
                     <List   listClasses={listClasses} 
                             locations={this.state.locations}
                             selectActive={this.selectActive} />

@@ -9,6 +9,7 @@ export default class Header extends Component {
         this.setState({ show_search: !this.state.show_search, search_clicked: true })
     }
 	render() {
+        let toggleSrc = this.props.showList ? 'images/black-x.png' : 'images/list.png'
         let searchClasses = 'search-container'
         if (this.state.show_search && this.state.search_clicked) {
             searchClasses = 'search-container search-open-animation'
@@ -18,7 +19,7 @@ export default class Header extends Component {
 		return (
 			<header>
 				<div className="list-toggle">
-					<img className="nav-trigger" onClick={this.props.toggleList} src="images/list.png" />
+					<img className="nav-trigger" onClick={this.props.toggleList} src={toggleSrc} />
 				</div>
 				<div className={searchClasses}>
                     <img className="search-lens" onClick={this.toggleSearch} src="images/search.png" />

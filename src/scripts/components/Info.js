@@ -1,11 +1,11 @@
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
 
 export default class Info extends Component {
 	render() {
 		return(
-			<section className="info-view">
+			<section className={this.props.infoClasses}>
 				<div className="arrow-wrap">
-					<img className="arrow" src="images/arrow-left.png" />
+					<img className="arrow" onClick={this.props.toggleInfo} src="images/arrow-left.png" />
 				</div>
 				<div className="fb-error display-none">
 					An error with Facebook occurred and the page may not be displaying correctly. Please refresh or try again later.
