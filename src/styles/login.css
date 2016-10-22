@@ -1,36 +1,41 @@
 .login-view {
-	background: url("../images/statues.jpg") center center no-repeat;
+	background: url("../../public/images/jimedine_carcrash.jpg") center center no-repeat;
     background-size: cover;
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-    z-index: 6;
 }
 .login-inner {
     display: block;
     height: 100%;
-	margin: auto auto;
-    max-height: 768px;
+	margin: 0 auto;
+    max-height: 1000px;
     max-width: 1024px;
 	position: relative;
     width: 100%;
 }
 .login-title {
-    background-color: rgba(0, 0, 0, 0.38);
+	color: rgba(225, 228, 0, 0.87);
+    background-color: rgba(17, 17, 17, 0.87);
+    bottom: 0.17em;
+    border: 1px solid rgba(255, 255, 255, 0.38);
     border-radius: 0.1em;
-    box-shadow: 0.2em 0.2em 1em rgba(0, 0, 0, 0.62);
-	color: #e1e400;
-	font-family: 'Assistant'; /* Heebo, Assistant */
-    font-weight: 400;
-	font-size: 3em;
-    padding: 0 0.38em;
+    display: block;
+	font-family: 'Heebo'; /* Heebo, Assistant */
+    font-weight: 700;
+	font-size: 4em;
+    left: 0;
+    margin: 0 auto;
+    padding: 0 0.17em;
     position: absolute;
-    left: 0.38em;
-    bottom: 0.38em;
-    text-shadow: 0.01em 0.01em 0 black;
-    z-index: 3;
+    right: 0;
+    text-shadow: 0.1em 0.1em 0.38em black;
+    width: 300px;
+}
+.login-title:hover {
+    cursor: pointer;
 }
 .fb-auth {
 	background-color: rgba(0, 0, 0, 0.17);
@@ -39,7 +44,6 @@
 	border: 0;
     padding: 1.61em;
 	text-align: center;
-	z-index: 3;
 }
 .fb-auth-icon {
 	padding: 0;
