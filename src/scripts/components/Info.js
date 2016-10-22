@@ -22,6 +22,9 @@ export default class Info extends Component {
             eventsArray = this.props.events[this.state.previous_location]
         }
 
+        let upcomingEvents = ''
+        if (eventsArray !== null) upcomingEvents = eventsArray.length > 0 ? 'Upcoming Events' : 'No upcoming events' 
+
         // TODO: Add dates (event.start_time)
         // TODO: Add locations (event.place.location.city,country,state,street,zip) of events
         let eventItems
@@ -64,7 +67,7 @@ export default class Info extends Component {
 						<h1 className="title"></h1>
 					</div>
 				</div>
-				<h3 className="upcoming-events"></h3>
+				<h3 className="upcoming-events">{upcomingEvents}</h3>
 				<div className="events-container">
 				    {eventItems}
                 </div>
