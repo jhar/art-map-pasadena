@@ -7,7 +7,6 @@ import Map from './components/Map'
 import Info from './components/Info'
 
 // TODO: Center icon when info view shown
-// TODO: Cover photo offset_y
 // TODO: Login screen animate info & login
 // TODO: Hide list view w/ active location
 

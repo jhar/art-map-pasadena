@@ -31,7 +31,9 @@ export default class Event extends Component {
         return (
             <div className="event">
 			    <div className="event-image-container">
-				    <img className="event-image" src={this.props.evtCoverSrc} />
+				    <img    className="event-image"
+                            onLoad={(e) => this.props.changeOffset(e, this.props.evtCoverOff, true)}
+                            src={this.props.evtCoverSrc} />
 				</div>
 				<div className="event-title-container" onClick={this.toggleDescription}>
 				    <h3 className="event-title">{this.props.event.name}</h3>
