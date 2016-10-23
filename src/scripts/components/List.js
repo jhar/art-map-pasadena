@@ -3,12 +3,14 @@ import React, { PropTypes, Component } from 'react'
 export default class List extends Component {
 	render() {
         let listItems = this.props.locations.map((location, index) => {
-            return (
-                <div className="list-item" onClick={() => {this.props.selectActive(index)}} key={index}>
-                    <img className="list-icon" src="images/list-icon.png" />
-                    <span className="list-text">{location.name}</span>
-                </div>
-            )
+            if (location.visibility !== false) {
+                return (
+                    <div className="list-item" onClick={() => {this.props.selectActive(index)}} key={index}>
+                        <img className="list-icon" src="images/list-icon.png" />
+                        <span className="list-text">{location.name}</span>
+                    </div>
+                )
+            }
         })
 		return (
 			<nav className={this.props.listClasses}>

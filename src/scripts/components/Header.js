@@ -23,7 +23,7 @@ export default class Header extends Component {
 				</div>
 				<div className={searchClasses}>
                     <img className="search-lens" onClick={this.toggleSearch} src="images/search.png" />
-					<input className="search-input" type="text" placeholder="Search Locations" />
+					<input className="search-input" type="text" onKeyUp={this.props.liveSearch} placeholder="Search Locations" />
 					<img className="search-close" onClick={this.toggleSearch} src="images/black-x.png" />
 				</div>
 			</header>

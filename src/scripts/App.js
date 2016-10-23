@@ -6,8 +6,6 @@ import List from './components/List'
 import Map from './components/Map'
 import Info from './components/Info'
 
-// TODO: Animate show descriptions
-// TODO: Live search functionality
 // TODO: Center icon when info view shown
 // TODO: Cover photo offset_y
 // TODO: Login screen animate info & login
@@ -18,6 +16,7 @@ class App extends Component {
         active_location: null,
         info_clicked: false,
         list_clicked: false,
+        locations: [],
         show_info: false,
         show_list: false,
         show_login: true
@@ -26,7 +25,6 @@ class App extends Component {
     // Data that shouldn't trigger re-renders
     covers = []
     events = []
-    locations = []
 
     getCover = (pid, locIndex, evtIndex) => {
         let query = `/${pid}?fields=cover{source, offset_y}`
@@ -54,16 +52,20 @@ class App extends Component {
         })
     }
 
-    liveSearch = (model, obj) => {
-        let pattern = new RegExp(obj.currentTarget.value.toLowerCase())
+    liveSearch = (event) => {
+        let pattern = new RegExp(event.target.value.toLowerCase())
         let length = this.state.locations.length
         for (let i = 0; i < length; i++) {
             let name = this.state.locations[i].name
             let lower = name.toLowerCase()
             if (pattern.test(lower)) {
-                // TODO: set visibility to true
+                let newLocations = this.state.locations
+                newLocations[i].visibility = true
+                this.setState({ locations: newLocations })
             } else {
-                // TODO: set visibility to false
+                let newLocations = this.state.locations
+                newLocations[i].visibility = false
+                this.setState({ locations: newLocations})
             }
         }
     }
@@ -104,10 +106,10 @@ class App extends Component {
     }
 
     loadAuthorizedData = (timeStamp) => {
-        let length = this.locations.length
+        let length = this.state.locations.length
         for (let i = 0; i < length; i++) {
-            this.getCover(this.locations[i].pid, i)
-            this.getEvents(this.locations[i].pid, timeStamp, (response) => {
+            this.getCover(this.state.locations[i].pid, i)
+            this.getEvents(this.state.locations[i].pid, timeStamp, (response) => {
                 this.events[i] = response.data
                 let length2 = this.events[i].length
                 for (let j = 0; j < length2; j++) {
@@ -122,10 +124,12 @@ class App extends Component {
             .then(response => response.json())
             .then(json => {
                 let len = json.locations.length
+                let newLocations = []
                 // Construct our locations array from JSON
                 for (let i = 0; i < len; i++) {
-                    this.locations.push({...json.locations[i], visible: false})
+                    newLocations.push({...json.locations[i], visible: false})
                 }
+                this.setState({ locations: newLocations })
             })
     }
 
@@ -153,14 +157,15 @@ class App extends Component {
         } else {
             return ( 
                 <div>
-                    <Header showList={this.state.show_list}
+                    <Header liveSearch={this.liveSearch}
+                            showList={this.state.show_list}
                             toggleList={this.toggleList} />
                     <List   listClasses={listClasses} 
-                            locations={this.locations}
+                            locations={this.state.locations}
                             selectActive={this.selectActive} />
                     <Map    active={this.state.active_location} 
                             selectActive={this.selectActive} 
-                            locations={this.locations}
+                            locations={this.state.locations}
                             toggleInfo={this.toggleInfo} />
                     <Info   activeLocation={this.state.active_location}
                             covers={this.covers}

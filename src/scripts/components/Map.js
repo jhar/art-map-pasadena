@@ -97,6 +97,8 @@ export default class Map extends Component {
             } else {
                 marker.setIcon(icon_1)
             }
+            // Set visibility
+            marker.setVisible(nextProps.locations[marker.index].visibility)
         } 
     }
     createMap() {
