@@ -6,6 +6,13 @@ import List from './components/List'
 import Map from './components/Map'
 import Info from './components/Info'
 
+// TODO: Animate show descriptions
+// TODO: Live search functionality
+// TODO: Center icon when info view shown
+// TODO: Cover photo offset_y
+// TODO: Login screen animate info & login
+// TODO: Hide list view w/ active location
+
 class App extends Component {
     state = {
         active_location: null,
