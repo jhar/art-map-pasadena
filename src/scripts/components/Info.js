@@ -1,48 +1,5 @@
 import React, { Component } from 'react'
-
-class Event extends Component {
-    state = {
-        description_clicked: false,
-        show_description: false
-    }
-
-    componentWillReceiveProps() {
-        this.setState({
-            description_clicked: false,
-            show_description: false
-        })
-    }
-    
-    toggleDescription = () => {
-        this.setState({ 
-            description_clicked: true,
-            show_description: !this.state.show_description
-        })
-    }
-
-    render() {
-        let descriptionClasses = 'event-description'
-        if (this.state.show_description && this.state.description_clicked) {
-            descriptionClasses = 'event-description description-open'
-        } else if (this.state.description_clicked) {
-            descriptionClasses = 'event-description description-close'
-        }
-
-        return (
-            <div className="event">
-			    <div className="event-image-container">
-				    <img className="event-image" src={this.props.evtCoverSrc} />
-				</div>
-				<div className="event-title-container" onClick={this.toggleDescription}>
-				    <h3 className="event-title">{this.props.event.name}</h3>
-				</div>
-				<div className={descriptionClasses}>
-				    <p className="event-description-text">{this.props.event.description}</p>
-				</div>
-			</div>
-        )
-    }
-}
+import Event from './Event'
 
 export default class Info extends Component {
     state = {
@@ -57,7 +14,7 @@ export default class Info extends Component {
         }
     }
 
-	render() {
+    render() {
         let locCoverSrc = ''
         let eventsArray = null
         if (this.props.activeLocation !== null) {
@@ -69,7 +26,7 @@ export default class Info extends Component {
         }
 
         let upcomingEvents = ''
-        if (eventsArray !== null) upcomingEvents = eventsArray.length > 0 ? 'Upcoming Events' : 'No upcoming events' 
+        if (eventsArray !== null) upcomingEvents = eventsArray.length > 0 ? 'Upcoming Events' : 'No upcoming events'
 
         // TODO: Add dates (event.start_time)
         // TODO: Add locations (event.place.location.city,country,state,street,zip) of events
