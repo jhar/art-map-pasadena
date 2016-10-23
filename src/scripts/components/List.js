@@ -19,7 +19,7 @@ export default class List extends Component {
 				</div>
 				<div className="list-item fb-auth-out">
 					<img className="list-icon" src="images/logout.png" />
-					<span className="list-text">Logout of Facebook</span>
+					<span className="list-text" onClick={() => this.props.toggleLogin(true)}>Logout of Facebook</span>
 				</div>
 			</nav>
 		)

@@ -69,6 +69,17 @@ class App extends Component {
         }
     }
 
+    resetUI = () => {
+        this.setState({
+            active_location: null,
+            info_clicked: false,
+            list_clicked: false,
+            show_info: false,
+            show_list: false,
+            show_login: false
+        })
+    }
+
     selectActive = value => {
         // Turn off already active locations
         if (this.state.active_location === value) {
@@ -100,7 +111,10 @@ class App extends Component {
         if (value === false) {
             let timeStamp = Math.floor(Date.now() /1000)
             this.loadAuthorizedData(timeStamp)
+        } else {
+            FB.logout()
         }
+        this.resetUI()
         this.setState({ show_login: value })
     }
 
@@ -161,7 +175,8 @@ class App extends Component {
                             toggleList={this.toggleList} />
                     <List   listClasses={listClasses} 
                             locations={this.state.locations}
-                            selectActive={this.selectActive} />
+                            selectActive={this.selectActive}
+                            toggleLogin={this.toggleLogin}/>
                     <Map    active={this.state.active_location} 
                             selectActive={this.selectActive} 
                             locations={this.state.locations}
