@@ -1,6 +1,4 @@
 .login-view {
-	background: url("../../public/images/jimedine_carcrash.jpg") center center no-repeat;
-    background-size: cover;
     position: absolute;
     top: 0;
     left: 0;
@@ -17,20 +15,9 @@
     width: 100%;
 }
 .login-title {
-	color: rgba(255, 228, 0, 0.87);
-    background-color: rgba(17, 17, 17, 0.87);
-    bottom: 0.17em;
-    border: 1px solid rgba(255, 255, 255, 0.38);
-    border-radius: 0.1em;
     display: block;
-	font-family: 'Heebo'; /* Heebo, Assistant */
-    font-weight: 700;
-	font-size: 4em;
-    left: 0;
-    margin: 0 auto;
+    margin: 1em auto 0 auto;
     padding: 0 0.17em;
-    position: absolute;
-    right: 0;
     text-shadow: 0.1em 0.1em 0.38em black;
     width: 300px;
 }
@@ -38,29 +25,19 @@
     cursor: pointer;
 }
 .fb-auth {
-	background-color: rgba(17, 17, 17, 0.87);
-    border-radius: 0.2em;
-	border: 1px solid rgba(255, 255, 255, 0.38);
-    color: rgba(255, 255, 0, 0.62);
+    display: block;
     font-family: 'Assistant';
     font-weight: 400;
     font-size: 1em;
-    left: 0;
     margin: 0 auto;
+    max-height: 0;
     max-width: 95%;
-    padding: 1.61em 1.61em 3.22em 1.61em;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transform: translateY(-100%);
+    overflow: hidden;
 }
 .fb-auth-icon {
     display: block;
-    left: 0;
     margin: 0 auto;
 	padding: 0;
-    position: absolute;
-    right: 0;
     width: 96px;
 }
 .fb-auth-icon:hover {
@@ -68,13 +45,13 @@
 }
 
 @keyframes loginOpen {
-    from { transform: translateY(-100%); }
-    to { transform: translateY(0); }
+    from { max-height: 0; }
+    to { max-height: 1000px; }
 }
 
 @keyframes loginClose {
-    from { transform: translateY(0); }
-    to { transform: translateY(-100%); }
+    from { max-height: 1000px; }
+    to { max-height: 0; }
 }
 
 .login-open {

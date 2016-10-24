@@ -32,12 +32,12 @@ export default class Login extends Component {
 		return (
 			<section className="login-view">
 				<div className="login-inner">
+                    <img alt="artenings" className="login-title" onClick={this.toggleAuth} src="images/artenings.png" />
 					<div className={authClasses}>
-                        <p>An interactive map that allows you to browse upcoming events within a curated selection of arts organizations within Pasadena, California. If you would like a similar map of your own community, or if you would simply like to get involved, then e-mail me at justinadenharrison@gmail.com and introduce yourself.</p>
+                        <p>An interactive map that allows you to browse upcoming events within a curated selection of arts organizations in Pasadena, California. If you would like a similar map of your own community, or if you would simply like to get involved, then e-mail me at justinadenharrison@gmail.com and introduce yourself.</p>
                         <p>Facebook authentication is necessary to access events.</p>
                         <img className="fb-auth-icon" onClick={this.login} src="images/login.png" />
                     </div>
-					<span className="login-title" onClick={this.toggleAuth}>artenings</span>
 				</div>
 			</section>
 		)
