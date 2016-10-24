@@ -97,10 +97,23 @@ class App extends Component {
             this.toggleInfo()
         }
 
+        // Close the list view if it's open
+        if (this.state.show_list === true) {
+            this.toggleList()
+        }
     }
 
     toggleInfo = () => {
-        this.setState({ show_info: !this.state.show_info, info_clicked: true })
+        // If the window is open, set active to null on close
+        if (this.state.show_info) {
+            this.setState({
+                active_location: null,
+                show_info: !this.state.show_info,
+                info_clicked: true
+            })
+        } else {
+            this.setState({ show_info: !this.state.show_info, info_clicked: true })
+        }
     }
 
     toggleList = () => {
