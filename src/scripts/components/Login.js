@@ -1,6 +1,11 @@
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
 
 export default class Login extends Component {
+    state = {
+        icon_clicked: false,
+        show_auth: false
+    }
+
     login = () => {
         FB.login(response => {
             if (response.authResponse) {
@@ -10,14 +15,29 @@ export default class Login extends Component {
             }
         })
     }
+
+    toggleAuth = () => {
+        console.log('here')
+        this.setState({ icon_clicked: true, show_auth: !this.state.show_auth })
+    }
+
 	render() {
+        let authClasses = 'fb-auth'
+        if (this.state.show_auth && this.state.icon_clicked) {
+            authClasses = 'fb-auth login-open'
+        } else if (this.state.icon_clicked){
+            authClasses = 'fb-auth login-close'
+        }
+
 		return (
 			<section className="login-view">
 				<div className="login-inner">
-					<div className="fb-auth">
+					<div className={authClasses}>
+                        <p>An interactive map that allows you to browse upcoming events within a curated selection of arts organizations within Pasadena, California. If you would like a similar map of your own community, or if you would simply like to get involved, then e-mail me at justinadenharrison@gmail.com and introduce yourself.</p>
+                        <p>Facebook authentication is necessary to access events.</p>
                         <img className="fb-auth-icon" onClick={this.login} src="images/login.png" />
                     </div>
-					<span className="login-title">artenings</span>
+					<span className="login-title" onClick={this.toggleAuth}>artenings</span>
 				</div>
 			</section>
 		)

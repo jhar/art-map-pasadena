@@ -17,7 +17,7 @@
     width: 100%;
 }
 .login-title {
-	color: rgba(225, 228, 0, 0.87);
+	color: rgba(255, 228, 0, 0.87);
     background-color: rgba(17, 17, 17, 0.87);
     bottom: 0.17em;
     border: 1px solid rgba(255, 255, 255, 0.38);
@@ -38,19 +38,53 @@
     cursor: pointer;
 }
 .fb-auth {
-	background-color: rgba(0, 0, 0, 0.17);
+	background-color: rgba(17, 17, 17, 0.87);
     border-radius: 0.2em;
-    box-shadow: 0.2em 0.2em 1em rgba(0, 0, 0, 0.62);
-	border: 0;
-    padding: 1.61em;
-	text-align: center;
+	border: 1px solid rgba(255, 255, 255, 0.38);
+    color: rgba(255, 255, 0, 0.62);
+    font-family: 'Assistant';
+    font-weight: 400;
+    font-size: 1em;
+    left: 0;
+    margin: 0 auto;
+    max-width: 95%;
+    padding: 1.61em 1.61em 3.22em 1.61em;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translateY(-100%);
 }
 .fb-auth-icon {
+    display: block;
+    left: 0;
+    margin: 0 auto;
 	padding: 0;
+    position: absolute;
+    right: 0;
     width: 96px;
 }
 .fb-auth-icon:hover {
 	cursor: pointer;
 }
 
+@keyframes loginOpen {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+}
 
+@keyframes loginClose {
+    from { transform: translateY(0); }
+    to { transform: translateY(-100%); }
+}
+
+.login-open {
+    animation-name: loginOpen;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+.login-close {
+    animation-name: loginClose;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
