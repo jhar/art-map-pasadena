@@ -176,6 +176,11 @@ class App extends Component {
             infoClasses = 'info-view info-animate-left'
         }
 
+        let locationName = ''
+        if (this.state.active_location !== null) {
+            locationName = this.state.locations[this.state.active_location].name
+        }
+
         if (this.state.show_login) {
             return ( <Login toggleLogin={this.toggleLogin} /> )
         } else {
@@ -194,6 +199,7 @@ class App extends Component {
                             locations={this.state.locations}
                             toggleInfo={this.toggleInfo} />
                     <Info   activeLocation={this.state.active_location}
+                            locationName={locationName}
                             covers={this.covers}
                             events={this.events}
                             infoClasses={infoClasses}

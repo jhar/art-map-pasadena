@@ -84,7 +84,7 @@ export default class Info extends Component {
                                 src={locCoverSrc}
                                 alt="" />
 						<div className="cover-scrim"></div>
-						<h1 className="title"></h1>
+						<h1 className="title">{this.props.locationName}</h1>
 					</div>
 				</div>
 				<h3 className="upcoming-events">{upcomingEvents}</h3>
