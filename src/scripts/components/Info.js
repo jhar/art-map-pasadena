@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Event from './Event'
 
+import '../../styles/info.css'
+
 export default class Info extends Component {
     state = {
         previous_location: null

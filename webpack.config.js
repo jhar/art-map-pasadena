@@ -6,11 +6,10 @@ module.exports = {
 		filename: 'build.js'
 	},
 	module: {
-		loaders: [{
-			test: /\.js$/,
-			loader: 'babel',
-			exclude: /node_modules/
-		}]
+		loaders: [
+            { test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
+            { test: /\.css$/, loader: 'style-loader!css-loader' }
+        ]
 	},
 	babel: {
 		presets: ['es2015', 'react', 'stage-2'],

@@ -1,5 +1,8 @@
 import React, { PropTypes, Component } from 'react'
 
+import '../../styles/header.css'
+import '../../styles/search.css'
+
 export default class Header extends Component {
     state = {
         search_clicked: false,

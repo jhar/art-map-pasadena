@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import '../../styles/map.css'
+
 const icon_1 = {
     url: 'images/a1s.png',
     scaledSize: new google.maps.Size(67, 67),

@@ -6,7 +6,7 @@ import List from './components/List'
 import Map from './components/Map'
 import Info from './components/Info'
 
-// TODO: Center icon when info view shown
+import '../styles/main.css'
 
 class App extends Component {
     state = {

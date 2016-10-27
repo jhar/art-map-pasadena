@@ -1,5 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 
+import '../../styles/list.css'
+
 export default class List extends Component {
 	render() {
         let listItems = this.props.locations.map((location, index) => {
