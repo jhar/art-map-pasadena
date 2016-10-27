@@ -93,13 +93,21 @@ export default class Map extends Component {
             if (marker.index === nextProps.active) {
                 marker.setIcon(icon_2)
                 // Center map on selected marker
-                map.setCenter(marker.getPosition())
+                if (nextProps.showInfo === true) {
+                    this.offCenterMap(marker)
+                } else {
+                    map.setCenter(marker.getPosition())
+                }
             } else {
                 marker.setIcon(icon_1)
             }
             // Set visibility
             marker.setVisible(nextProps.locations[marker.index].visibility)
-        } 
+        }
+        // Recenter on middle if no active marker
+        if (nextProps.active === null && this.props.active !== null) {
+            map.setCenter(this.state.markers[this.props.active].getPosition())
+        }
     }
     createMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -134,6 +142,18 @@ export default class Map extends Component {
     componentDidMount() {
         this.createMap()
         this.createMarkers(this.props.locations)
+    }
+    offCenterMap(marker) {
+        let ne = map.getBounds().getNorthEast()
+        let sw = map.getBounds().getSouthWest()
+        let mapRange = ne.lng() - sw.lng()
+        let infoWidth = document.getElementsByClassName('info-view')[0].offsetWidth
+        let screenWidth = window.innerWidth
+        let infoLng = (mapRange * infoWidth)/screenWidth
+        let absLng = (mapRange - infoLng)/2
+        let markerPos = marker.getPosition()
+        let newLng = markerPos.lng() - mapRange/2 + absLng
+        map.setCenter(new google.maps.LatLng(markerPos.lat(), newLng))
     }
 	render() {
 		return (

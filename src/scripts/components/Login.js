@@ -17,7 +17,6 @@ export default class Login extends Component {
     }
 
     toggleAuth = () => {
-        console.log('here')
         this.setState({ icon_clicked: true, show_auth: !this.state.show_auth })
     }
 

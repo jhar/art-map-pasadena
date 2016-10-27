@@ -7,8 +7,6 @@ import Map from './components/Map'
 import Info from './components/Info'
 
 // TODO: Center icon when info view shown
-// TODO: Login screen animate info & login
-// TODO: Hide list view w/ active location
 
 class App extends Component {
     state = {
@@ -191,7 +189,8 @@ class App extends Component {
                             selectActive={this.selectActive}
                             toggleLogin={this.toggleLogin}/>
                     <Map    active={this.state.active_location} 
-                            selectActive={this.selectActive} 
+                            selectActive={this.selectActive}
+                            showInfo={this.state.show_info} 
                             locations={this.state.locations}
                             toggleInfo={this.toggleInfo} />
                     <Info   activeLocation={this.state.active_location}
