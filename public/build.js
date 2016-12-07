@@ -32502,21 +32502,14 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var icon_1 = {
-	    url: 'images/a1s.png',
-	    scaledSize: new google.maps.Size(67, 67),
-	    origin: new google.maps.Point(0, 0),
-	    anchor: new google.maps.Point(0, 0)
-	};
-
-	var icon_2 = {
-	    url: 'images/a2s.png',
-	    scaledSize: new google.maps.Size(67, 67),
-	    origin: new google.maps.Point(0, 0),
-	    anchor: new google.maps.Point(0, 0)
-	};
-
-	var map_style = [{
+	var ICON_W = 67;
+	var ICON_H = 67;
+	var ICON_1_URL = 'images/a1s.png';
+	var ICON_2_URL = 'images/a2s.png';
+	var MAP_CENTER_LAT = 34.151389;
+	var MAP_CENTER_LNG = -118.150281;
+	var MAP_ZOOM = 14;
+	var MAP_STYLE = [{
 	    "featureType": "all",
 	    "elementType": "geometry",
 	    "stylers": [{ "color": "#e4d7b6" }]
@@ -32599,7 +32592,7 @@
 	    (0, _createClass3.default)(Map, [{
 	        key: 'componentWillReceiveProps',
 	        value: function componentWillReceiveProps(nextProps) {
-	            // Change all marker icons to icon_1, unless marker is active
+	            // Change all marker icons to icon 1, unless marker is active
 	            var _iteratorNormalCompletion = true;
 	            var _didIteratorError = false;
 	            var _iteratorError = undefined;
@@ -32609,7 +32602,12 @@
 	                    var marker = _step.value;
 
 	                    if (marker.index === nextProps.active) {
-	                        marker.setIcon(icon_2);
+	                        marker.setIcon({
+	                            url: ICON_2_URL,
+	                            scaledSize: new google.maps.Size(ICON_W, ICON_H),
+	                            origin: new google.maps.Point(0, 0),
+	                            anchor: new google.maps.Point(0, 0)
+	                        });
 	                        // Center map on selected marker
 	                        if (nextProps.showInfo === true) {
 	                            this.offCenterMap(marker);
@@ -32617,7 +32615,12 @@
 	                            map.setCenter(marker.getPosition());
 	                        }
 	                    } else {
-	                        marker.setIcon(icon_1);
+	                        marker.setIcon({
+	                            url: ICON_1_URL,
+	                            scaledSize: new google.maps.Size(ICON_W, ICON_H),
+	                            origin: new google.maps.Point(0, 0),
+	                            anchor: new google.maps.Point(0, 0)
+	                        });
 	                    }
 	                    // Set visibility
 	                    marker.setVisible(nextProps.locations[marker.index].visibility);
@@ -32646,12 +32649,15 @@
 	        key: 'createMap',
 	        value: function createMap() {
 	            map = new google.maps.Map(document.getElementById('map'), {
-	                center: { lat: 34.151389, lng: -118.150281 },
+	                center: {
+	                    lat: MAP_CENTER_LAT,
+	                    lng: MAP_CENTER_LNG
+	                },
 	                mapTypeControl: false,
-	                zoom: 14
+	                zoom: MAP_ZOOM
 	            });
 	            map.setOptions({
-	                styles: map_style
+	                styles: MAP_STYLE
 	            });
 	        }
 	    }, {
@@ -32673,7 +32679,12 @@
 	                        position: new google.maps.LatLng(locations[index].lat, locations[index].lng),
 	                        map: map,
 	                        title: locations[index].name,
-	                        icon: icon_1,
+	                        icon: {
+	                            url: ICON_1_URL,
+	                            scaledSize: new google.maps.Size(ICON_W, ICON_H),
+	                            origin: new google.maps.Point(0, 0),
+	                            anchor: new google.maps.Point(0, 0)
+	                        },
 	                        index: index,
 	                        active: false
 	                    });

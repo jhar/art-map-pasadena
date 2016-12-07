@@ -1,22 +1,14 @@
 import React, { Component } from 'react'
-
 import '../../styles/map.css'
 
-const icon_1 = {
-    url: 'images/a1s.png',
-    scaledSize: new google.maps.Size(67, 67),
-    origin: new google.maps.Point(0, 0),
-    anchor: new google.maps.Point(0, 0)
-}
-
-const icon_2 = {
-    url: 'images/a2s.png',
-    scaledSize: new google.maps.Size(67, 67),
-    origin: new google.maps.Point(0, 0),
-    anchor: new google.maps.Point(0, 0)
-}
-
-const map_style = [{
+const ICON_W = 67
+const ICON_H = 67
+const ICON_1_URL = 'images/a1s.png'
+const ICON_2_URL = 'images/a2s.png'
+const MAP_CENTER_LAT = 34.151389
+const MAP_CENTER_LNG = -118.150281
+const MAP_ZOOM = 14
+const MAP_STYLE = [{
         "featureType": "all",
         "elementType": "geometry",
         "stylers": [{ "color": "#e4d7b6" }]
@@ -90,10 +82,15 @@ let map = null
 
 export default class Map extends Component {
     componentWillReceiveProps(nextProps) {
-        // Change all marker icons to icon_1, unless marker is active
+        // Change all marker icons to icon 1, unless marker is active
         for (let marker of this.state.markers) {
             if (marker.index === nextProps.active) {
-                marker.setIcon(icon_2)
+                marker.setIcon({
+                    url: ICON_2_URL,
+                    scaledSize: new google.maps.Size(ICON_W, ICON_H),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(0, 0)
+                })
                 // Center map on selected marker
                 if (nextProps.showInfo === true) {
                     this.offCenterMap(marker)
@@ -101,7 +98,12 @@ export default class Map extends Component {
                     map.setCenter(marker.getPosition())
                 }
             } else {
-                marker.setIcon(icon_1)
+                marker.setIcon({
+                    url: ICON_1_URL,
+                    scaledSize: new google.maps.Size(ICON_W, ICON_H),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(0, 0)
+                })
             }
             // Set visibility
             marker.setVisible(nextProps.locations[marker.index].visibility)
@@ -113,12 +115,15 @@ export default class Map extends Component {
     }
     createMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: 34.151389, lng: -118.150281 },
+            center: {
+              lat: MAP_CENTER_LAT,
+              lng: MAP_CENTER_LNG
+            },
             mapTypeControl: false,
-            zoom: 14
+            zoom: MAP_ZOOM
         })
         map.setOptions({
-            styles: map_style
+            styles: MAP_STYLE
         })
     }
     createMarkers(locations) {
@@ -129,7 +134,12 @@ export default class Map extends Component {
                 position: new google.maps.LatLng(locations[index].lat, locations[index].lng),
                 map: map,
                 title: locations[index].name,
-                icon: icon_1,
+                icon: {
+                    url: ICON_1_URL,
+                    scaledSize: new google.maps.Size(ICON_W, ICON_H),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(0, 0)
+                },
                 index: index,
                 active: false
             })
@@ -146,15 +156,15 @@ export default class Map extends Component {
         this.createMarkers(this.props.locations)
     }
     offCenterMap(marker) {
-        let ne = map.getBounds().getNorthEast()
-        let sw = map.getBounds().getSouthWest()
-        let mapRange = ne.lng() - sw.lng()
-        let infoWidth = document.getElementsByClassName('info-view')[0].offsetWidth
-        let screenWidth = window.innerWidth
-        let infoLng = (mapRange * infoWidth)/screenWidth
-        let absLng = (mapRange - infoLng)/2
-        let markerPos = marker.getPosition()
-        let newLng = markerPos.lng() - mapRange/2 + absLng
+        const ne = map.getBounds().getNorthEast()
+        const sw = map.getBounds().getSouthWest()
+        const mapRange = ne.lng() - sw.lng()
+        const infoWidth = document.getElementsByClassName('info-view')[0].offsetWidth
+        const screenWidth = window.innerWidth
+        const infoLng = (mapRange * infoWidth)/screenWidth
+        const absLng = (mapRange - infoLng)/2
+        const markerPos = marker.getPosition()
+        const newLng = markerPos.lng() - mapRange/2 + absLng
         map.setCenter(new google.maps.LatLng(markerPos.lat(), newLng))
     }
 	render() {
