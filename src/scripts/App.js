@@ -41,7 +41,7 @@ const INFO_VIEW_CLOSED = 'info-view info-animate-left'
 class App extends Component {
   state = DEFAULT_STATE
 
-  // State that shouldn't trigger re-renders
+  // Mutable state that shouldn't trigger re-renders
   covers = []
   events = []
 
@@ -54,23 +54,21 @@ class App extends Component {
         } else {
           this.covers[locIndex][evtIndex+1] = response.cover
         }
-      } else {
-        // TODO: Handle error
       }
     })
   }
 
-  getEvents = (pid, timeStamp, callback, object) => {
-    const query = `/${pid}/events?since=${timeStamp}`
+  getEvents = (pid, time, cb, obj) => {
+    const q = `/${pid}/events?since=${time}`
 
-    FB.api(query, (response) => {
-      if (response && !response.error) {
-        callback.call(object, response)
+    FB.api(q, (res) => {
+      if (res && !res.error) {
+        cb.call(obj, res)
       }
     })
   }
 
-  liveSearch = (event) => {
+  search = (event) => {
     const pattern = new RegExp(event.target.value.toLowerCase())
     const length = this.state.locations.length
 
@@ -133,10 +131,9 @@ class App extends Component {
       active_location: (this.state.active_location === value) ? null : value
     })
 
-    // Do nothing if the right location is already selected
+    // Don't open a window that's already open
     if (this.state.show_info === false || this.state.active_location === null) {
       this.nullifyActive()
-      // Open info window of active location
       this.toggleInfo()
     }
 
@@ -191,28 +188,36 @@ class App extends Component {
     }
 
     if (this.state.show_login) {
-      return ( <Login toggleLogin={this.toggleLogin} /> )
+      return ( <Login toggleLogin = { this.toggleLogin } /> )
     } else {
       return (
         <div>
-          <Header liveSearch={this.liveSearch}
-                  showList={this.state.show_list}
-                  toggleList={this.toggleList} />
-          <List   listClasses={listClasses}
-                  locations={this.state.locations}
-                  selectActive={this.selectActive}
-                  toggleLogin={this.toggleLogin}/>
-          <Map    active={this.state.active_location}
-                  selectActive={this.selectActive}
-                  showInfo={this.state.show_info}
-                  locations={this.state.locations}
-                  toggleInfo={this.toggleInfo} />
-          <Info   activeLocation={this.state.active_location}
-                  locationName={locationName}
-                  covers={this.covers}
-                  events={this.events}
-                  infoClasses={infoClasses}
-                  toggleInfo={this.toggleInfo} />
+          <Header
+            search = { this.search }
+            showList = { this.state.show_list }
+            toggleList = { this.toggleList }
+          />
+          <List
+            listClasses = { listClasses }
+            locations = { this.state.locations }
+            selectActive = { this.selectActive }
+            toggleLogin = { this.toggleLogin }
+          />
+          <Map
+            active = { this.state.active_location }
+            selectActive = { this.selectActive }
+            showInfo = { this.state.show_info }
+            locations = { this.state.locations }
+            toggleInfo = { this.toggleInfo }
+          />
+          <Info
+            activeLocation = { this.state.active_location }
+            locationName = { locationName }
+            covers = { this.covers}
+            events = { this.events}
+            infoClasses = { infoClasses }
+            toggleInfo = { this.toggleInfo }
+          />
         </div>
       )
     }

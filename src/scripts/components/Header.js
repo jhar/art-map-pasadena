@@ -1,33 +1,64 @@
 import React, { PropTypes, Component } from 'react'
-
 import '../../styles/header.css'
 import '../../styles/search.css'
 
+const LIST = 'list-toggle'
+const LIST_IMG = 'nav-trigger'
+const LIST_SRC = 'images/list.png'
+const X = 'images/black-x.png'
+const SEARCH = 'search-container'
+const SEARCH_IMG = 'search-lens'
+const SEARCH_SRC = 'images/search.png'
+const INPUT = 'search-input'
+const PLACEHOLDER = 'Search Locations'
+const CLOSE = 'search-close'
+const OPENED = 'search-container search-open-animation'
+const CLOSED = 'search-container search-close-animation'
+
 export default class Header extends Component {
-    state = {
-        search_clicked: false,
-        show_search: false
-    }
-    toggleSearch = () => {
-        this.setState({ show_search: !this.state.show_search, search_clicked: true })
-    }
+  state = {
+    clicked: false,
+    show: false
+  }
+
+  toggleSearch = () => {
+    this.setState({
+      clicked: true,
+      show: !this.state.show
+    })
+  }
+
 	render() {
-        let toggleSrc = this.props.showList ? 'images/black-x.png' : 'images/list.png'
-        let searchClasses = 'search-container'
-        if (this.state.show_search && this.state.search_clicked) {
-            searchClasses = 'search-container search-open-animation'
-        } else if (this.state.search_clicked) {
-            searchClasses = 'search-container search-close-animation'
-        }
 		return (
 			<header>
-				<div className="list-toggle">
-					<img className="nav-trigger" onClick={this.props.toggleList} src={toggleSrc} />
+				<div className = { LIST }>
+					<img
+            className = { LIST_IMG }
+            onClick = { this.props.toggleList }
+            src = { this.props.showList ? X : LIST_SRC }
+          />
 				</div>
-				<div className={searchClasses}>
-                    <img className="search-lens" onClick={this.toggleSearch} src="images/search.png" />
-					<input className="search-input" type="text" onKeyUp={this.props.liveSearch} placeholder="Search Locations" />
-					<img className="search-close" onClick={this.toggleSearch} src="images/black-x.png" />
+				<div
+          className = {
+            this.state.clicked ? this.state.show ? OPENED : CLOSED : SEARCH
+          }
+        >
+          <img
+            className = { SEARCH_IMG }
+            onClick = { this.toggleSearch }
+            src = { SEARCH_SRC }
+          />
+					<input
+            className = { INPUT }
+            type = "text"
+            onKeyUp = { this.props.search }
+            placeholder = { PLACEHOLDER }
+          />
+					<img
+            className = { CLOSE }
+            onClick = { this.toggleSearch }
+            src = { X }
+          />
 				</div>
 			</header>
 		)
