@@ -3,9 +3,8 @@ import Event from './Event'
 import '../../styles/info.css'
 
 const UPCOMING = 'Upcoming Events'
-const NO_UPCOMING = 'No upcoming events'
-const ARROW_LEFT_ICON = 'images/arrow-left.png'
-const ARROW_RIGHT_ICON = ''
+const NOTHING = 'No upcoming events'
+const ARROW_LEFT = 'images/arrow-left.png'
 
 export default class Info extends Component {
   state = { previous_location: null }
@@ -42,7 +41,7 @@ export default class Info extends Component {
 
     let upcomingEvents = ''
     if (eventsArray !== null) {
-      upcomingEvents = (eventsArray.length > 0) ? UPCOMING : NO_UPCOMING
+      upcomingEvents = (eventsArray.length > 0) ? UPCOMING : NOTHING
     }
 
     let eventItems = ''
@@ -75,7 +74,7 @@ export default class Info extends Component {
 					<img
             className = "arrow"
             onClick = { this.props.toggleInfo }
-            src = { ARROW_LEFT_ICON }
+            src = { ARROW_LEFT }
           />
 				</div>
 				<div className = "cover-outer-container">
