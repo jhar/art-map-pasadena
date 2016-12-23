@@ -1,98 +1,103 @@
 import React, { Component } from 'react'
 import Event from './Event'
-
 import '../../styles/info.css'
 
+const UPCOMING = 'Upcoming Events'
+const NO_UPCOMING = 'No upcoming events'
+const ARROW_LEFT_ICON = 'images/arrow-left.png'
+const ARROW_RIGHT_ICON = ''
+
 export default class Info extends Component {
-    state = {
-        previous_location: null
+  state = { previous_location: null }
+
+  changeOffset(e, oy, evt) {
+    const fw = evt ? 826 : 828
+    const fh = evt ? 294 : 315
+    const nw = e.target.naturalWidth
+    const nh = e.target.naturalHeight
+    const ow = e.target.offsetWidth
+    const top = (oy * ow / 100) * ((nh / nw) - (fh / fw))
+    e.target.style.top = -top + 'px'
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.activeLocation === null &&
+      this.props.activeLocation !== null) {
+      this.setState({ previous_location: this.props.activeLocation })
+    }
+  }
+
+  render() {
+    let locCoverSrc, locCoverOff = ''
+    let eventsArray = null
+    if (this.props.activeLocation !== null) {
+      locCoverSrc = this.props.covers[this.props.activeLocation][0].source
+      locCoverOff = this.props.covers[this.props.activeLocation][0].offset_y
+      eventsArray = this.props.events[this.props.activeLocation]
+    } else if (this.state.previous_location !== null) {
+      locCoverSrc = this.props.covers[this.state.previous_location][0].source
+      locCoverOff = this.props.covers[this.state.previous_location][0].offset_y
+      eventsArray = this.props.events[this.state.previous_location]
     }
 
-    changeOffset(e, offset_y, eventCover) {
-        let fw, fh
-        if (eventCover === true) {
-            fw = 826
-            fh = 294
-        } else {
-            fw = 828
-            fh = 315
-        }
-
-        let nw = e.target.naturalWidth
-        let nh = e.target.naturalHeight
-        let ow = e.target.offsetWidth
-        let oy = offset_y
-        let top = (oy * ow / 100) * ((nh / nw) - (fh / fw))
-        e.target.style.top = -top + 'px'
+    let upcomingEvents = ''
+    if (eventsArray !== null) {
+      upcomingEvents = (eventsArray.length > 0) ? UPCOMING : NO_UPCOMING
     }
 
-    componentWillReceiveProps(nextProps) {
-        if ((nextProps.activeLocation === null) && (this.props.activeLocation !== null)) {
-            this.setState({ previous_location: this.props.activeLocation })
-        }
-    }
-
-    render() {
-        let locCoverSrc, locCoverOff = ''
-        let eventsArray = null
+    let eventItems = ''
+    if (eventsArray !== null) {
+      eventItems = eventsArray.map((event, index) => {
+        let url, oy = ''
         if (this.props.activeLocation !== null) {
-            locCoverSrc = this.props.covers[this.props.activeLocation][0].source
-            locCoverOff = this.props.covers[this.props.activeLocation][0].offset_y
-            eventsArray = this.props.events[this.props.activeLocation]
+          url = this.props.covers[this.props.activeLocation][index+1].source
+          oy = this.props.covers[this.props.activeLocation][index+1].offset_y
         } else if (this.state.previous_location !== null) {
-            locCoverSrc = this.props.covers[this.state.previous_location][0].source
-            locCoverOff = this.props.covers[this.state.previous_location][0].offset_y
-            eventsArray = this.props.events[this.state.previous_location]
+          url = this.props.covers[this.state.previous_location][index+1].source
+          oy = this.props.covers[this.state.previous_location][index+1].offset_y
         }
 
-        let upcomingEvents = ''
-        if (eventsArray !== null) upcomingEvents = eventsArray.length > 0 ? 'Upcoming Events' : 'No upcoming events'
+        return (
+          <Event
+            changeOffset = { this.changeOffset }
+            src = { url }
+            oy = { oy }
+            event = { event }
+            key = { index }
+          />
+        )
+      })
+    }
 
-        // TODO: Add dates (event.start_time)
-        // TODO: Add locations (event.place.location.city,country,state,street,zip) of events
-        let eventItems
-        if (eventsArray !== null) {
-            eventItems = eventsArray.map((event, index) => {
-                let evtCoverSrc, evtCoverOff = ''
-                if (this.props.activeLocation !== null) {
-                    evtCoverSrc = this.props.covers[this.props.activeLocation][index+1].source
-                    evtCoverOff = this.props.covers[this.props.activeLocation][index+1].offset_y
-                } else if (this.state.previous_location !== null) {
-                    evtCoverSrc = this.props.covers[this.state.previous_location][index+1].source
-                    evtCoverOff = this.props.covers[this.state.previous_location][index+1].offset_y
-                }
-
-                return (
-                    <Event  changeOffset={this.changeOffset}
-                            evtCoverSrc={evtCoverSrc}
-                            evtCoverOff={evtCoverOff}
-                            event={event}
-                            key={index} />
-                )
-            })
-        } else {
-            eventItems = ''
-        }
-
-        return(
-			<section className={this.props.infoClasses}>
-				<div className="arrow-wrap">
-					<img className="arrow" onClick={this.props.toggleInfo} src="images/arrow-left.png" />
+    return(
+			<section className = { this.props.infoClasses } >
+				<div className = "arrow-wrap">
+					<img
+            className = "arrow"
+            onClick = { this.props.toggleInfo }
+            src = { ARROW_LEFT_ICON }
+          />
 				</div>
-				<div className="cover-outer-container">
-					<div className="cover-inner-container">
-						<img    className="cover-photo"
-                                onLoad={(e) => this.changeOffset(e, locCoverOff, false)}
-                                src={locCoverSrc}
-                                alt="" />
-						<div className="cover-scrim"></div>
-						<h1 className="title">{this.props.locationName}</h1>
+				<div className = "cover-outer-container">
+					<div className = "cover-inner-container">
+						<img
+              className = "cover-photo"
+              onLoad = { (e) => this.changeOffset(e, locCoverOff, false) }
+              src = { locCoverSrc }
+              alt = ''
+            />
+						<div className = "cover-scrim"></div>
+						<h1 className = "title">
+              { this.props.locationName }
+            </h1>
 					</div>
 				</div>
-				<h3 className="upcoming-events">{upcomingEvents}</h3>
-				<div className="events-container">
-				    {eventItems}
-                </div>
+				<h3 className = "upcoming-events">
+          { upcomingEvents }
+        </h3>
+				<div className = "events-container">
+				 { eventItems }
+        </div>
 			</section>
 		)
 	}
