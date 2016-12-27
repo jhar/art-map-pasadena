@@ -1,25 +1,29 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import Search from './Search'
 import '../../styles/header.css'
 
-const LIST = 'list-toggle'
-const IMG = 'nav-trigger'
-const SRC = 'images/list.png'
-const X_SRC = 'images/black-x.png'
+const LST_URL = 'images/list.png'
+const X_URL = 'images/black-x.png'
 
-export default class Header extends Component {
-	render() {
-		return (
-			<header>
-				<div className = { LIST }>
-					<img
-            className = { IMG }
-            onClick = { this.props.toggleList }
-            src = { this.props.showList ? X_SRC : SRC }
-          />
-				</div>
-        <Search search = { this.props.search }/>
-			</header>
-		)
-	}
+function Header({ lstToggle, lstShow, search }) {
+	return (
+		<header>
+			<div className="list-toggle">
+				<img
+          className="nav-trigger"
+          onClick={lstToggle}
+          src={lstShow ? X_URL : LST_URL}
+        />
+			</div>
+      <Search search={search} />
+		</header>
+	)
 }
+
+Header.propTypes = {
+  lstToggle: React.PropTypes.func,
+  lstShow: React.PropTypes.bool,
+  search: React.PropTypes.func
+}
+
+export default Header

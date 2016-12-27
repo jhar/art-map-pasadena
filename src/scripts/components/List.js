@@ -22,7 +22,7 @@ export default class List extends Component {
       }
     })
 		return (
-			<nav className = { this.props.listClasses } >
+			<nav className = { this.props.lstCss } >
 				<div className="list-container">
 					{ listItems }
 				</div>

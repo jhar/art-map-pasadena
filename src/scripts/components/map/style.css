@@ -1,4 +1,7 @@
-/* ------ Map View ------ */
+#map {
+	height: 100%;
+	width: 100%;
+}
 
 .map-view {
 	position: absolute;
@@ -7,11 +10,6 @@
 	bottom: 0;
 	left: 0;
 	z-index: 1;
-}
-
-#map {
-	height: 100%;
-	width: 100%;
 }
 
 .info-window {

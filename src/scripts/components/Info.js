@@ -7,7 +7,7 @@ const NOTHING = 'No upcoming events'
 const ARROW_LEFT = 'images/arrow-left.png'
 
 export default class Info extends Component {
-  state = { previous_location: null }
+  state = { last: null }
 
   changeOffset(e, oy, evt) {
     const fw = evt ? 826 : 828
@@ -20,82 +20,76 @@ export default class Info extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.activeLocation === null &&
-      this.props.activeLocation !== null) {
-      this.setState({ previous_location: this.props.activeLocation })
+    if (nextProps.active === null && this.props.active !== null) {
+      this.setState({ last: this.props.active })
     }
   }
 
+  getProp = (i, prop) => {
+    return (
+      this.props.active !== null ?
+        this.props.covers[this.props.active][i][prop] :
+        this.state.last !== null ?
+          this.props.covers[this.state.last][i][prop] :
+          ''
+    )
+  }
+
   render() {
-    let locCoverSrc, locCoverOff = ''
-    let eventsArray = null
-    if (this.props.activeLocation !== null) {
-      locCoverSrc = this.props.covers[this.props.activeLocation][0].source
-      locCoverOff = this.props.covers[this.props.activeLocation][0].offset_y
-      eventsArray = this.props.events[this.props.activeLocation]
-    } else if (this.state.previous_location !== null) {
-      locCoverSrc = this.props.covers[this.state.previous_location][0].source
-      locCoverOff = this.props.covers[this.state.previous_location][0].offset_y
-      eventsArray = this.props.events[this.state.previous_location]
+    const p = this.props
+    const s = this.state
+
+    let locOffset = ''
+    let evtArr = null
+    if (p.active !== null) {
+      evtArr = p.events[p.active]
+    } else if (s.last !== null) {
+      evtArr = p.events[s.last]
     }
 
-    let upcomingEvents = ''
-    if (eventsArray !== null) {
-      upcomingEvents = (eventsArray.length > 0) ? UPCOMING : NOTHING
-    }
-
-    let eventItems = ''
-    if (eventsArray !== null) {
-      eventItems = eventsArray.map((event, index) => {
-        let url, oy = ''
-        if (this.props.activeLocation !== null) {
-          url = this.props.covers[this.props.activeLocation][index+1].source
-          oy = this.props.covers[this.props.activeLocation][index+1].offset_y
-        } else if (this.state.previous_location !== null) {
-          url = this.props.covers[this.state.previous_location][index+1].source
-          oy = this.props.covers[this.state.previous_location][index+1].offset_y
-        }
-
+    let evtItems = ''
+    if (evtArr !== null) {
+      evtItems = evtArr.map((event, index) => {
         return (
           <Event
-            changeOffset = { this.changeOffset }
-            src = { url }
-            oy = { oy }
-            event = { event }
-            key = { index }
+            changeOffset={this.changeOffset}
+            src={this.getProp(index + 1, 'source')}
+            offset={this.getProp(index + 1, 'offset_y')}
+            event={event}
+            key={index}
           />
         )
       })
     }
 
     return(
-			<section className = { this.props.infoClasses } >
-				<div className = "arrow-wrap">
+			<section className={p.infCss}>
+				<div className="arrow-wrap">
 					<img
-            className = "arrow"
-            onClick = { this.props.toggleInfo }
-            src = { ARROW_LEFT }
+            className="arrow"
+            onClick={p.infToggle}
+            src={ARROW_LEFT}
           />
 				</div>
-				<div className = "cover-outer-container">
-					<div className = "cover-inner-container">
+				<div className="cover-outer-container">
+					<div className="cover-inner-container">
 						<img
-              className = "cover-photo"
-              onLoad = { (e) => this.changeOffset(e, locCoverOff, false) }
-              src = { locCoverSrc }
-              alt = ''
+              className="cover-photo"
+              onLoad = {(e) => this.changeOffset(e, locOffset, false)}
+              src={this.getProp(0, 'source')}
+              alt=""
             />
-						<div className = "cover-scrim"></div>
-						<h1 className = "title">
-              { this.props.locationName }
+						<div className="cover-scrim"></div>
+						<h1 className="title">
+              {p.locationName}
             </h1>
 					</div>
 				</div>
-				<h3 className = "upcoming-events">
-          { upcomingEvents }
+				<h3 className="upcoming-events">
+          {(evtArr && evtArr.length > 0) ? UPCOMING : NOTHING}
         </h3>
-				<div className = "events-container">
-				 { eventItems }
+				<div className="events-container">
+				 {evtItems}
         </div>
 			</section>
 		)

@@ -3,88 +3,61 @@ import ReactDOM from 'react-dom'
 import Login from './components/Login'
 import Header from './components/Header'
 import List from './components/List'
-import Map from './components/Map'
+import Map from './components/map'
 import Info from './components/Info'
 import '../styles/main.css'
 
-// Application configuration
+
 const DATA_URL = 'pasadena.json'
-
-// Objects for specific state transformations
-const DEFAULT_STATE = {
-  active_location: null,
-  info_clicked: false,
-  list_clicked: false,
+const LST_DEFAULT = 'list-view'
+const LST_OPEN = 'list-view list-view-open'
+const LST_CLOSE = 'list-view list-view-close'
+const INF_DEFAULT = 'info-view'
+const INF_OPEN = 'info-view info-animate-right'
+const INF_CLOSE = 'info-view info-animate-left'
+const STATE_DEFAULT = {
+  active: null,
+  infClk: false,
+  lstClk: false,
   locations: [],
-  show_info: false,
-  show_list: false,
-  show_login: true
+  infShow: false,
+  lstShow: false,
+  lgnShow: true
 }
-
 const RESET_UI = {
-  active_location: null,
-  info_clicked: false,
-  list_clicked: false,
-  show_info: false,
-  show_list: false,
-  show_login: false
+  active: null,
+  infClk: false,
+  lstClk: false,
+  infShow: false,
+  lstShow: false,
+  lgnShow: false
 }
-
-// Strings for CSS classes
-const LIST_VIEW_DEFAULT = 'list-view'
-const LIST_VIEW_OPENED = 'list-view list-view-open'
-const LIST_VIEW_CLOSED = 'list-view list-view-close'
-const INFO_VIEW_DEFAULT = 'info-view'
-const INFO_VIEW_OPENED = 'info-view info-animate-right'
-const INFO_VIEW_CLOSED = 'info-view info-animate-left'
 
 class App extends Component {
-  state = DEFAULT_STATE
+  state = STATE_DEFAULT
 
   // Mutable state that shouldn't trigger re-renders
   covers = []
   events = []
 
   getCover = (pid, locIndex, evtIndex) => {
-    const query = `/${pid}?fields=cover{source, offset_y}`
-    FB.api(query, (response) => {
-      if (response && !response.error) {
+    FB.api(`/${pid}?fields=cover{source, offset_y}`, (res) => {
+      if (res && !res.error) {
         if (evtIndex === undefined) {
-          this.covers[locIndex] = [response.cover]
+          this.covers[locIndex] = [res.cover]
         } else {
-          this.covers[locIndex][evtIndex+1] = response.cover
+          this.covers[locIndex][evtIndex+1] = res.cover
         }
       }
     })
   }
 
   getEvents = (pid, time, cb, obj) => {
-    const q = `/${pid}/events?since=${time}`
-
-    FB.api(q, (res) => {
+    FB.api(`/${pid}/events?since=${time}`, (res) => {
       if (res && !res.error) {
         cb.call(obj, res)
       }
     })
-  }
-
-  search = (event) => {
-    const pattern = new RegExp(event.target.value.toLowerCase())
-    const length = this.state.locations.length
-
-    for (let i = 0; i < length; i++) {
-      let name = this.state.locations[i].name
-      let lower = name.toLowerCase()
-      if (pattern.test(lower)) {
-        let newLocations = this.state.locations
-        newLocations[i].visibility = true
-        this.setState({ locations: newLocations })
-      } else {
-        let newLocations = this.state.locations
-        newLocations[i].visibility = false
-        this.setState({ locations: newLocations})
-      }
-    }
   }
 
   loadAuthorizedData = (timeStamp) => {
@@ -111,13 +84,13 @@ class App extends Component {
         for (let i = 0; i < len; i++) {
           newLocations.push({ ...json.locations[i], visible: false })
         }
-      this.setState({ locations: newLocations })
-    })
+        this.setState({ locations: newLocations })
+      })
   }
 
   nullifyActive = () => {
-    if (this.state.show_info) {
-      this.setState({ active_location: null })
+    if (this.state.infShow) {
+      this.setState({ active: null })
     }
   }
 
@@ -128,31 +101,52 @@ class App extends Component {
   selectActive = value => {
     // Select a location and deselect the rest
     this.setState({
-      active_location: (this.state.active_location === value) ? null : value
+      active: (this.state.active === value) ? null : value
     })
 
     // Don't open a window that's already open
-    if (this.state.show_info === false || this.state.active_location === null) {
+    if (this.state.infShow === false || this.state.active === null) {
       this.nullifyActive()
-      this.toggleInfo()
+      this.infToggle()
     }
 
-    // Close the list view if it's open
-    if (this.state.show_list === true) {
-      this.toggleList()
+    // Close the lst view if it's open
+    if (this.state.lstShow === true) {
+      this.lstToggle()
     }
   }
 
-  toggleInfo = () => {
+  search = event => {
+    const pattern = new RegExp(event.target.value.toLowerCase())
+
+    // const matches = this.state.locations.map(function(location) {
+    //     pattern.test(location.name.toLowerCase())
+    // })
+
+    let newLocations = this.state.locations
+
+    for (let i = 0; i < length; i++) {
+      let name = this.state.locations[i].name
+      if (pattern.test(name.toLowerCase())) {
+        newLocations[i].visibility = true
+      } else {
+        newLocations[i].visibility = false
+      }
+    }
+
+    this.setState({ locations: newLocations })
+  }
+
+  infToggle = () => {
     this.nullifyActive()
-    this.setState({ show_info: !this.state.show_info, info_clicked: true })
+    this.setState({ infShow: !this.state.infShow, infClk: true })
   }
 
-  toggleList = () => {
-    this.setState({ show_list: !this.state.show_list, list_clicked: true })
+  lstToggle = () => {
+    this.setState({ lstShow: !this.state.lstShow, lstClk: true })
   }
 
-  toggleLogin = value => {
+  lgnToggle = value => {
     if (value) {
       FB.logout()
     } else {
@@ -160,7 +154,7 @@ class App extends Component {
     }
 
     this.resetUI()
-    this.setState({ show_login: value })
+    this.setState({ lgnShow: value })
   }
 
   componentWillMount() {
@@ -168,55 +162,42 @@ class App extends Component {
   }
 
   render() {
-    let listClasses = LIST_VIEW_DEFAULT
-    if (this.state.show_list && this.state.list_clicked) {
-      listClasses = LIST_VIEW_OPENED
-    } else if (this.state.list_clicked){
-      listClasses = LIST_VIEW_CLOSED
-    }
+    const p = this.props
+    const s = this.state
+    const lstCss = s.lstClk ? s.lstShow ? LST_OPEN : LST_CLOSE : LST_DEFAULT
+    const infCss = s.infClk ? s.infShow ? INF_OPEN : INF_CLOSE : INF_DEFAULT
+    const locName = s.active === null ? '' : s.locations[s.active].name
 
-    let infoClasses = INFO_VIEW_DEFAULT
-    if (this.state.show_info && this.state.info_clicked) {
-      infoClasses = INFO_VIEW_OPENED
-    } else if (this.state.info_clicked) {
-      infoClasses = INFO_VIEW_CLOSED
-    }
-
-    let locationName = ''
-    if (this.state.active_location !== null) {
-      locationName = this.state.locations[this.state.active_location].name
-    }
-
-    if (this.state.show_login) {
-      return ( <Login toggleLogin = { this.toggleLogin } /> )
+    if (s.lgnShow) {
+      return ( <Login lgnToggle = { this.lgnToggle } /> )
     } else {
       return (
         <div>
           <Header
-            search = { this.search }
-            showList = { this.state.show_list }
-            toggleList = { this.toggleList }
+            search={this.search}
+            lstShow={s.lstShow}
+            lstToggle={this.lstToggle}
           />
           <List
-            listClasses = { listClasses }
-            locations = { this.state.locations }
-            selectActive = { this.selectActive }
-            toggleLogin = { this.toggleLogin }
+            lstCss={lstCss}
+            locations={this.state.locations}
+            selectActive={this.selectActive}
+            lgnToggle={this.lgnToggle}
           />
           <Map
-            active = { this.state.active_location }
+            active={s.active}
             selectActive = { this.selectActive }
-            showInfo = { this.state.show_info }
-            locations = { this.state.locations }
-            toggleInfo = { this.toggleInfo }
+            infShow = { s.infShow }
+            locations = { s.locations }
+            infToggle = { this.infToggle }
           />
           <Info
-            activeLocation = { this.state.active_location }
-            locationName = { locationName }
-            covers = { this.covers}
-            events = { this.events}
-            infoClasses = { infoClasses }
-            toggleInfo = { this.toggleInfo }
+            active={s.active}
+            locName={locName}
+            covers={this.covers}
+            events={this.events}
+            infCss={infCss}
+            infToggle={this.infToggle}
           />
         </div>
       )
