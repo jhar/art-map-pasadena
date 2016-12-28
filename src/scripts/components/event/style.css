@@ -1,0 +1,73 @@
+.event {
+	display: block;
+	position: relative;
+	max-width: 469px;
+}
+
+.event-image-container {
+	overflow: hidden;
+	display: block;
+	position: relative;
+	width: 100%;
+	max-width: 469px;
+	padding-bottom: 36%;
+}
+
+.event-image {
+	max-width: 100%;
+	position: absolute;
+}
+
+.event-title-container {
+	width: 100%;
+}
+
+.event-title {
+	color: rgba(0, 0, 0, 0.87);
+	font-size: 18px;
+	font-weight: 100;
+	display: block;
+	font-family: 'Roboto-Regular', sans-serif;
+	margin: 0;
+	padding: 12px;
+}
+
+.event-title-container:hover {
+	color: rgba(0, 0, 0, 1);
+}
+
+.event-description {
+	max-height: 0;
+	overflow: hidden;
+	width: 100%;
+}
+
+.event-description-text {
+	color: rgba(0, 0, 0, 0.71);
+	font: 13px 'Roboto-Regular', sans-serif;
+	line-height: 19px;
+	margin: 0;
+	padding: 0 12px 24px 12px;
+}
+
+@keyframes descriptionOpen {
+	from { max-height: 0; }
+	to { max-height: 1000px; }
+}
+
+@keyframes descriptionClose {
+	from { max-height: 1000px; }
+	to { max-height: 0; }
+}
+
+.description-open {
+	animation-name: descriptionOpen;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+}
+
+.description-close {
+	animation-name: descriptionClose;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+}

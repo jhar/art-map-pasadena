@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import Event from './Event'
+import Event from './event'
 import '../../styles/info.css'
 
 const UPCOMING = 'Upcoming Events'
 const NOTHING = 'No upcoming events'
-const ARROW_LEFT = 'images/arrow-left.png'
 
 export default class Info extends Component {
   state = { last: null }
@@ -38,29 +37,24 @@ export default class Info extends Component {
   render() {
     const p = this.props
     const s = this.state
+    const locOffset = this.getProp(0, 'offset_y') || ''
+    const evtArr = (
+      p.active !== null ?
+        p.events[p.active] :
+        s.last !== null ? p.events[s.last] : null
+    )
 
-    let locOffset = ''
-    let evtArr = null
-    if (p.active !== null) {
-      evtArr = p.events[p.active]
-    } else if (s.last !== null) {
-      evtArr = p.events[s.last]
-    }
-
-    let evtItems = ''
-    if (evtArr !== null) {
-      evtItems = evtArr.map((event, index) => {
-        return (
-          <Event
-            changeOffset={this.changeOffset}
-            src={this.getProp(index + 1, 'source')}
-            offset={this.getProp(index + 1, 'offset_y')}
-            event={event}
-            key={index}
-          />
-        )
-      })
-    }
+    const evtItems = evtArr === null ? '' : evtArr.map((event, index) => {
+      return (
+        <Event
+          changeOffset={this.changeOffset}
+          src={this.getProp(index + 1, 'source')}
+          offset={this.getProp(index + 1, 'offset_y')}
+          event={event}
+          key={index}
+        />
+      )
+    })
 
     return(
 			<section className={p.infCss}>
@@ -68,7 +62,7 @@ export default class Info extends Component {
 					<img
             className="arrow"
             onClick={p.infToggle}
-            src={ARROW_LEFT}
+            src="images/arrow-left.png"
           />
 				</div>
 				<div className="cover-outer-container">
