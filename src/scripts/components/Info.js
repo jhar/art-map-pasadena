@@ -5,18 +5,26 @@ import '../../styles/info.css'
 const UPCOMING = 'Upcoming Events'
 const NOTHING = 'No upcoming events'
 
+function getProp(t, i, n) {
+  return (
+    t.props.active !== null ?
+      t.props.covers[t.props.active][i][n] :
+      t.state.last !== null ?
+        t.props.covers[t.state.last][i][n] :
+        ''
+  )
+}
+
+function getTop(e, oy, isEvent) {
+  const [fw, fh] = isEvent ? [826, 294] : [820, 312]
+  const nw = e.target.naturalWidth
+  const nh = e.target.naturalHeight
+  const ow = e.target.offsetWidth
+  return (oy * ow / 100) * ((nh / nw) - (fh / fw)) * -1
+}
+
 export default class Info extends Component {
   state = { last: null }
-
-  changeOffset(e, oy, evt) {
-    const fw = evt ? 826 : 828
-    const fh = evt ? 294 : 315
-    const nw = e.target.naturalWidth
-    const nh = e.target.naturalHeight
-    const ow = e.target.offsetWidth
-    const top = (oy * ow / 100) * ((nh / nw) - (fh / fw))
-    e.target.style.top = -top + 'px'
-  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.active === null && this.props.active !== null) {
@@ -24,34 +32,25 @@ export default class Info extends Component {
     }
   }
 
-  getProp = (i, prop) => {
-    return (
-      this.props.active !== null ?
-        this.props.covers[this.props.active][i][prop] :
-        this.state.last !== null ?
-          this.props.covers[this.state.last][i][prop] :
-          ''
-    )
-  }
-
   render() {
-    const p = this.props
-    const s = this.state
-    const locOffset = this.getProp(0, 'offset_y') || ''
+    const t = this
+    const p = t.props
+    const s = t.state
+    const oy = getProp(t, 0, 'offset_y') || ''
     const evtArr = (
       p.active !== null ?
         p.events[p.active] :
         s.last !== null ? p.events[s.last] : null
     )
 
-    const evtItems = evtArr === null ? '' : evtArr.map((event, index) => {
+    const evtItems = evtArr === null ? '' : evtArr.map((event, i) => {
       return (
         <Event
-          changeOffset={this.changeOffset}
-          src={this.getProp(index + 1, 'source')}
-          offset={this.getProp(index + 1, 'offset_y')}
+          getTop={getTop}
+          src={getProp(t, i + 1, 'source')}
+          offset={getProp(t, i + 1, 'offset_y')}
           event={event}
-          key={index}
+          key={i}
         />
       )
     })
@@ -69,8 +68,8 @@ export default class Info extends Component {
 					<div className="cover-inner-container">
 						<img
               className="cover-photo"
-              onLoad = {(e) => this.changeOffset(e, locOffset, false)}
-              src={this.getProp(0, 'source')}
+              onLoad={(e) => e.target.style.top = getTop(e, oy, false) + 'px'}
+              src={getProp(t, 0, 'source')}
               alt=""
             />
 						<div className="cover-scrim"></div>

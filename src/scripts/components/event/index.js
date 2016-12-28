@@ -9,7 +9,9 @@ export default class Event extends Component {
     this.setState(STATE_DEFAULT)
   }
 
-  handleLoad = e => this.props.changeOffset(e, this.props.offset, true)
+  handleLoad = (e) => {
+    e.target.style.top = this.props.getTop(e, this.props.offset, true) + 'px'
+  }
 
   descToggle = () => {
     this.setState({ clicked: true, show: !this.state.show })
