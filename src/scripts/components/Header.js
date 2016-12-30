@@ -2,28 +2,35 @@ import React, { Component, PropTypes } from 'react'
 import Search from './Search'
 import '../../styles/header.css'
 
-const LST_URL = 'images/list.png'
+const LIST_URL = 'images/list.png'
 const X_URL = 'images/black-x.png'
 
-function Header({ lstToggle, lstShow, search }) {
+const Header = ({ search, searchToggle, searchUI, show, toggle }) => {
 	return (
 		<header>
 			<div className="list-toggle">
 				<img
           className="nav-trigger"
-          onClick={lstToggle}
-          src={lstShow ? X_URL : LST_URL}
+          onClick={toggle}
+          src={show ? X_URL : LIST_URL}
         />
 			</div>
-      <Search search={search} />
+      <Search
+        clicked={searchUI.clicked}
+        search={search}
+        show={searchUI.show}
+        toggle={searchToggle}
+      />
 		</header>
 	)
 }
 
 Header.propTypes = {
-  lstToggle: React.PropTypes.func,
-  lstShow: React.PropTypes.bool,
-  search: React.PropTypes.func
+  search: React.PropTypes.func.isRequired,
+  searchToggle: React.PropTypes.func.isRequired,
+  searchUI: React.PropTypes.object.isRequired,
+  show: React.PropTypes.bool.isRequired,
+  toggle: React.PropTypes.func.isRequired
 }
 
 export default Header

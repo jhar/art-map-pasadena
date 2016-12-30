@@ -2,18 +2,11 @@ import React, { Component } from 'react'
 import Event from './event'
 import '../../styles/info.css'
 
-const UPCOMING = 'Upcoming Events'
+const CLOSE = 'info-view info-animate-left'
+const DEFAULT = 'info-view'
 const NOTHING = 'No upcoming events'
-
-function getProp(t, i, n) {
-  return (
-    t.props.active !== null ?
-      t.props.covers[t.props.active][i][n] :
-      t.state.last !== null ?
-        t.props.covers[t.state.last][i][n] :
-        ''
-  )
-}
+const OPEN = 'info-view info-animate-right'
+const UPCOMING = 'Upcoming Events'
 
 function getTop(e, oy, isEvent) {
   const [fw, fh] = isEvent ? [826, 294] : [820, 312]
@@ -23,68 +16,60 @@ function getTop(e, oy, isEvent) {
   return (oy * ow / 100) * ((nh / nw) - (fh / fw)) * -1
 }
 
-export default class Info extends Component {
-  state = { last: null }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.active === null && this.props.active !== null) {
-      this.setState({ last: this.props.active })
-    }
-  }
-
-  render() {
-    const t = this
-    const p = t.props
-    const s = t.state
-    const oy = getProp(t, 0, 'offset_y') || ''
-    const evtArr = (
-      p.active !== null ?
-        p.events[p.active] :
-        s.last !== null ? p.events[s.last] : null
+const Info = ({ clicked, place, show, toggle }) => {
+  const oy = place.cover.offset_y
+  const css = clicked ? show ? OPEN : CLOSE : DEFAULT
+  const events = place.events.data.map((event) => {
+    return (
+      <Event
+        description={event.description}
+        getTop={getTop}
+        key={event.id}
+        name={event.name}
+        offset={event.cover.offset_y}
+        src={event.cover.source}
+      />
     )
+  })
 
-    const evtItems = evtArr === null ? '' : evtArr.map((event, i) => {
-      return (
-        <Event
-          getTop={getTop}
-          src={getProp(t, i + 1, 'source')}
-          offset={getProp(t, i + 1, 'offset_y')}
-          event={event}
-          key={i}
+  return(
+		<section className={css}>
+			<div className="arrow-wrap">
+				<img
+          className="arrow"
+          onClick={toggle}
+          src="images/arrow-left.png"
         />
-      )
-    })
-
-    return(
-			<section className={p.infCss}>
-				<div className="arrow-wrap">
+			</div>
+			<div className="cover-outer-container">
+				<div className="cover-inner-container">
 					<img
-            className="arrow"
-            onClick={p.infToggle}
-            src="images/arrow-left.png"
+            className="cover-photo"
+            onLoad={(e) => e.target.style.top = getTop(e, oy, false) + 'px'}
+            src={place.cover.source}
+            alt=""
           />
+					<div className="cover-scrim"></div>
+					<h1 className="title">
+            {name}
+          </h1>
 				</div>
-				<div className="cover-outer-container">
-					<div className="cover-inner-container">
-						<img
-              className="cover-photo"
-              onLoad={(e) => e.target.style.top = getTop(e, oy, false) + 'px'}
-              src={getProp(t, 0, 'source')}
-              alt=""
-            />
-						<div className="cover-scrim"></div>
-						<h1 className="title">
-              {p.locationName}
-            </h1>
-					</div>
-				</div>
-				<h3 className="upcoming-events">
-          {(evtArr && evtArr.length > 0) ? UPCOMING : NOTHING}
-        </h3>
-				<div className="events-container">
-				 {evtItems}
-        </div>
-			</section>
-		)
-	}
+			</div>
+			<h3 className="upcoming-events">
+        {(events && events.length > 0) ? UPCOMING : NOTHING}
+      </h3>
+			<div className="events-container">
+			 {events}
+      </div>
+		</section>
+	)
 }
+
+Info.propTypes = {
+  clicked: React.PropTypes.bool.isRequired,
+  place: React.PropTypes.object,
+  show: React.PropTypes.bool.isRequired,
+  toggle: React.PropTypes.func.isRequired
+}
+
+export default Info

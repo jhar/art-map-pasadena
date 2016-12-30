@@ -1,5 +1,5 @@
 module.exports = {
-	entry: ['babel-polyfill', 'isomorphic-fetch', './src/scripts/App.js'],
+	entry: ['babel-polyfill', 'isomorphic-fetch', './src/scripts/index.js'],
 	output: {
 		path: __dirname + '/public/',
 		publicPath: 'public/',
@@ -7,9 +7,9 @@ module.exports = {
 	},
 	module: {
 		loaders: [
-            { test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
-            { test: /\.css$/, loader: 'style-loader!css-loader' }
-        ]
+      { test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
+      { test: /\.css$/, loader: 'style-loader!css-loader' }
+    ]
 	},
 	babel: {
 		presets: ['es2015', 'react', 'stage-2'],

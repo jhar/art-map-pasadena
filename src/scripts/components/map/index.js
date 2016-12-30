@@ -31,7 +31,7 @@ export default class Map extends Component {
         })
       }
       // Set visibility
-      marker.setVisible(nextProps.locations[marker.index].visibility)
+      marker.setVisible(nextProps.places[marker.index].visibility)
     }
     // Recenter on middle if no active marker
     if (nextProps.active === null && this.props.active !== null) {
@@ -53,27 +53,27 @@ export default class Map extends Component {
     })
   }
 
-  createMarkers(locations) {
+  createMarkers(places) {
     let newMarkers = []
-    let index = 0
-    for (let location of locations) {
+    let i = 0
+    for (let place of places) {
       let marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[index].lat, locations[index].lng),
+        position: new google.maps.LatLng(places[i].location.latitude, places[i].location.longitude),
         map: map,
-        title: locations[index].name,
+        title: places[i].name,
         icon: {
           url: URL_1,
           scaledSize: new google.maps.Size(WIDTH, HEIGHT),
           origin: new google.maps.Point(0, 0),
           anchor: new google.maps.Point(0, 0)
         },
-        index: index,
+        index: i,
         active: false
       })
       google.maps.event.addListener(marker, 'click', event => {
         this.props.selectActive(marker.index)
       })
-      index++
+      i++
       newMarkers.push(marker)
     }
     this.setState({ markers: newMarkers })
@@ -81,7 +81,7 @@ export default class Map extends Component {
 
   componentDidMount() {
     this.createMap()
-    this.createMarkers(this.props.locations)
+    this.createMarkers(this.props.places)
   }
 
   offCenterMap(marker) {
