@@ -1,18 +1,19 @@
 import {
-  ERROR_AUTH,
-  ERROR_CITIES,
-  ERROR_GRAPH,
+  AUTH_ERR,
+  AUTH_OK,
+  AUTH_REQ,
+  CITY_ERR,
+  CITY_OK,
+  CITY_REQ,
+  GRAPH_ERR,
+  GRAPH_OK,
+  GRAPH_REQ,
   NULL_ACTIVE,
-  REQUESTING_AUTH,
-  REQUESTING_CITIES,
-  REQUESTING_GRAPH,
   RESET_UI,
   SET_ACTIVE,
-  SET_CITY_AND_PIDS,
+  SET_CITY,
+  SET_PLACE,
   SET_VISIBLE,
-  SUCCESS_AUTH,
-  SUCCESS_CITIES,
-  SUCCESS_GRAPH,
   TOGGLE_AUTH,
   TOGGLE_INFO,
   TOGGLE_LIST,
@@ -21,60 +22,73 @@ import {
 
 const defaultState = {
   active: null,
-  animateAuth: false,
-  animateInfo: false,
-  animateList: false,
-  animateSearch: false,
-  city: null,
-  errorAuth: false,
-  errorCities: false,
-  errorGraph: false,
+  city: {},
   pids: [],
-  requestingAuth: false,
-  requestingCities: false,
-  requestingGraph: false,
-  showAuth: false,
-  showInfo: false,
-  showList: false,
+  places: {},
   showMain: false,
+
+  animateAuth: false,
+  showAuth: false,
+
+  animateInfo: false,
+  showInfo: false,
+
+  animateList: false,
+  showList: false,
+
+  animateSearch: false,
   showSearch: false,
-  successAuth: false,
-  successCities: false,
-  successGraph: false
+
+  authErr: false,
+  authOk: false,
+  authReq: false,
+
+  cityErr: false,
+  cityOk: false,
+  cityReq: false,
+
+  graphErr: {},
+  graphOk: {},
+  graphReq: {}
 }
 
 export const reducer = (state = defaultState, action) => {
   switch (action.type) {
-    case ERROR_AUTH:
+    case CITY_REQ:
+      return { ...state, cityErr: false, cityOk: false, cityReq: true }
+    case CITY_OK:
+      return { ...state, cityErr: false, cityOk: true, cityReq: false }
+    case CITY_ERR:
+      return { ...state, cityErr: true, cityOk: false, cityReq: false }
+    case AUTH_REQ:
+      return { ...state, authErr: false, authOk: false, authReq: true }
+    case AUTH_OK:
+      return { ...state, authErr: false, authOk: true, authReq: false }
+    case AUTH_ERR:
+      return { ...state, authErr: true, authOk: false, authReq: false }
+    case GRAPH_REQ:
       return {
         ...state,
-        errorAuth: true,
-        requestingAuth: false,
-        successAuth: false
+        graphErr: { ...state.graphErr, [action.pid]: false },
+        graphOk: { ...state.graphOk, [action.pid]: false },
+        graphReq: { ...state.graphReq, [action.pid]: true }
       }
-    case ERROR_CITY:
+    case GRAPH_OK:
       return {
         ...state,
-        errorCity: true,
-        requestingCity: false,
-        successCity: false
+        graphErr: { ...state.graphErr, [action.pid]: false },
+        graphOk: { ...state.graphOk, [action.pid]: true },
+        graphReq: { ...state.graphReq, [action.pid]: false }
+      }
+    case GRAPH_ERR:
+      return {
+        ...state,
+        graphErr: { ...state.graphErr, [action.pid]: true },
+        graphOk: { ...state.graphOk, [action.pid]: false },
+        graphReq: { ...state.graphReq, [action.pid]: false },
       }
     case NULL_ACTIVE:
       return state.showInfo ? { ...state, active: null } : state
-    case REQUESTING_AUTH:
-      return {
-        ...state,
-        errorAuth: false,
-        requestingAuth: true,
-        successAuth: false
-      }
-    case REQUESTING_CITY:
-      return {
-        ...state,
-        errorCity: false,
-        requestingCity: true,
-        successCity: false
-      }
     case RESET_UI:
       return { ...state, defaultState }
     case SET_ACTIVE:
@@ -82,46 +96,30 @@ export const reducer = (state = defaultState, action) => {
         ...state,
         active: (state.active === action.value) ? null : action.value
       }
-    case SET_CITY_AND_PIDS:
+    case SET_CITY:
       return { ...state, city: action.city, pids: action.pids }
-    case SUCCESS_AUTH:
+    case SET_PLACE:
       return {
         ...state,
-        errorAuth: false,
-        requestingAuth: false,
-        successAuth: true
-      }
-    case SUCCESS_CITY:
-      return {
-        ...state,
-        errorCity: false,
-        requestingCity: false,
-        successCity: true
+        places: {
+          ...state.places,
+          [action.pid]: {
+            coverSrc: action.coverSrc,
+            coverOffY: action.coverOffY,
+            latitude: action.latitude,
+            longitude: action.longitude,
+            name: action.name
+          }
+        }
       }
     case TOGGLE_AUTH:
-      return {
-        ...state,
-        animateAuth: true,
-        showAuth: !state.showAuth
-      }
+      return { ...state, animateAuth: true, showAuth: !state.showAuth }
     case TOGGLE_INFO:
-      return {
-        ...state,
-        animateInfo: true,
-        showInfo: !state.showInfo
-      }
+      return { ...state, animateInfo: true, showInfo: !state.showInfo }
     case TOGGLE_LIST:
-      return {
-        ...state,
-        animateList: true,
-        listShow: !state.showList
-      }
+      return { ...state, animateList: true, listShow: !state.showList }
     case TOGGLE_SEARCH:
-      return {
-        ...state,
-        animateSearch: true,
-        showSearch: !state.showSearch
-      }
+      return { ...state, animateSearch: true, showSearch: !state.showSearch }
     default:
       return state
   }

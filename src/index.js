@@ -34,13 +34,6 @@ render(
 // }
 //
 
-// function getGraphData(pid) {
-//   const time = Math.floor(Date.now()/1000)
-//   const location = 'name,location{latitude, longitude}'
-//   const cover = 'cover{source, offset_y}'
-//   const events = `events.since(${time}){description, name, ${cover}}`
-//   FB.api(`/${pid}?fields=${location},${cover},${events}`)
-// }
 //
 // function search(places) {
 //   return function(e) {
@@ -68,14 +61,4 @@ render(
 
 // export function handleLogout(callback) {
 //   FB.logout(() => callback())
-// }
-
-// function requestAuth(onSuccess, onFailure) {
-//   FB.login(response => {
-//     if (response.authResponse) {
-//       onSuccess()
-//     } else if (!response || response.error) {
-//       onFailure()
-//     }
-//   })
 // }

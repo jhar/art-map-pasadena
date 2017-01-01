@@ -1,22 +1,22 @@
+export const AUTH_ERR = 'AUTH_ERR'
+export const AUTH_OK = 'AUTH_OK'
+export const AUTH_REQ = 'AUTH_REQ'
+
+export const CITY_ERR = 'CITY_ERR'
+export const CITY_OK = 'CITY_OK'
+export const CITY_REQ = 'CITY_REQ'
+
+export const GRAPH_ERR = 'GRAPH_ERR'
+export const GRAPH_OK = 'GRAPH_OK'
+export const GRAPH_REQ = 'GRAPH_REQ'
+
 export const NULL_ACTIVE = 'NULLIFY_ACTIVE'
-
-export const ERROR_AUTH = 'ERROR_AUTH'
-export const ERROR_CITY = 'ERROR_CITY'
-export const ERROR_GRAPH = 'ERROR_GRAPH'
-
-export const REQUESTING_AUTH = 'REQUESTING_AUTH'
-export const REQUESTING_CITY = 'REQUESTING_CITIES'
-export const REQUESTING_GRAPH = 'REQUESTING_GRAPH'
-
 export const RESET_UI = 'RESET_UI'
 
 export const SET_ACTIVE = 'SET_ACTIVE'
-export const SET_CITY_AND_PIDS = 'SET_CITY_AND_PIDS'
+export const SET_CITY = 'SET_CITY'
+export const SET_PLACE = 'SET_PLACE'
 export const SET_VISIBLE = 'SET_VISIBLE'
-
-export const SUCCESS_AUTH = 'SUCCESS_AUTH'
-export const SUCCESS_CITY = 'SUCCESS_CITY'
-export const SUCCESS_GRAPH = 'SUCCESS_GRAPH'
 
 export const TOGGLE_AUTH = 'TOGGLE_AUTH'
 export const TOGGLE_LIST = 'TOGGLE_LIST'

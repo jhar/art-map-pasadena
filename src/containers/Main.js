@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Header from './Header'
 import List from '../components/List'
@@ -10,7 +9,7 @@ const Main = ({
   active,
   animateInfo,
   animateList,
-  select,
+  setActive,
   showInfo,
   showList,
   showSearch
@@ -24,7 +23,7 @@ const Main = ({
       />
       <List
         animateList={animateList}
-        select={select}
+        setActive={setActive}
         showList={showList}
       />
       <Map
@@ -55,11 +54,4 @@ const mapStateToProps = state => ({
   showSearch: state.showSearch
 })
 
-const mapDispatchToProps = dispatch => ({
-  setActive: bindActionCreators(setActive, dispatch),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Main)
+export default connect(mapStateToProps)(Main)
