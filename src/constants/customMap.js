@@ -1,4 +1,4 @@
-export const STYLE = [
+export const CUSTOM_MAP = [
   {
     "featureType": "all",
     "elementType": "geometry",

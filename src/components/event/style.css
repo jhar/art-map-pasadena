@@ -1,3 +1,25 @@
+@keyframes closeDescription {
+	from { max-height: 1000px; }
+	to { max-height: 0; }
+}
+
+@keyframes openDescription {
+	from { max-height: 0; }
+	to { max-height: 1000px; }
+}
+
+.animation-close-description {
+	animation-name: closeDescription;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+}
+
+.animation-open-description {
+	animation-name: openDescription;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+}
+
 .event {
 	display: block;
 	position: relative;
@@ -48,26 +70,4 @@
 	line-height: 19px;
 	margin: 0;
 	padding: 0 12px 24px 12px;
-}
-
-@keyframes descriptionOpen {
-	from { max-height: 0; }
-	to { max-height: 1000px; }
-}
-
-@keyframes descriptionClose {
-	from { max-height: 1000px; }
-	to { max-height: 0; }
-}
-
-.description-open {
-	animation-name: descriptionOpen;
-	animation-duration: 0.5s;
-	animation-fill-mode: forwards;
-}
-
-.description-close {
-	animation-name: descriptionClose;
-	animation-duration: 0.5s;
-	animation-fill-mode: forwards;
 }

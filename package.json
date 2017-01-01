@@ -15,6 +15,7 @@
     "eslint": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
     "mori": "^0.3.2",
+    "react-redux": "^5.0.1",
     "redux": "^3.6.0",
     "run-sequence": "^1.2.2",
     "style-loader": "^0.13.1",

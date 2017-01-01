@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
-import { WIDTH, HEIGHT, URL_1, URL_2, LAT, LNG, ZOOM } from './constants.js'
-import { STYLE }from './style.js'
-import './style.css'
+import React, { PropTypes } from 'react'
+import { MARKER_1, MARKER_2 } from '../constants/images'
+import { CUSTOM_MAP } from '../constants/customMap.js'
+import '../css/map.css'
+
+// TODO: Import "infoToggle" and "selectActive"
 
 let map = null
 
@@ -11,8 +13,8 @@ export default class Map extends Component {
     for (let marker of this.state.markers) {
       if (marker.index === nextProps.active) {
         marker.setIcon({
-          url: URL_2,
-          scaledSize: new google.maps.Size(WIDTH, HEIGHT),
+          url: MARKER_2,
+          scaledSize: new google.maps.Size(67, 67),
           origin: new google.maps.Point(0, 0),
           anchor: new google.maps.Point(0, 0)
         })
@@ -24,8 +26,8 @@ export default class Map extends Component {
         }
       } else {
         marker.setIcon({
-          url: URL_1,
-          scaledSize: new google.maps.Size(WIDTH, HEIGHT),
+          url: MARKER_1,
+          scaledSize: new google.maps.Size(67, 67),
           origin: new google.maps.Point(0, 0),
           anchor: new google.maps.Point(0, 0)
         })
@@ -42,14 +44,14 @@ export default class Map extends Component {
   createMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: {
-        lat: LAT,
-        lng: LNG
+        lat: 34.151389,
+        lng: -118.150281
       },
       mapTypeControl: false,
-      zoom: ZOOM
+      zoom: 14
     })
     map.setOptions({
-      styles: STYLE
+      styles: CUSTOM_MAP
     })
   }
 
@@ -62,8 +64,8 @@ export default class Map extends Component {
         map: map,
         title: places[i].name,
         icon: {
-          url: URL_1,
-          scaledSize: new google.maps.Size(WIDTH, HEIGHT),
+          url: MARKER_1,
+          scaledSize: new google.maps.Size(67, 67),
           origin: new google.maps.Point(0, 0),
           anchor: new google.maps.Point(0, 0)
         },

@@ -1,11 +1,36 @@
 {
   "pasadena": [
-    "armoryarts",
-    "nortonsimonmuseum",
-    "KidspaceChildrensMuseum",
-    "pasadenaplayhouse",
-    "pmcaonline",
-    "PacificAsiaMuseum",
-    "thegamblehouse"
+    {
+      "pid": "armoryarts",
+      "visible": false
+    },
+    {
+      "pid": "nortonsimonmuseum",
+      "visible": false
+    },
+    {
+      "pid": "nortonsimonmuseum",
+      "visible": false
+    },
+    {
+      "pid": "KidspaceChildrensMuseum",
+      "visible": false
+    },
+    {
+      "pid": "pasadenaplayhouse",
+      "visible": false
+    },
+    {
+      "pid": "pmcaonline",
+      "visible": false
+    },
+    {
+      "pid": "PacificAsiaMuseum",
+      "visible": false
+    },
+    {
+      "pid": "thegamblehouse",
+      "visible": false
+    }
   ]
 }

@@ -1,3 +1,25 @@
+@keyframes closeInfo {
+	from { transform: translateX(0); }
+	to { transform: translateX(-100%); }
+}
+
+@keyframes openInfo {
+	from { transform: translateX(-100%); }
+	to { transform: translateX(0); }
+}
+
+.animation-close-info {
+	animation-name: closeInfo;
+	animation-duration: 0.8s;
+	animation-fill-mode: forwards;
+}
+
+.animation-open-info {
+	animation-name: openInfo;
+	animation-duration: 0.8s;
+	animation-fill-mode: forwards;
+}
+
 .arrow {
 	background-color: white;
 	border-radius: 50%;
@@ -14,6 +36,27 @@
 	top: 0;
 	width: 66px;
 	z-index: 5;
+}
+
+.container-events {
+ 	display: block;
+ 	margin-bottom: 96px;
+ 	width: 100%;
+}
+
+.container-info {
+	background-color: white;
+	bottom: 0;
+	box-shadow: 0 0 20px rgba(0,0,0,0.3);
+	display: block;
+	left: 0;
+	transform: translateX(-100%);
+	overflow-y: auto;
+  	position: absolute;
+  	top: 48px;
+  	max-width: 469px;
+  	width: 100%;
+  	z-index: 2;
 }
 
 .cover-outer-container {
@@ -48,27 +91,6 @@
 	z-index: 3;
 }
 
-.events-container {
- 	display: block;
- 	margin-bottom: 96px;
- 	width: 100%;
-}
-
-.info-view {
-	background-color: white;
-	bottom: 0;
-	box-shadow: 0 0 20px rgba(0,0,0,0.3);
-	display: block;
-	left: 0;
-	transform: translateX(-100%);
-	overflow-y: auto;
-  	position: absolute;
-  	top: 48px;
-  	max-width: 469px;
-  	width: 100%;
-  	z-index: 2;
-}
-
 .title {
 	bottom: 0;
 	color: rgba(255, 255, 255, 1);
@@ -92,26 +114,4 @@
 	letter-spacing: 1px;
 	margin: 0;
 	padding: 12px;
-}
-
-@keyframes animateInfoRight {
-	from { transform: translateX(-100%); }
-	to { transform: translateX(0); }
-}
-
-@keyframes animateInfoLeft {
-	from { transform: translateX(0); }
-	to { transform: translateX(-100%); }
-}
-
-.info-animate-right {
-	animation-name: animateInfoRight;
-	animation-duration: 0.8s;
-	animation-fill-mode: forwards;
-}
-
-.info-animate-left {
-	animation-name: animateInfoLeft;
-	animation-duration: 0.8s;
-	animation-fill-mode: forwards;
 }

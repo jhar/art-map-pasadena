@@ -1,5 +1,5 @@
 module.exports = {
-	entry: ['babel-polyfill', 'isomorphic-fetch', './src/scripts/index.js'],
+	entry: ['babel-polyfill', 'isomorphic-fetch', './src/index.js'],
 	output: {
 		path: __dirname + '/public/',
 		publicPath: 'public/',

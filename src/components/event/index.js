@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PropTypes } from 'react'
 import { DEFAULT, OPEN, CLOSE, STATE_DEFAULT } from './constants'
 import './style.css'
 

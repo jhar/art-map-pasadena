@@ -1,24 +1,12 @@
 import React, { Component } from 'react'
 import Event from './event'
-import '../../styles/info.css'
+import { BASE_INFO, CLOSE_INFO, OPEN_INFO } from '../constants/animation'
+import { H3_INFO_0, H3_INFO_1 } from '../constants/text'
+import '../css/info.css'
 
-const CLOSE = 'info-view info-animate-left'
-const DEFAULT = 'info-view'
-const NOTHING = 'No upcoming events'
-const OPEN = 'info-view info-animate-right'
-const UPCOMING = 'Upcoming Events'
-
-function getTop(e, oy, isEvent) {
-  const [fw, fh] = isEvent ? [826, 294] : [820, 312]
-  const nw = e.target.naturalWidth
-  const nh = e.target.naturalHeight
-  const ow = e.target.offsetWidth
-  return (oy * ow / 100) * ((nh / nw) - (fh / fw)) * -1
-}
-
-const Info = ({ clicked, place, show, toggle }) => {
+const Info = ({ animateInfo, showInfo, toggleInfo }) => {
   const oy = place.cover.offset_y
-  const css = clicked ? show ? OPEN : CLOSE : DEFAULT
+  const animation = animateInfo ? showInfo ? OPEN_INFO : CLOSE_INFO : BASE_INFO
   const events = place.events.data.map((event) => {
     return (
       <Event
@@ -33,7 +21,7 @@ const Info = ({ clicked, place, show, toggle }) => {
   })
 
   return(
-		<section className={css}>
+		<section className={animation}>
 			<div className="arrow-wrap">
 				<img
           className="arrow"
@@ -56,7 +44,7 @@ const Info = ({ clicked, place, show, toggle }) => {
 				</div>
 			</div>
 			<h3 className="upcoming-events">
-        {(events && events.length > 0) ? UPCOMING : NOTHING}
+        {(events && events.length > 0) ? H3_INFO_1 : H3_INFO_0}
       </h3>
 			<div className="events-container">
 			 {events}
@@ -66,10 +54,9 @@ const Info = ({ clicked, place, show, toggle }) => {
 }
 
 Info.propTypes = {
-  clicked: React.PropTypes.bool.isRequired,
-  place: React.PropTypes.object,
-  show: React.PropTypes.bool.isRequired,
-  toggle: React.PropTypes.func.isRequired
+  animateInfo: React.PropTypes.bool.isRequired,
+  showInfo: React.PropTypes.bool.isRequired,
+  toggleInfo: React.PropTypes.func.isRequired
 }
 
 export default Info

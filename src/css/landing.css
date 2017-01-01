@@ -1,0 +1,73 @@
+@keyframes openAuth {
+  from { max-height: 0; }
+  to { max-height: 1000px; }
+}
+
+@keyframes closeAuth {
+  from { max-height: 1000px; }
+  to { max-height: 0; }
+}
+
+.animation-close-auth {
+  animation-name: closeAuth;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+.animation-open-auth {
+  animation-name: openAuth;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+.container-landing {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.container-landing-inner {
+  display: block;
+  height: 100%;
+	margin: 0 auto;
+  max-height: 1000px;
+  max-width: 1024px;
+	position: relative;
+  width: 100%;
+}
+
+.title-landing {
+  display: block;
+  margin: 1em auto 0 auto;
+  padding: 0 0.17em;
+  text-shadow: 0.1em 0.1em 0.38em black;
+  width: 300px;
+}
+
+.title-landing:hover {
+  cursor: pointer;
+}
+
+.container-auth {
+  display: block;
+  font-family: 'Assistant';
+  font-weight: 400;
+  font-size: 1em;
+  margin: 0 auto;
+  max-height: 0;
+  max-width: 95%;
+  overflow: hidden;
+}
+
+.icon-auth {
+  display: block;
+  margin: 0 auto;
+	padding: 0;
+  width: 96px;
+}
+
+.icon-auth:hover {
+	cursor: pointer;
+}
