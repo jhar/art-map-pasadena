@@ -1,16 +1,15 @@
 import {
-  ADD_VISIBILITY,
   ERROR_AUTH,
   ERROR_CITIES,
   ERROR_GRAPH,
-  NULLIFY_ACTIVE,
+  NULL_ACTIVE,
   REQUESTING_AUTH,
   REQUESTING_CITIES,
   REQUESTING_GRAPH,
   RESET_UI,
-  SELECT_ACTIVE,
-  SET_PIDS,
-  SET_VISIBILITY,
+  SET_ACTIVE,
+  SET_CITY_AND_PIDS,
+  SET_VISIBLE,
   SUCCESS_AUTH,
   SUCCESS_CITIES,
   SUCCESS_GRAPH,
@@ -21,14 +20,16 @@ import {
 } from './actionTypes.js'
 
 const defaultState = {
-  activePlace: null,
+  active: null,
   animateAuth: false,
   animateInfo: false,
   animateList: false,
   animateSearch: false,
+  city: null,
   errorAuth: false,
   errorCities: false,
   errorGraph: false,
+  pids: [],
   requestingAuth: false,
   requestingCities: false,
   requestingGraph: false,
@@ -45,59 +46,82 @@ const defaultState = {
 export const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case ERROR_AUTH:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         errorAuth: true,
         requestingAuth: false,
         successAuth: false
-      })
-    case NULLIFY_ACTIVE:
-      return (
-        state.showInfo ?
-          Object.assign({}, state, { activePlace: null }) :
-          state
-      )
+      }
+    case ERROR_CITY:
+      return {
+        ...state,
+        errorCity: true,
+        requestingCity: false,
+        successCity: false
+      }
+    case NULL_ACTIVE:
+      return state.showInfo ? { ...state, active: null } : state
     case REQUESTING_AUTH:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         errorAuth: false,
         requestingAuth: true,
         successAuth: false
-      })
+      }
+    case REQUESTING_CITY:
+      return {
+        ...state,
+        errorCity: false,
+        requestingCity: true,
+        successCity: false
+      }
     case RESET_UI:
-      return Object.assign({}, state, defaultState)
-    case SELECT_ACTIVE:
-      return Object.assign({}, state, {
-        activePlace: (state.activePlace === action.value) ? null : action.value
-      })
-    case SET_PIDS:
-      return Object.assign({}, state, {
-        pids: action.value
-      })
+      return { ...state, defaultState }
+    case SET_ACTIVE:
+      return {
+        ...state,
+        active: (state.active === action.value) ? null : action.value
+      }
+    case SET_CITY_AND_PIDS:
+      return { ...state, city: action.city, pids: action.pids }
     case SUCCESS_AUTH:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         errorAuth: false,
         requestingAuth: false,
         successAuth: true
-      })
+      }
+    case SUCCESS_CITY:
+      return {
+        ...state,
+        errorCity: false,
+        requestingCity: false,
+        successCity: true
+      }
     case TOGGLE_AUTH:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         animateAuth: true,
         showAuth: !state.showAuth
-      })
+      }
     case TOGGLE_INFO:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         animateInfo: true,
         showInfo: !state.showInfo
-      })
+      }
     case TOGGLE_LIST:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         animateList: true,
         listShow: !state.showList
-      })
+      }
     case TOGGLE_SEARCH:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         animateSearch: true,
         showSearch: !state.showSearch
-      })
+      }
     default:
       return state
   }

@@ -1,59 +1,42 @@
 import React, { PropTypes } from 'react'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Landing from './Landing'
 import Main from './Main'
-import {
-  errorCities,
-  requestingCities,
-  successCities,
-  setPids
-} from '../actions'
+import { requestCity } from '../actions'
 import '../css/root.css'
 
 const Root = ({
-  errorCities,
+  dispatch,
   pids,
-  requestingCities,
+  requestingCity,
   showMain,
   successCities
 }) => {
-  const handleCity = city => console.log(city)
-  const loadCities = (city, error, ok) => {
-    fetch('cities.json')
-      .then(res => {
-        ok()
-        return res.json()
-      })
-      .catch(reason => {
-        error()
-        return reason
-      })
-  }
-
-  if (!pids) {
-    // requestCities()
-    //handleCity(loadCities(errorCities, successCities))
+  if (!requestingCity && !successCity) {
+    requestCity('cities.json')(dispatch)
   }
 
   return showMain ? <Main /> : <Landing />
+}
+
+Root.propTypes = {
+  dispatch: React.PropTypes.func.isRequired,
+  pids: React.PropTypes.array.isRequired,
+  requestingCity: React.PropTypes.bool.isRequired,
+  showMain: React.PropTypes.bool.isRequired,
+  successCity: React.PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => {
   console.log(state)
   return {
     pids: state.pids,
-    showMain: state.showMain
+    requestingCitys: state.requestingCity,
+    showMain: state.showMain,
+    successCity: state.successCities
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  errorCities: bindActionCreators(errorCities, dispatch),
-  requestingCities: bindActionCreators(requestingCities, dispatch),
-  successCities: bindActionCreators(successCities, dispatch)
-})
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(Root)

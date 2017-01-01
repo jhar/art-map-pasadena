@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-import Event from './event'
+import React, { PropTypes } from 'react'
+import Event from './Event'
 import { BASE_INFO, CLOSE_INFO, OPEN_INFO } from '../constants/animation'
+import { ICON_ARROW_LEFT } from '../constants/images'
 import { H3_INFO_0, H3_INFO_1 } from '../constants/text'
 import '../css/info.css'
 
@@ -26,7 +27,7 @@ const Info = ({ animateInfo, showInfo, toggleInfo }) => {
 				<img
           className="arrow"
           onClick={toggle}
-          src="images/arrow-left.png"
+          src={ICON_ARROW_LEFT}
         />
 			</div>
 			<div className="cover-outer-container">

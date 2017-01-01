@@ -1,9 +1,7 @@
-import React, { PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { MARKER_1, MARKER_2 } from '../constants/images'
 import { CUSTOM_MAP } from '../constants/customMap.js'
 import '../css/map.css'
-
-// TODO: Import "infoToggle" and "selectActive"
 
 let map = null
 

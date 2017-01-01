@@ -7,10 +7,10 @@ import Map from '../components/Map'
 import Info from '../components/Info'
 
 const Main = ({
-  activePlace,
+  active,
   animateInfo,
   animateList,
-  selectActive,
+  select,
   showInfo,
   showList,
   showSearch
@@ -24,12 +24,12 @@ const Main = ({
       />
       <List
         animateList={animateList}
-        selectActive={selectActive}
+        select={select}
         showList={showList}
       />
       <Map
-        activePlace={activePlace}
-        selectActive={selectActive}
+        active={active}
+        setActive={setActive}
         showInfo={showInfo}
       />
     </div>
@@ -37,17 +37,17 @@ const Main = ({
 }
 
 Main.propTypes = {
-  activePlace: React.PropTypes.number.isRequired,
+  active: React.PropTypes.number.isRequired,
   animateInfo: React.PropTypes.bool.isRequired,
   animateList: React.PropTypes.bool.isRequired,
-  selectActive: React.PropTypes.bool.isRequired,
+  setActive: React.PropTypes.bool.isRequired,
   showInfo: React.PropTypes.bool.isRequired,
   showList: React.PropTypes.bool.isRequired,
   showSearch: React.PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => ({
-  activePlace: state.activePlace,
+  active: state.active,
   animateInfo: state.animateInfo,
   animateList: state.animateList,
   showInfo: state.showInfo,
@@ -56,7 +56,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  selectActive: bindActionCreators(selectActive, dispatch),
+  setActive: bindActionCreators(setActive, dispatch),
 })
 
 export default connect(

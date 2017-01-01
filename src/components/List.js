@@ -37,7 +37,7 @@ const List = ({ animateList, selectActive, showList }) => {
 
 List.propTypes = {
   animateList: React.PropTypes.bool.isRequired,
-  selectActive: React.PropTypes.func.isRequired,
+  setActive: React.PropTypes.func.isRequired,
   showList: React.PropTypes.bool.isRequired
 }
 

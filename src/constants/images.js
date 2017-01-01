@@ -1,3 +1,4 @@
+export const ICON_ARROW_LEFT = 'images/arrow-left.png'
 export const ICON_AUTH = 'images/login.png'
 export const ICON_ITEM_LIST = 'images/list-icon.png'
 export const ICON_LANDING = 'images/artenings.png'

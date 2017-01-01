@@ -34,16 +34,6 @@ render(
 // }
 //
 
-// function requestAuth(onSuccess, onFailure) {
-//   FB.login(response => {
-//     if (response.authResponse) {
-//       onSuccess()
-//     } else if (!response || response.error) {
-//       onFailure()
-//     }
-//   })
-// }
-
 // function getGraphData(pid) {
 //   const time = Math.floor(Date.now()/1000)
 //   const location = 'name,location{latitude, longitude}'
@@ -78,4 +68,14 @@ render(
 
 // export function handleLogout(callback) {
 //   FB.logout(() => callback())
+// }
+
+// function requestAuth(onSuccess, onFailure) {
+//   FB.login(response => {
+//     if (response.authResponse) {
+//       onSuccess()
+//     } else if (!response || response.error) {
+//       onFailure()
+//     }
+//   })
 // }
