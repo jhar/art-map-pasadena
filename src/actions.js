@@ -12,7 +12,7 @@ import {
   RESET_UI,
   SET_ACTIVE,
   SET_CITY,
-  SET_PLACE,
+  SET_GRAPH,
   SET_VISIBLE,
   TOGGLE_AUTH,
   TOGGLE_INFO,
@@ -80,7 +80,7 @@ const requestGraph = (dispatch, pid) => {
     (response) => {
       if(response && !response.error) {
         dispatch(graphOk(pid))
-        dispatch(setPlace(pid, response))
+        dispatch(setGraph(pid, response))
       } else {
         dispatch(graphErr(pid))
       }
@@ -88,14 +88,10 @@ const requestGraph = (dispatch, pid) => {
   )
 }
 
-const setPlace = (pid, response) => ({
-  coverSrc: response.cover.source,
-  coverOffY: response.cover.offset_y,
-  latitude: response.location.latitude,
-  longitude: response.location.longitude,
-  name: response.name,
+const setGraph = (pid, response) => ({
+  graph: response,
   pid: pid,
-  type: SET_PLACE
+  type: SET_GRAPH
 })
 
 

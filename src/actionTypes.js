@@ -15,8 +15,7 @@ export const RESET_UI = 'RESET_UI'
 
 export const SET_ACTIVE = 'SET_ACTIVE'
 export const SET_CITY = 'SET_CITY'
-export const SET_PLACE = 'SET_PLACE'
-export const SET_VISIBLE = 'SET_VISIBLE'
+export const SET_GRAPH = 'SET_GRAPH'
 
 export const TOGGLE_AUTH = 'TOGGLE_AUTH'
 export const TOGGLE_LIST = 'TOGGLE_LIST'

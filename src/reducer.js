@@ -12,8 +12,7 @@ import {
   RESET_UI,
   SET_ACTIVE,
   SET_CITY,
-  SET_PLACE,
-  SET_VISIBLE,
+  SET_GRAPH,
   TOGGLE_AUTH,
   TOGGLE_INFO,
   TOGGLE_LIST,
@@ -98,17 +97,30 @@ export const reducer = (state = defaultState, action) => {
       }
     case SET_CITY:
       return { ...state, city: action.city, pids: action.pids }
-    case SET_PLACE:
+    case SET_GRAPH:
+      const events = action.graph.events ? action.graph.events.data : []
       return {
         ...state,
+        events: {
+          ...state.events,
+          [action.pid]: events.map(event => {
+            return {
+              description: event.description,
+              key: event.id,
+              name: event.name,
+              offset: event.cover.offset_y,
+              source: event.cover.source
+            }
+          })
+        },
         places: {
           ...state.places,
           [action.pid]: {
-            coverSrc: action.coverSrc,
-            coverOffY: action.coverOffY,
-            latitude: action.latitude,
-            longitude: action.longitude,
-            name: action.name
+            coverSrc: action.graph.cover.source,
+            coverOffY: action.graph.cover.offset_y,
+            latitude: action.graph.location.latitude,
+            longitude: action.graph.location.longitude,
+            name: action.graph.name
           }
         }
       }
