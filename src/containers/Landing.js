@@ -6,10 +6,10 @@ import { ICON_LANDING, ICON_AUTH } from '../constants/images'
 import { P_LANDING, P_AUTH } from '../constants/text'
 import '../css/landing.css'
 
-const Landing = ({ animateAuth, dispatch, pids, showAuth }) => {
+const Landing = ({ auth, dispatch, pids }) => {
   const animation = (
-    animateAuth ?
-      (showAuth ? OPEN_AUTH : CLOSE_AUTH) :
+    auth.wasClicked ?
+      (auth.shouldOpen ? OPEN_AUTH : CLOSE_AUTH) :
       BASE_AUTH
   )
 
@@ -37,15 +37,13 @@ const Landing = ({ animateAuth, dispatch, pids, showAuth }) => {
 }
 
 const mapStateToProps = state => ({
-  animateAuth: state.animateAuth,
-  pids: state.pids,
-  showAuth: state.showAuth
+  auth: state.ui.auth,
+  pids: state.pids
 })
 
 Landing.propTypes = {
-  animateAuth: React.PropTypes.bool.isRequired,
+  auth: React.PropTypes.object.isRequired,
   pids: React.PropTypes.array.isRequired,
-  showAuth: React.PropTypes.bool.isRequired
 }
 
 export default connect(mapStateToProps)(Landing)

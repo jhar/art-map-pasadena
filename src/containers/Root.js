@@ -5,27 +5,22 @@ import Main from './Main'
 import { requestCity } from '../actions'
 import '../css/root.css'
 
-const Root = ({ cityOk, cityReq, dispatch, showMain }) => {
-  if (!cityReq && !cityOk) {
-    requestCity('pasadena', 'cities.json')(dispatch)
-  }
-
-  return showMain ? <Main /> : <Landing />
+const Root = ({ city, cityReq, dispatch, main }) => {
+  if (!city) requestCity('pasadena', 'cities.json')(dispatch)
+  return main ? <Main /> : <Landing />
 }
 
 Root.propTypes = {
-  cityOk: React.PropTypes.bool.isRequired,
-  cityReq: React.PropTypes.bool.isRequired,
+  city: React.PropTypes.string,
   dispatch: React.PropTypes.func.isRequired,
-  showMain: React.PropTypes.bool.isRequired
+  main: React.PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => {
   console.log(state)
   return {
-    cityOk: state.cityOk,
-    cityReq: state.cityReq,
-    showMain: state.showMain
+    city: state.city,
+    main: state.ui.main
   }
 }
 
