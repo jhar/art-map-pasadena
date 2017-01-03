@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { requestAuth, toggleAuth } from '../actions'
+import { requestAuth, toggle } from '../actions'
 import { CLOSE_AUTH, BASE_AUTH, OPEN_AUTH } from '../constants/animation'
 import { ICON_LANDING, ICON_AUTH } from '../constants/images'
 import { P_LANDING, P_AUTH } from '../constants/text'
@@ -19,7 +19,7 @@ const Landing = ({ auth, dispatch, pids }) => {
         <img
           alt="artenings"
           className="title-landing"
-          onClick={() => dispatch(toggleAuth())}
+          onClick={() => dispatch(toggle('auth'))}
           src={ICON_LANDING}
         />
 				<div className={animation}>

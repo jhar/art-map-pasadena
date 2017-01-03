@@ -6,10 +6,7 @@ import {
   SET_CITY,
   SET_GRAPH,
   SET_VISIBLE,
-  TOGGLE_AUTH,
-  TOGGLE_INFO,
-  TOGGLE_LIST,
-  TOGGLE_SEARCH
+  TOGGLE
 } from './constants/actionTypes.js'
 
 const request = (name, status) => ({ name, status, type: REQUEST })
@@ -76,17 +73,8 @@ const setGraph = (pid, response) => ({
   type: SET_GRAPH
 })
 
-
-
-
-
-
 export const nullActive = () => ({type: NULL_ACTIVE })
 export const resetUI = () => ({ type: RESET_UI })
 export const setActive = () => ({ type: SET_ACTIVE })
 export const setVisible = () => ({ type: SET_VISIBLE })
-
-export const toggleAuth = () => ({ type: TOGGLE_AUTH })
-export const toggleInfo = () => ({ type: TOGGLE_INFO })
-export const toggleList = () => ({ type: TOGGLE_LIST })
-export const toggleSearch = () => ({ type: TOGGLE_SEARCH })
+export const toggle = (target) => ({ target, type: TOGGLE })

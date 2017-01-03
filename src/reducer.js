@@ -5,10 +5,7 @@ import {
   SET_ACTIVE,
   SET_CITY,
   SET_GRAPH,
-  TOGGLE_AUTH,
-  TOGGLE_INFO,
-  TOGGLE_LIST,
-  TOGGLE_SEARCH
+  TOGGLE
 } from './constants/actionTypes.js'
 
 const defaultState = {
@@ -89,47 +86,14 @@ export const reducer = (state = defaultState, action) => {
           }
         }
       }
-    case TOGGLE_AUTH:
+    case TOGGLE:
       return {
         ...state,
         ui: {
           ...state.ui,
-          auth: {
+          [action.target]: {
             wasClicked: true,
-            shouldOpen: !state.ui.auth.shouldOpen
-          }
-        }
-      }
-    case TOGGLE_INFO:
-      return {
-        ...state,
-        ui: {
-          ...state.ui,
-          info: {
-            wasClicked: true,
-            shouldOpen: !state.ui.auth.shouldOpen
-          }
-        }
-      }
-    case TOGGLE_LIST:
-      return {
-        ...state,
-        ui: {
-          ...state.ui,
-          list: {
-            wasClicked: true,
-            shouldOpen: !state.ui.auth.shouldOpen
-          }
-        }
-      }
-    case TOGGLE_SEARCH:
-      return {
-        ...state,
-        ui: {
-          ...state.ui,
-          search: {
-            wasClicked: true,
-            shouldOpen: !state.ui.auth.shouldOpen
+            shouldOpen: !state.ui[action.target].shouldOpen
           }
         }
       }
