@@ -18,16 +18,16 @@ const initial = {
   ui: {
     main: false,
     info: {
-      wasClicked: false,
-      shouldOpen: false
+      animate: false,
+      open: false
     },
     list: {
-      wasClicked: false,
-      shouldOpen: false
+      animate: false,
+      open: false
     },
     search: {
-      wasClicked: false,
-      shouldOpen: false
+      animate: false,
+      open: false
     }
   }
 }
@@ -69,8 +69,8 @@ export const reducer = (state = initial, action) => {
         ui: {
           ...state.ui,
           [action.target]: {
-            wasClicked: true,
-            shouldOpen: !state.ui[action.target].shouldOpen
+            animate: true,
+            open: !state.ui[action.target].open
           }
         }
       }
