@@ -1,34 +1,26 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { requestAuth, toggle } from '../actions'
-import { CLOSE_AUTH, BASE_AUTH, OPEN_AUTH } from '../constants/animation'
-import { ICON_LANDING, ICON_AUTH } from '../constants/images'
-import { P_LANDING, P_AUTH } from '../constants/text'
+import { fbLogin } from '../actions'
+import { ICON_LANDING, ICON_FB_LOGIN } from '../constants/images'
+import { P_FB_LOGIN, P_LANDING } from '../constants/text'
 import '../css/landing.css'
 
-const Landing = ({ auth, dispatch, pids }) => {
-  const animation = (
-    auth.wasClicked ?
-      (auth.shouldOpen ? OPEN_AUTH : CLOSE_AUTH) :
-      BASE_AUTH
-  )
-
+const Landing = ({ dispatch, pids }) => {
 	return (
 		<div className="container-landing">
 			<div className="container-landing-inner">
         <img
           alt="artenings"
           className="title-landing"
-          onClick={() => dispatch(toggle('auth'))}
           src={ICON_LANDING}
         />
-				<div className={animation}>
+				<div className="container-fb-login">
           <p>{P_LANDING}</p>
-          <p>{P_AUTH}</p>
+          <p>{P_FB_LOGIN}</p>
           <img
-            className="icon-auth"
-            onClick={() => requestAuth(dispatch, pids)}
-            src={ICON_AUTH}
+            className="icon-fb-login"
+            onClick={() => fbLogin(dispatch, pids)}
+            src={ICON_FB_LOGIN}
           />
         </div>
 			</div>
@@ -37,13 +29,11 @@ const Landing = ({ auth, dispatch, pids }) => {
 }
 
 const mapStateToProps = state => ({
-  auth: state.ui.auth,
   pids: state.pids
 })
 
 Landing.propTypes = {
-  auth: React.PropTypes.object.isRequired,
-  pids: React.PropTypes.array.isRequired,
+  pids: React.PropTypes.array.isRequired
 }
 
 export default connect(mapStateToProps)(Landing)

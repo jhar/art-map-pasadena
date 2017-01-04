@@ -5,30 +5,13 @@ import List from '../components/List'
 import Map from '../components/Map'
 import Info from '../components/Info'
 
-const Main = ({
-  active,
-  animateInfo,
-  animateList,
-  setActive,
-  showInfo,
-  showList,
-  showSearch
-}) => {
+const Main = ({ active, setActive, ui }) => {
   return (
     <div>
       <Header />
-      <Info
-        animateInfo={animateInfo}
-        showInfo={showInfo}
-      />
-      <List
-        animateList={animateList}
-        setActive={setActive}
-        showList={showList}
-      />
-      <Map
-        active={active}
-        setActive={setActive}
+      <Info uiInfo={ui.info} />
+      <List setActive={setActive} uiList={ui.list} />
+      <Map active={active} setActive={setActive}
         showInfo={showInfo}
       />
     </div>
@@ -37,21 +20,17 @@ const Main = ({
 
 Main.propTypes = {
   active: React.PropTypes.number.isRequired,
-  animateInfo: React.PropTypes.bool.isRequired,
-  animateList: React.PropTypes.bool.isRequired,
-  setActive: React.PropTypes.bool.isRequired,
-  showInfo: React.PropTypes.bool.isRequired,
-  showList: React.PropTypes.bool.isRequired,
-  showSearch: React.PropTypes.bool.isRequired
+  setActive: React.PropTypes.func.isRequired,
+  info: React.PropTypes.object.isRequired,
+  list: React.PropTypes.object.isRequired,
+  search: React.PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => ({
   active: state.active,
-  animateInfo: state.animateInfo,
-  animateList: state.animateList,
-  showInfo: state.showInfo,
-  showInfo: state.showInfo,
-  showSearch: state.showSearch
+  info: state.ui.info,
+  list: state.ui.list,
+  search: state.showSearch
 })
 
 export default connect(mapStateToProps)(Main)

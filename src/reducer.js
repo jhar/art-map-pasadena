@@ -1,24 +1,22 @@
 import {
+  ADD_CITY_DATA,
+  ADD_FB_DATA,
+  ANIMATE,
   NULL_ACTIVE,
-  REQUEST,
+  REQUESTS,
   RESET_UI,
   SET_ACTIVE,
   SET_CITY,
-  SET_GRAPH,
-  TOGGLE
+  SET_GRAPH
 } from './constants/actionTypes.js'
 
-const defaultState = {
+const initial = {
   active: null,
   city: null,
   pids: [],
   places: {},
   ui: {
     main: false,
-    auth: {
-      wasClicked: false,
-      shouldOpen: false
-    },
     info: {
       wasClicked: false,
       shouldOpen: false
@@ -27,39 +25,18 @@ const defaultState = {
       wasClicked: false,
       shouldOpen: false
     },
-    list: {
+    search: {
       wasClicked: false,
       shouldOpen: false
     }
   }
 }
 
-export const reducer = (state = defaultState, action) => {
+export const reducer = (state = initial, action) => {
   switch (action.type) {
-    case REQUEST:
-      return {
-        ...state,
-        requests: {
-          ...state.requests,
-          [action.name]: {
-            error: action.status === 'error' || false,
-            ok: action.status === 'ok' || false,
-            open: action.status === 'open' || false
-          }
-        }
-      }
-    case NULL_ACTIVE:
-      return state.showInfo ? { ...state, active: null } : state
-    case RESET_UI:
-      return { ...state, defaultState }
-    case SET_ACTIVE:
-      return {
-        ...state,
-        active: (state.active === action.value) ? null : action.value
-      }
-    case SET_CITY:
+    case ADD_CITY_DATA:
       return { ...state, city: action.city, pids: action.pids }
-    case SET_GRAPH:
+    case ADD_FB_DATA:
       const events = action.graph.events ? action.graph.events.data : []
       return {
         ...state,
@@ -86,7 +63,7 @@ export const reducer = (state = defaultState, action) => {
           }
         }
       }
-    case TOGGLE:
+    case ANIMATE:
       return {
         ...state,
         ui: {
@@ -96,6 +73,27 @@ export const reducer = (state = defaultState, action) => {
             shouldOpen: !state.ui[action.target].shouldOpen
           }
         }
+      }
+    case NULL_ACTIVE:
+      return state.showInfo ? { ...state, active: null } : state
+    case REQUESTS:
+      return {
+        ...state,
+        requests: {
+          ...state.requests,
+          [action.name]: {
+            error: action.status === 'error' || false,
+            ok: action.status === 'ok' || false,
+            open: action.status === 'open' || false
+          }
+        }
+      }
+    case RESET_UI:
+      return { ...state, initial }
+    case SET_ACTIVE:
+      return {
+        ...state,
+        active: (state.active === action.value) ? null : action.value
       }
     default:
       return state

@@ -1,80 +1,79 @@
 import {
+  ADD_CITY_DATA,
+  ADD_FB_DATA,
+  ANIMATE_UI,
   NULL_ACTIVE,
   RESET_UI,
-  REQUEST,
+  REQUESTS,
   SET_ACTIVE,
-  SET_CITY,
-  SET_GRAPH,
-  SET_VISIBLE,
-  TOGGLE
+  SET_VISIBLE
 } from './constants/actionTypes.js'
 
-const request = (name, status) => ({ name, status, type: REQUEST })
+export const setVisible = () => ({ type: SET_VISIBLE })
+export const animateUI = (target) => ({ target, type: ANIMATE_UI })
+export const nullActive = () => ({type: NULL_ACTIVE })
+export const resetUI = () => ({ type: RESET_UI })
+export const setActive = () => ({ type: SET_ACTIVE })
+const requests = (name, status) => ({ name, status, type: REQUESTS })
 
-const setCity = (city, json) => ({
-  city: city,
-  pids: json[city],
-  type: SET_CITY
-})
-
-export const requestCity = (city, url) => dispatch => {
-  dispatch(request(city, 'open'))
+export const fetchCity = (city, url) => dispatch => {
+  dispatch(requests(city, 'open'))
   fetch(url)
     .then(response => {
       if (response.ok) {
-        dispatch(request(city, 'ok'))
+        dispatch(requests(city, 'ok'))
         return response.json()
       } else {
-        dispatch(request(city, 'error'))
+        dispatch(requests(city, 'error'))
       }
     })
     .catch(error => console.log('Fetch Error: ' + error))
     .then(json => {
-      dispatch(setCity(city, json))
+      dispatch(addCityData(city, json))
     })
 }
 
-export const requestAuth = (dispatch, pids) => {
-  dispatch(request('auth', 'open'))
+const addCityData = (city, json) => ({
+  city: city,
+  pids: json[city],
+  type: ADD_CITY_DATA
+})
+
+export const fbLogin= (dispatch, pids) => {
+  dispatch(requests('fbLogin', 'open'))
   FB.login(response => {
     if (response.authResponse) {
-      dispatch(request('auth', 'ok'))
+      dispatch(requests('fbLogin', 'ok'))
       pids.map((pid) => {
-        requestGraph(dispatch, pid)
+        fbApi(dispatch, pid)
       })
     } else if (!response || response.error) {
-      dispatch(request('auth', 'error'))
+      dispatch(requests('fbLogin', 'error'))
     }
   })
 }
 
-const requestGraph = (dispatch, pid) => {
+const fbApi = (dispatch, pid) => {
   const time = Math.floor(Date.now()/1000)
   const location = 'name,location{latitude, longitude}'
   const cover = 'cover{source, offset_y}'
   const events = `events.since(${time}){description, name, ${cover}}`
-  dispatch(request(pid, 'open'))
+  dispatch(requests(pid, 'open'))
   FB.api(
     `/${pid}?fields=${location},${cover},${events}`,
     (response) => {
       if(response && !response.error) {
-        dispatch(request(pid, 'ok'))
-        dispatch(setGraph(pid, response))
+        dispatch(requests(pid, 'ok'))
+        dispatch(addFbData(pid, response))
       } else {
-        dispatch(request(pid, 'error'))
+        dispatch(requests(pid, 'error'))
       }
     }
   )
 }
 
-const setGraph = (pid, response) => ({
+const addFbData = (pid, response) => ({
   graph: response,
   pid: pid,
-  type: SET_GRAPH
+  type: ADD_FB_DATA
 })
-
-export const nullActive = () => ({type: NULL_ACTIVE })
-export const resetUI = () => ({ type: RESET_UI })
-export const setActive = () => ({ type: SET_ACTIVE })
-export const setVisible = () => ({ type: SET_VISIBLE })
-export const toggle = (target) => ({ target, type: TOGGLE })

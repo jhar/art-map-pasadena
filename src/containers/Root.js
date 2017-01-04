@@ -2,11 +2,11 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Landing from './Landing'
 import Main from './Main'
-import { requestCity } from '../actions'
+import { fetchCity } from '../actions'
 import '../css/root.css'
 
-const Root = ({ city, cityReq, dispatch, main }) => {
-  if (!city) requestCity('pasadena', 'cities.json')(dispatch)
+const Root = ({ city, dispatch, main }) => {
+  if (!city) fetchCity('pasadena', 'cities.json')(dispatch)
   return main ? <Main /> : <Landing />
 }
 
