@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Landing from './Landing'
-import Main from './Main'
+import Main from '../components/Main'
 import { fetchCity } from '../actions'
 import '../css/root.css'
 

@@ -7,7 +7,8 @@ import {
   RESET_UI,
   SET_ACTIVE,
   SET_CITY,
-  SET_GRAPH
+  SET_GRAPH,
+  SHOW_MAIN
 } from './constants/actionTypes.js'
 
 const initial = {
@@ -18,15 +19,15 @@ const initial = {
   ui: {
     main: false,
     info: {
-      animate: false,
+      animated: false,
       open: false
     },
     list: {
-      animate: false,
+      animated: false,
       open: false
     },
     search: {
-      animate: false,
+      animated: false,
       open: false
     }
   }
@@ -35,7 +36,11 @@ const initial = {
 export const reducer = (state = initial, action) => {
   switch (action.type) {
     case ADD_CITY_DATA:
-      return { ...state, city: action.city, pids: action.pids }
+      return {
+        ...state,
+        city: action.city,
+        pids: action.pids
+      }
     case ADD_FB_DATA:
       const events = action.graph.events ? action.graph.events.data : []
       return {
@@ -69,7 +74,7 @@ export const reducer = (state = initial, action) => {
         ui: {
           ...state.ui,
           [action.target]: {
-            animate: true,
+            animated: true,
             open: !state.ui[action.target].open
           }
         }
@@ -94,6 +99,14 @@ export const reducer = (state = initial, action) => {
       return {
         ...state,
         active: (state.active === action.value) ? null : action.value
+      }
+    case SHOW_MAIN:
+      return {
+        ...state,
+        ui: {
+          ...state.ui,
+          main: !state.ui.main
+        }
       }
     default:
       return state

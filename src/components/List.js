@@ -8,7 +8,7 @@ import {
 import { ICON_LOGOUT } from '../constants/images'
 import '../css/list.css'
 
-const List = ({ animateList, selectActive, showList }) => {
+const List = () => {
   const animation = animateList ? showList ? OPEN_LIST : CLOSE_LIST : BASE_LIST
   const itemsList = places.map((place, index) => {
     if (place.visible !== false) {
@@ -33,12 +33,6 @@ const List = ({ animateList, selectActive, showList }) => {
 			</div>
 		</nav>
 	)
-}
-
-List.propTypes = {
-  animateList: React.PropTypes.bool.isRequired,
-  setActive: React.PropTypes.func.isRequired,
-  showList: React.PropTypes.bool.isRequired
 }
 
 export default List

@@ -5,7 +5,7 @@ import { ICON_ARROW_LEFT } from '../constants/images'
 import { H3_INFO_0, H3_INFO_1 } from '../constants/text'
 import '../css/info.css'
 
-const Info = ({ animateInfo, showInfo, toggleInfo }) => {
+const Info = () => {
   const oy = place.cover.offset_y
   const animation = animateInfo ? showInfo ? OPEN_INFO : CLOSE_INFO : BASE_INFO
   const events = place.events.data.map((event) => {
@@ -52,12 +52,6 @@ const Info = ({ animateInfo, showInfo, toggleInfo }) => {
       </div>
 		</section>
 	)
-}
-
-Info.propTypes = {
-  animateInfo: React.PropTypes.bool.isRequired,
-  showInfo: React.PropTypes.bool.isRequired,
-  toggleInfo: React.PropTypes.func.isRequired
 }
 
 export default Info

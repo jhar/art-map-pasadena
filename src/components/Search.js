@@ -1,17 +1,12 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { BASE_SEARCH, CLOSE_SEARCH, OPEN_SEARCH } from '../constants/animation'
 import { ICON_SEARCH, ICON_X } from '../constants/images'
 import '../css/search.css'
 
-const Search = ({
-  animateSearch,
-  search,
-  showSearch,
-  toggleSearch
-}) => {
+const Search = ({ animate, search, uiSearch }) => {
   const animation = (
-    animateSearch ?
-      (showSearch ? OPEN_SEARCH : CLOSE_SEARCH) :
+    uiSearch.animate ?
+      (uiSearch.show ? OPEN_SEARCH : CLOSE_SEARCH) :
       BASE_SEARCH
   )
 
@@ -19,7 +14,7 @@ const Search = ({
 		<div className={animation}>
       <img
         className="icon-search"
-        onClick={toggleSearch}
+        onClick={() => animate('search')}
         src={ICON_SEARCH}
       />
 			<input
@@ -30,7 +25,7 @@ const Search = ({
       />
 			<img
         className="icon-search-x"
-        onClick={toggleSearch}
+        onClick={() => animate('search')}
         src={ICON_X}
       />
 		</div>
@@ -38,10 +33,9 @@ const Search = ({
 }
 
 Search.propTypes = {
-  animateSearch: React.PropTypes.bool.isRequired,
+  animate: React.PropTypes.func.isRequired,
   search: React.PropTypes.func.isRequired,
-  showSearch: React.PropTypes.bool.isRequired,
-  toggleSearch: React.PropTypes.func.isRequired
+  uiSearch: React.PropTypes.object.isRequired
 }
 
 export default Search
