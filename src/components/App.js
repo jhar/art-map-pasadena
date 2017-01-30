@@ -1,19 +1,13 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Landing from './Landing'
-import Main from '../components/Main'
+import Main from './Main'
 import { fetchCity } from '../actions'
 import '../css/root.css'
 
-const Root = ({ city, dispatch, main }) => {
+const App = ({ city, dispatch, main }) => {
   if (!city) fetchCity('pasadena', 'cities.json')(dispatch)
   return main ? <Main /> : <Landing />
-}
-
-Root.propTypes = {
-  city: React.PropTypes.string,
-  dispatch: React.PropTypes.func.isRequired,
-  main: React.PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => {
@@ -24,4 +18,10 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Root)
+App.propTypes = {
+  city: React.PropTypes.string,
+  dispatch: React.PropTypes.func.isRequired,
+  main: React.PropTypes.bool.isRequired
+}
+
+export default connect(mapStateToProps)(App)

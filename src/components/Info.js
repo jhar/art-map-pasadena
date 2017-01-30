@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
 import Event from './Event'
 import '../css/info.css'
 
-const Info = () => {
-  const oy = place.cover.offset_y
+const Info = ({ active, dispatch, events, places }) => {
+  const oy = active.cover.offset_y
 
   const animation = (
     animateInfo ? (
@@ -13,7 +14,7 @@ const Info = () => {
     ) : 'container-info'
   )
 
-  const events = place.events.data.map((event) => {
+  const upcomingEvents = active.events.data.map((event) => {
     return (
       <Event
         description={event.description}
@@ -40,7 +41,7 @@ const Info = () => {
 					<img
             className="cover-photo"
             onLoad={(e) => e.target.style.top = getTop(e, oy, false) + 'px'}
-            src={place.cover.source}
+            src={active.cover.source}
             alt=""
           />
 					<div className="cover-scrim"></div>
@@ -53,10 +54,22 @@ const Info = () => {
         {events && events.length > 0 ? 'Upcoming Events' : 'No Upcoming Events'}
       </h3>
 			<div className="events-container">
-			 {events}
+			 {upcomingEvents}
       </div>
 		</section>
 	)
 }
 
-export default Info
+const mapStateToProps = state => ({
+  active: state.active,
+  events: state.events,
+  places: state.places
+})
+
+Info.propTypes = {
+  active: React.PropTypes.number,
+  events: React.PropTypes.object,
+  places: React.PropTypes.object.isRequired
+}
+
+export default connect(mapStateToProps)(Info)

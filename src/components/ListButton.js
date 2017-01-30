@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import Icon from '../components/Icon'
+import Icon from './Icon'
 import { animate } from '../actions'
 import '../css/listBtn.css'
 

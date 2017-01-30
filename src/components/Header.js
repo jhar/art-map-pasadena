@@ -1,6 +1,6 @@
 import React from 'react'
-import ListButton from '../containers/ListButton'
-import Search from '../containers/Search'
+import ListButton from './ListButton'
+import Search from './Search'
 import '../css/header.css'
 
 const Header = () => {
