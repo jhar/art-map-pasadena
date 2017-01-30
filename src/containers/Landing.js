@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fbLogin } from '../actions'
-import { ICON_LANDING, ICON_FB_LOGIN } from '../constants/images'
-import { P_FB_LOGIN, P_LANDING } from '../constants/text'
 import '../css/landing.css'
 
 const Landing = ({ dispatch, pids }) => {
@@ -12,15 +10,15 @@ const Landing = ({ dispatch, pids }) => {
         <img
           alt="artenings"
           className="title-landing"
-          src={ICON_LANDING}
+          src={'images/artenings.png'}
         />
 				<div className="container-fb-login">
-          <p>{P_LANDING}</p>
-          <p>{P_FB_LOGIN}</p>
+          <p>An interactive map that allows you to browse upcoming events within a curated selection of arts organizations in Pasadena, California. If you would like a similar map of your own community, or if you would simply like to get involved, then e-mail me at justinadenharrison@gmail.com and introduce yourself.</p>
+          <p>Facebook authentication is necessary to access events.</p>
           <img
             className="icon-fb-login"
             onClick={() => fbLogin(dispatch, pids)}
-            src={ICON_FB_LOGIN}
+            src={'images/login.png'}
           />
         </div>
 			</div>

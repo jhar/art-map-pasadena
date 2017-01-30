@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import Icon from './Icon'
+import Icon from '../components/Icon'
 import { animate } from '../actions'
 import '../css/listBtn.css'
 
-const ListBtnContainer = ({ dispatch, uiListOpen }) => {
+const ListButton = ({ dispatch, uiListOpen }) => {
   return (
     <div className="container-list-btn">
       <Icon
@@ -17,11 +17,11 @@ const ListBtnContainer = ({ dispatch, uiListOpen }) => {
 }
 
 const mapStateToProps = state => ({
-  uiListOpen: React.PropTypes.bool.isRequired
+  uiListOpen: state.ui.list.open
 })
 
-ListBtnContainer.propTypes = {
+ListButton.propTypes = {
   uiListOpen: React.PropTypes.bool.isRequired
 }
 
-export default connect(mapStateToProps)(ListBtnContainer)
+export default connect(mapStateToProps)(ListButton)

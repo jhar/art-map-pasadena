@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import { ICON_ITEM_LIST } from '../constants/images'
 import '../css/list.css'
 
 const ItemList = ({ key, name, selectActive }) => {
@@ -9,7 +8,7 @@ const ItemList = ({ key, name, selectActive }) => {
       onClick={selectActive}
       key={key}
     >
-      <img className="icon-list" src={ICON_ITEM_LIST} />
+      <img className="icon-list" src="images/list-icon.png" />
       <span className="text-list">
         {name}
       </span>

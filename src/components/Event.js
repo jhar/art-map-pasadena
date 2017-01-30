@@ -1,9 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import {
-  BASE_DESC_EVT,
-  CLOSE_DESC_EVT,
-  OPEN_DESC_EVT
-} from '../constants/animation'
 import '../css/event.css'
 
 export default class Event extends Component {
@@ -26,8 +21,11 @@ export default class Event extends Component {
 
   render() {
     const animation = (
-      this.state.animateDescEvt ?
-        (this.state.showDescEvt ? OPEN_DESC_EVT : CLOSE_DESC_EVT) : BASE_DESC_EVT
+      this.state.animateDescEvt ? (
+        this.state.showDescEvt ?
+          'container-desc-evt animation-open-desc-evt':
+          'container-desc-evt animation-close-desc-evt'
+      ) : 'container-desc-evt'
     )
 
     return (

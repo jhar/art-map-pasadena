@@ -1,13 +1,18 @@
 import React, { PropTypes } from 'react'
 import Event from './Event'
-import { BASE_INFO, CLOSE_INFO, OPEN_INFO } from '../constants/animation'
-import { ICON_ARROW_LEFT } from '../constants/images'
-import { H3_INFO_0, H3_INFO_1 } from '../constants/text'
 import '../css/info.css'
 
 const Info = () => {
   const oy = place.cover.offset_y
-  const animation = animateInfo ? showInfo ? OPEN_INFO : CLOSE_INFO : BASE_INFO
+
+  const animation = (
+    animateInfo ? (
+      showInfo ?
+        'container-info animation-open-info' :
+        'container-info animation-close-info'
+    ) : 'container-info'
+  )
+
   const events = place.events.data.map((event) => {
     return (
       <Event
@@ -27,7 +32,7 @@ const Info = () => {
 				<img
           className="arrow"
           onClick={toggle}
-          src={ICON_ARROW_LEFT}
+          src="images/arrow-left.png"
         />
 			</div>
 			<div className="cover-outer-container">
@@ -45,7 +50,7 @@ const Info = () => {
 				</div>
 			</div>
 			<h3 className="upcoming-events">
-        {(events && events.length > 0) ? H3_INFO_1 : H3_INFO_0}
+        {events && events.length > 0 ? 'Upcoming Events' : 'No Upcoming Events'}
       </h3>
 			<div className="events-container">
 			 {events}

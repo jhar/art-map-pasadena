@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react'
-import { MARKER_1, MARKER_2 } from '../constants/images'
 import { CUSTOM_MAP } from '../constants/customMap.js'
 import '../css/map.css'
 
 let map = null
+const MARKER_1 = 'images/a1s.png'
+const MARKER_2 = 'images/a2s.png'
+
 
 export default class Map extends Component {
   componentWillReceiveProps(nextProps) {
